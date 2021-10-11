@@ -22,13 +22,19 @@ subprojects {
        options.compilerArgs.addAll(listOf(
            "-parameters",
        ))
+    }
+
+    dependencies {
+        compileOnly(Dependencies.JetbrainsAnnotation.NOTATION)
+
 
     }
+
 }
 
 
 
-//
+
 // configurations {
 //     compileOnly {
 //         extendsFrom annotationProcessor

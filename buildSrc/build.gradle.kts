@@ -19,7 +19,9 @@ kotlin {
 
 
 dependencies {
-    implementation("org.jetbrains.kotlin", "kotlin-gradle-plugin", "1.5.31")
-    implementation("org.jetbrains.kotlin", "kotlin-compiler-embeddable", "1.5.31")
+    implementation(kotlin("gradle-plugin", "1.5.31"))
+    implementation(kotlin("compiler-embeddable", "1.5.31"))
+    // implementation("org.jetbrains.kotlin", "kotlin-gradle-plugin", "1.5.31")
+    // implementation("org.jetbrains.kotlin", "kotlin-compiler-embeddable", "1.5.31")
     api(gradleApi())
 }
