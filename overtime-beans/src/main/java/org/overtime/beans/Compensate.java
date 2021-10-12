@@ -1,11 +1,8 @@
 package org.overtime.beans;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 /**
  * 补偿。
@@ -13,15 +10,15 @@ import javax.persistence.OneToOne;
  * @author ForteScarlet
  */
 @Data
-@Entity
 public class Compensate {
     @Id
     // @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
 
-    @OneToOne
-    @JoinColumn(name="type_id", unique=true, nullable=false, updatable=false)
+    // @OneToOne
+    // @JoinColumn(name = "type_id", unique = true, nullable = false, updatable = false)
+    // R2DBC not support @OneToOne
     private CompensateType type;
 
     // TODO

@@ -2,7 +2,7 @@ package org.overtime.test;
 
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.annotation.Testable;
-import org.overtime.beans.A;
+import org.overtime.beans.CompensateType;
 
 /**
  * @author ForteScarlet
@@ -12,15 +12,14 @@ public class JustTest {
 
     @Test
     public void aTest() {
-        A a = new A("Forte");
-        final A b = a.copy();
-        final A c = b.copy();
+        CompensateType compensateType = new CompensateType();
 
-        a.changeName(b, c, "forli");
+        System.out.println("Init");
 
-        System.out.println(a);
-        System.out.println(b);
-        System.out.println(c);
+        System.out.println(compensateType);
+        System.out.println(compensateType.getCreateTime());
+
+        // compensateType.setCreateTime(null);
 
     }
 

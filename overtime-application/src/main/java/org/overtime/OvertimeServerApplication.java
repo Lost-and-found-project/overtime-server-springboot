@@ -2,14 +2,19 @@ package org.overtime;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.r2dbc.config.EnableR2dbcAuditing;
+import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 /**
- *
  * Spring application.
  *
  * @author ForteScarlet
  */
 @SpringBootApplication
+// @EnableJpaRepositories
+@EnableR2dbcRepositories
+@EnableR2dbcAuditing
+// @EntityScan("org.overtime.beans")
 public class OvertimeServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(OvertimeServerApplication.class, args);
