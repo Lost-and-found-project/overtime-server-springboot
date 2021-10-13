@@ -1,10 +1,10 @@
 package org.overtime.beans;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
  * 补偿类型。每一次的补偿记录对应一个补偿类型。
  *
  * <p>
- * <p> 泪中
+ * <p>
  *
  * @author ForteScarlet
  * @see Compensate
  */
 @Data
-@NoArgsConstructor
+// @NoArgsConstructor
 @Table
 public class CompensateType implements OvertimeBeans {
     // TODO
@@ -27,6 +27,9 @@ public class CompensateType implements OvertimeBeans {
     @Id
     @NotNull
     private Long id;
+
+    @NotNull
+    private Long userId;
 
     /**
      * 补偿类型的名称。
@@ -58,8 +61,8 @@ public class CompensateType implements OvertimeBeans {
     /**
      * <p> 类型。
      * <p> <b>暂未确定类型元素与含义。</b>
-     * <p> 例如.. 0: 普通, 1: 临时?
-     * TODO
+     * <p> TODO 例如.. 0: 普通, 1: 临时?
+     * <p>
      * // tinyint
      */
     private int type;

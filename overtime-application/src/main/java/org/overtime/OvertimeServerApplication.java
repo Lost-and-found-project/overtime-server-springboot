@@ -11,10 +11,8 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
  * @author ForteScarlet
  */
 @SpringBootApplication
-// @EnableJpaRepositories
 @EnableR2dbcRepositories
 @EnableR2dbcAuditing
-// @EntityScan("org.overtime.beans")
 public class OvertimeServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(OvertimeServerApplication.class, args);

@@ -6,6 +6,7 @@ import org.overtime.repository.TestCompensateTypeRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * @author ForteScarlet
@@ -19,6 +20,11 @@ public class TestController {
     @GetMapping("/all")
     public Flux<CompensateType> all() {
         return repository.findAll();
+    }
+
+    @GetMapping("/one")
+    public Mono<CompensateType> one() {
+        return repository.first();
     }
 
 }
