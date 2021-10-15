@@ -12,7 +12,13 @@ repositories {
 val p = project
 
 subprojects {
-    println("$p sub project: $this")
+    println("$p sub project: '$this' named $name")
+    if (name == "domain") {
+        dependencies {
+            implementation(project(":overtime-domain-common"))
+            println("${this@subprojects} implementation domain-common")
+        }
+    }
 }
 println()
 

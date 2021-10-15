@@ -16,7 +16,7 @@ repositories {
 dependencies {
     // Utils
     implementation(project(":overtime-utils"))
-    implementation(project(":overtime-beans"))
+    implementation(project(":overtime-domain-common"))
 
     // implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.5.5")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc:2.5.5")
@@ -27,8 +27,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.5")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.5.5")
-    annotationProcessor("org.projectlombok:lombok:1.18.20")
-    compileOnly("org.projectlombok:lombok:1.18.20")
+    annotationProcessor("org.projectlombok:lombok:1.18.22")
+    compileOnly("org.projectlombok:lombok:1.18.22")
 
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")

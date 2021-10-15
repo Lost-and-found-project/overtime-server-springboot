@@ -1,8 +1,9 @@
 rootProject.name = "overtime-server-springboot"
 include("overtime-utils")
 include("overtime-application")
-include("overtime-beans")
+include("overtime-domain-common")
 include("overtime-common")
+
 // include("services")
 // val services = project(":services")
 // services subProjects
