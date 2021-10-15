@@ -2,10 +2,8 @@ package org.overtime.domain;
 
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
-import org.overtime.beans.OvertimeBeans;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -29,6 +27,9 @@ public class CompensateType implements OvertimeBeans {
     @NotNull
     private Long id;
 
+    /**
+     * 与之关联的用户ID。
+     */
     @NotNull
     private Long userId;
 

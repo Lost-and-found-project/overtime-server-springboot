@@ -1,4 +1,4 @@
-package org.overtime.beans;
+package org.overtime.domain;
 
 /**
  *

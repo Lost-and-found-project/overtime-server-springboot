@@ -1,5 +1,5 @@
 /**
- * 版本控制
+ * 依赖统一版本控制
  *
  *
  */
@@ -25,6 +25,7 @@ object D {
         }
     }
 
+    /** Springboot-starter-xxx */
     object SBStarter {
         object DataR2dbc {
             const val VERSION = "2.5.5"

@@ -1,16 +1,28 @@
+@file:Suppress("PropertyName")
+
 plugins {
     id("org.springframework.boot") version "2.5.5" apply false
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     java
 }
 
-group = "org.overtime"
-version = "0.0.1-SNAPSHOT"
+val GROUP_NAME = "org.overtime"
+val VERSION = "0.0.1-SNAPSHOT"
+
+group = GROUP_NAME //"org.overtime"
+version = VERSION
 java {
     sourceCompatibility = JavaVersion.VERSION_17
 }
 
+val p = project
+
 subprojects {
+    repositories {
+        mavenCentral()
+    }
+    group = p.group
+    version = p.version
     apply(plugin = "java")
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
