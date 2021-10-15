@@ -2,6 +2,9 @@ package org.overtime.common;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
+import java.util.function.Function;
+
 /**
  * <p> 为面向外部的 rest controller 所使用的统一格式的数据返回值。
  * 不应在Resources中使用，在Controller中建议使用统一拦截器。
@@ -13,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
  * @author ForteScarlet
  */
 @SuppressWarnings("unused")
-public class Result {
+public class Result implements Serializable {
     private static int defaultSuccessCode = 0;
     @NotNull
     private static String defaultSuccessMsg = "Ok";
@@ -104,12 +107,28 @@ public class Result {
     }
 
 
+    public static Result success(String message, Object data) {
+        if (defaultSuccessMsg.equals(message) && data == null) {
+            return success();
+        }
+
+        return new Result(defaultSuccessCode, message, data);
+    }
+
     public static Result success(Object data) {
         if (data == null) {
             return success();
         }
 
         return new Result(defaultSuccessCode, defaultSuccessMsg, data);
+    }
+
+    public static <T> Function<T, Result> asSuccess() {
+        return Result::success;
+    }
+
+    public static <T> Function<T, Result> asSuccess(String message) {
+        return (t) -> success(message, t);
     }
 
     // Failed methods
@@ -126,25 +145,45 @@ public class Result {
     }
 
     public static Result failure(int code) {
-        if (FAILURE.code == code) {
+        if (FAILURE.getCode() == code) {
             return FAILURE;
         }
-        return failure(code, FAILURE.message, null);
+        return failure(code, FAILURE.getMessage(), null);
     }
 
 
-    public static Result failure(String msg) {
-        if (FAILURE.message.equals(msg)) {
+    public static Result failureWithMessage(String msg) {
+        if (FAILURE.getMessage().equals(msg)) {
             return FAILURE;
         }
-        return failure(FAILURE.code, msg, null);
+        return failure(FAILURE.getCode(), msg, null);
     }
 
     public static Result failure(int code, @NotNull String msg, Object data) {
-        if (data == null && FAILURE.code == code && FAILURE.message.equals(msg)) {
+        if (data == null && FAILURE.getCode() == code && FAILURE.getMessage().equals(msg)) {
             return FAILURE;
         }
         return new Result(code, msg, data);
+    }
+
+    public static Result failure(Object data) {
+        if (data == null) {
+            return FAILURE;
+        }
+        return new Result(FAILURE.getCode(), FAILURE.getMessage(), data);
+    }
+
+    public static <T> Function<T, Result> asFailure(int code) {
+        return (t) -> Result.failure(code, FAILURE.getMessage(), t);
+    }
+
+
+    public static <T> Function<T, Result> asFailure(String message) {
+        return (t) -> Result.failure(FAILURE.getCode(), FAILURE.getMessage(), t);
+    }
+
+    public static <T> Function<T, Result> asFailure() {
+        return Result::failure;
     }
 
     // ******************** Instance ********************* //
