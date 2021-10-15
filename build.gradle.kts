@@ -25,9 +25,9 @@ subprojects {
     }
 
     dependencies {
-        compileOnly(Dependencies.JetbrainsAnnotation.NOTATION)
-
-
+        compileOnly(D.JetbrainsAnnotation.NOTATION)
+        testImplementation(D.Jupiter.Api.NOTATION)
+        testRuntimeOnly(D.Jupiter.Engine.NOTATION)
     }
 
 }

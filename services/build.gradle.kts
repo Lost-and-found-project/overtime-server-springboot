@@ -16,15 +16,22 @@ subprojects {
     if (name == "domain") {
         dependencies {
             implementation(project(":overtime-domain-common"))
-            println("${this@subprojects} implementation domain-common")
+            implementation(D.SBStarter.DataR2dbc.NOTATION)
+            annotationProcessor(D.Lombok.NOTATION)
+            compileOnly(D.Lombok.NOTATION)
+            testAnnotationProcessor(D.Lombok.NOTATION)
+            testCompileOnly(D.Lombok.NOTATION)
+            println("${this@subprojects} implementation domain-common、lombok、r2dbc")
         }
+    }
+    tasks.getByName<Test>("test") {
+        // useJUnit()
+        useJUnitPlatform()
     }
 }
 println()
 
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 }
 
 tasks.getByName<Test>("test") {
