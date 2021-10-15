@@ -18,18 +18,22 @@ object D {
     object Jupiter {
         const val VERSION = "5.8.1"
         object Api {
-            const val NOTATION = "org.junit.jupiter:junit-jupiter-api:${D.Jupiter.VERSION}"
+            const val NOTATION = "org.junit.jupiter:junit-jupiter-api:$VERSION"
         }
         object Engine {
-            const val NOTATION = "org.junit.jupiter:junit-jupiter-engine:${D.Jupiter.VERSION}"
+            const val NOTATION = "org.junit.jupiter:junit-jupiter-engine:$VERSION"
         }
     }
 
     /** Springboot-starter-xxx */
     object SBStarter {
+        const val VERSION = "2.5.5"
         object DataR2dbc {
-            const val VERSION = "2.5.5"
             const val NOTATION = "org.springframework.boot:spring-boot-starter-data-r2dbc:$VERSION"
+        }
+        object Aop {
+            const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-aop"
+            const val NOTATION = "$NOTATION_NOV:$VERSION"
         }
     }
 

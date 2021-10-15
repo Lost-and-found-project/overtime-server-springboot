@@ -6,20 +6,16 @@ plugins {
 
 }
 
-group = "org.overtime"
-version = "0.0.1-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-}
 
 dependencies {
     // Utils
     implementation(project(":overtime-utils"))
+    implementation(project(":overtime-common"))
     implementation(project(":overtime-domain-common"))
 
     // implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.5.5")
-    implementation("org.springframework.boot:spring-boot-starter-data-r2dbc:2.5.5")
+    implementation(D.SBStarter.DataR2dbc.NOTATION)
+    implementation(D.SBStarter.Aop.NOTATION_NOV)
     implementation("io.r2dbc:r2dbc-pool:0.8.7.RELEASE")
     implementation("dev.miku:r2dbc-mysql:0.8.2.RELEASE") // 0.8.2.RELEASE
 

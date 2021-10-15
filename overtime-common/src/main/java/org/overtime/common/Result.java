@@ -18,13 +18,42 @@ public class Result {
     @NotNull
     private static String defaultSuccessMsg = "Ok";
 
+    private static int defaultFailureCode = -1;
+    @NotNull
+    private static String defaultFailureMsg = "Failure";
     /**
      * 默认成功的实例。
      */
     public static final Result SUCCESS = new DefaultSuccessResult();
+    /**
+     * 默认失败的实例。
+     */
+    public static final Result FAILURE = new DefaultFailureResult();
 
     private static class DefaultSuccessResult extends Result {
         private DefaultSuccessResult() {
+            super(defaultSuccessCode, defaultSuccessMsg, null);
+        }
+
+        @Override
+        public int getCode() {
+            return defaultSuccessCode;
+        }
+
+        @Override
+        public @NotNull String getMessage() {
+            return defaultSuccessMsg;
+        }
+
+        @Override
+        public Object getData() {
+            return null;
+        }
+    }
+
+
+    private static class DefaultFailureResult extends Result {
+        private DefaultFailureResult() {
             super(defaultSuccessCode, defaultSuccessMsg, null);
         }
 
@@ -62,6 +91,13 @@ public class Result {
         Result.defaultSuccessMsg = msg;
     }
 
+    public static void setDefaultFailureCode(int defaultFailureCode) {
+        Result.defaultFailureCode = defaultFailureCode;
+    }
+
+    public static void setDefaultFailureMsg(@NotNull String defaultFailureMsg) {
+        Result.defaultFailureMsg = defaultFailureMsg;
+    }
 
     public static Result success() {
         return SUCCESS;
@@ -78,6 +114,38 @@ public class Result {
 
     // Failed methods
 
+    public static Result failure() {
+        return FAILURE;
+    }
+
+    public static Result failure(int code, @NotNull String msg) {
+        if (FAILURE.code == code && FAILURE.message.equals(msg)) {
+            return FAILURE;
+        }
+        return failure(code, msg, null);
+    }
+
+    public static Result failure(int code) {
+        if (FAILURE.code == code) {
+            return FAILURE;
+        }
+        return failure(code, FAILURE.message, null);
+    }
+
+
+    public static Result failure(String msg) {
+        if (FAILURE.message.equals(msg)) {
+            return FAILURE;
+        }
+        return failure(FAILURE.code, msg, null);
+    }
+
+    public static Result failure(int code, @NotNull String msg, Object data) {
+        if (data == null && FAILURE.code == code && FAILURE.message.equals(msg)) {
+            return FAILURE;
+        }
+        return new Result(code, msg, data);
+    }
 
     // ******************** Instance ********************* //
 
