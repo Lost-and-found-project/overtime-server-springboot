@@ -5,7 +5,7 @@ subprojects {
 
     dependencies {
         implementation(project(":overtime-domain-common"))
-        implementation(D.SBStarter.DataR2dbc.NOTATION)
+        implementation(D.SpringBoot.DataR2dbc.NOTATION)
         annotationProcessor(D.Lombok.NOTATION)
         compileOnly(D.Lombok.NOTATION)
         testAnnotationProcessor(D.Lombok.NOTATION)

@@ -17,8 +17,6 @@ includes("services") {
     // 补偿相关模块
     sub("compensate") {
         subs()
-        // sub("domain")
-        // sub("repository")
     }
 
     // 用户模块
@@ -81,3 +79,4 @@ inline fun Include.subs(ignoreIfNotExists: Boolean = false) {
         sub(it, ignoreIfNotExists)
     }
 }
+include("overtime-service-common")

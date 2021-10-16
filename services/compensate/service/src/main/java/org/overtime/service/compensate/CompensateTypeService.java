@@ -1,7 +1,6 @@
 package org.overtime.service.compensate;
 
 import org.overtime.domain.CompensateType;
-import org.springframework.data.repository.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -9,7 +8,7 @@ import reactor.core.publisher.Mono;
  * 补偿类型相关服务接口
  * @author ForteScarlet
  */
-public interface CompensateService {
+public interface CompensateTypeService {
 
     /**
      * 查询某用户所设置的所有补偿类型。

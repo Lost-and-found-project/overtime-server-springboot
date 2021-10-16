@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Data
 // @NoArgsConstructor
 @Table
-public class CompensateType implements OvertimeBeans {
+public class CompensateType {
     // TODO
 
     @Id
