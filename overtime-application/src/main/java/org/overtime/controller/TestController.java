@@ -1,8 +1,6 @@
 package org.overtime.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.overtime.common.Result;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;

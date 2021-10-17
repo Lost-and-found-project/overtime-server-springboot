@@ -10,6 +10,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
+ * 补偿类型服务接口实现。
  * @author ForteScarlet
  */
 @Service
@@ -27,6 +28,6 @@ public class CompensateTypeServiceImpl extends StandardReactiveCrudService<Compe
 
     @Override
     public Mono<CompensateType> findCompensateTypeById(long id) {
-        return null;
+        return getRepository().findById(id);
     }
 }

@@ -39,6 +39,13 @@ subprojects {
             implementation(findSameLevel("repository")!!)
             implementation(findSameLevel("service")!!)
             implementation(findSameLevel("service-impl")!!)
+            implementation(D.SpringBoot.Webflux.NOTATION_NOV)
+            implementation(D.SpringBoot.DataR2dbc.NOTATION)
+            implementation(D.SpringBoot.Aop.NOTATION_NOV)
+            implementation(D.R2dbc.Pool.NOTATION)
+            implementation(D.R2dbc.Mysql.NOTATION)
+            annotationProcessor(D.SpringBoot.ConfigurationProcessor.NOTATION_NOV)
+
         }
 
     }
