@@ -25,6 +25,7 @@ subprojects {
             implementation(findSameLevel("domain")!!)
             implementation(findSameLevel("repository")!!)
             implementation(findSameLevel("service")!!)
+            implementation(project(":overtime-service-common"))
         }
         if (name == "resources") {
             implementation(findSameLevel("domain")!!)
