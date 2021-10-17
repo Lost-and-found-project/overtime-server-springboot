@@ -10,8 +10,12 @@ include("overtime-common")
 // include("services:compensate")
 // include("services:compensate:domain")
 
-val subNames =
-    listOf("domain", "repository", "resources", "service", "service-impl", "controller")
+val modules =
+    listOf(
+        "domain", "repository",
+        "service", "service-impl",
+        "resources", "client", "controller"
+    )
 
 includes("services") {
     // 补偿相关模块
@@ -75,7 +79,7 @@ inline fun includes(path: String, block: (Include.() -> Unit) = {}) {
 inline fun Include.subs(ignoreIfNotExists: Boolean = false) {
     // sub("domain", ignoreIfNotExists)
     // sub("repository", ignoreIfNotExists)
-    subNames.forEach {
+    modules.forEach {
         sub(it, ignoreIfNotExists)
     }
 }

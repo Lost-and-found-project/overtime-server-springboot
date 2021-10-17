@@ -47,6 +47,12 @@ object D {
             const val NOTATION = "$NOTATION_NOV:$VERSION"
         }
 
+        object Web {
+            const val VERSION = "5.3.10"
+            const val NOTATION_NOV = "org.springframework:spring-web"
+            const val NOTATION = "$NOTATION_NOV:$VERSION"
+        }
+
         // implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.5")
         object Webflux {
             const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-webflux"

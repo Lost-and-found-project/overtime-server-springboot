@@ -1,16 +1,13 @@
 # Overtime-server-springboot
 
-基于Springboot的 `overtime` 服务端：
+基于Springboot的 `overtime` 服务端.
 - Spring Reactive (webflux) 
 - Java17
-- Spring Data JPA
-- lombok
+- Spring Data
+- Spring Data R2DBC
 - Spring Data: Redis Reactive
+- Lombok
 
-
-微服务版的在另一个仓库，此为单机版。
-
-> *或者写在一起?*
 
 
 

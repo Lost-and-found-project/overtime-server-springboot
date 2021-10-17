@@ -31,6 +31,7 @@ subprojects {
             implementation(findSameLevel("domain")!!)
             implementation(findSameLevel("repository")!!)
             implementation(findSameLevel("service")!!)
+            implementation(D.SpringBoot.Web.NOTATION_NOV)
             // And?
         }
 
