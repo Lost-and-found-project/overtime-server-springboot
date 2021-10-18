@@ -1,8 +1,21 @@
 rootProject.name = "overtime-server-springboot"
-include("overtime-utils")
+
+
 include("overtime-application")
-include("overtime-domain-common")
-include("overtime-common")
+// include("overtime-domain-common")
+// include("overtime-common")
+//
+// include("overtime-common:common-core")
+// include("overtime-common:common-domain")
+// include("overtime-common:common-service")
+
+includes("overtime-common") {
+    sub("common-core")
+    sub("common-domain")
+    sub("common-service")
+    // sub("common-utils")
+}
+
 
 // include("services")
 // val services = project(":services")
@@ -14,7 +27,7 @@ val modules =
     listOf(
         "domain", "repository",
         "service", "service-impl",
-        "resources", "client", "controller"
+        "api", "controller"
     )
 
 includes("services") {
@@ -34,6 +47,7 @@ println()
 ////////////////
 @kotlin.DslMarker
 annotation class IncDsl
+
 @kotlin.DslMarker
 annotation class IncOuterDsl
 
@@ -46,7 +60,7 @@ class Include(parentPath: String?, path: String) {
 
     @Suppress("NOTHING_TO_INLINE")
     inline fun doInc(ignoreIfNotExists: Boolean = false) {
-        if(ignoreIfNotExists) {
+        if (ignoreIfNotExists) {
             kotlin.runCatching { include(path) }.getOrElse {
                 println("> [Warn]: Include $path failed: ${it.localizedMessage}")
             }
@@ -65,6 +79,7 @@ class Include(parentPath: String?, path: String) {
         block(inc)
     }
 }
+
 @IncOuterDsl
 @Suppress("NOTHING_TO_INLINE")
 inline fun includes(path: String, block: (Include.() -> Unit) = {}) {
@@ -85,3 +100,4 @@ inline fun Include.subs(ignoreIfNotExists: Boolean = false) {
 }
 include("overtime-service-common")
 include("overtime-gateway")
+include("overtime-configuration")

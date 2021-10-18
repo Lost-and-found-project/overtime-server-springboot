@@ -4,6 +4,7 @@ plugins {
     id("org.springframework.boot") version "2.5.5" apply false
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     java
+    `java-library`
 }
 
 val GROUP_NAME = "org.overtime"
@@ -20,10 +21,13 @@ val p = project
 subprojects {
     repositories {
         mavenCentral()
+        gradlePluginPortal()
     }
     group = p.group
     version = p.version
+    // apply(plugin = "org.gradle.kotlin.kotlin-dsl")
     apply(plugin = "java")
+    apply(plugin = "java-library")
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
     java {

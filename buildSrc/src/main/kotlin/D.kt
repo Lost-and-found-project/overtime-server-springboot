@@ -44,6 +44,12 @@ object D {
             const val VERSION = "2.5.5"
 
             object Data {
+
+                object Commons {
+                    const val NOTATION_NOV = "org.springframework.data:spring-data-commons"
+                    const val NOTATION = "$NOTATION_NOV:$VERSION"
+                }
+
                 // org.springframework.boot:spring-boot-starter-data-redis-reactive
                 object Redis {
                     const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-data-redis-reactive"

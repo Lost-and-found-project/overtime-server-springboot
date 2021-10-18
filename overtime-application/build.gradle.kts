@@ -9,9 +9,9 @@ plugins {
 
 dependencies {
     // Utils
-    implementation(project(":overtime-utils"))
-    implementation(project(":overtime-common"))
-    implementation(project(":overtime-domain-common"))
+    // implementation(project(":overtime-utils"))
+    implementation(project(":overtime-common:common-core"))
+    implementation(project(":overtime-common:common-domain"))
 
     // implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.5.5")
     implementation(D.Spring.Boot.Data.R2dbc.NOTATION)
