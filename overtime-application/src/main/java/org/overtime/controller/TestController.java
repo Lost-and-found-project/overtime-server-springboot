@@ -1,6 +1,7 @@
 package org.overtime.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,8 @@ import java.util.Map;
 public class TestController {
 
     @GetMapping("/get/{num}")
-    public Mono<Map<String, Integer>> get(@PathVariable("num") Integer num) {
+    public Mono<Map<String, Integer>> get(@PathVariable("num") Integer num, ServerHttpRequest request) {
+        System.out.println(request);
         if (num == 0) {
             throw new IllegalArgumentException("不能是0! ");
         }
