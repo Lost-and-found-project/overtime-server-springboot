@@ -18,6 +18,9 @@ dependencies {
     // cloud
     implementation(D.Spring.Cloud.Gateway.NOTATION_NOV)
     implementation(D.Spring.Cloud.Openfeign.NOTATION_NOV)
+    implementation(D.Spring.Cloud.Loadbalancer.NOTATION_NOV)
+    implementation(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
+    implementation(D.Alibaba.Cloud.Nacos.Config.NOTATION_NOV)
 
     // alibaba cloud
 }

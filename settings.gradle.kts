@@ -14,12 +14,6 @@ includes("overtime-common") {
 }
 
 
-// include("services")
-// val services = project(":services")
-// services subProjects
-// include("services:compensate")
-// include("services:compensate:domain")
-
 val modules =
     listOf(
         "domain", "repository",

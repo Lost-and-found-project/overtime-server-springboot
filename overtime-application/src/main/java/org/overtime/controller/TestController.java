@@ -35,16 +35,6 @@ public class TestController {
         return num;
     }
 
-    // private final TestCompensateTypeRepository repository;
-    //
-    // @GetMapping("/all")
-    // public Flux<CompensateType> all() {
-    //     return repository.findAll();
-    // }
-    //
-    // @GetMapping("/one")
-    // public Mono<CompensateType> one() {
-    //     return repository.first();
-    // }
 
+    
 }

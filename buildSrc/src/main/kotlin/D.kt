@@ -112,6 +112,10 @@ object D {
             object Openfeign {
                 const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-openfeign"
             }
+
+            object Loadbalancer {
+                const val NOTATION_NOV = "$GROUP_ID:spring-cloud-loadbalancer"
+            }
         }
 
 

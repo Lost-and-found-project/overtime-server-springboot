@@ -47,7 +47,23 @@ subprojects {
         }
 
         if (name == "controller") {
+            /*
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <version>${latest.version}</version>
+            </dependency>
+             */
+            dependencyManagement {
+                imports {
+                    mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
+                    mavenBom(D.Alibaba.Cloud.Dependencies.NOTATION)
+                }
+            }
             api(findSameLevel("service-impl")!!)
+            api(findSameLevel("api")!!)
+            api(configProject("handler"))
+            api(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
             api(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
             api(D.Spring.Boot.Aop.NOTATION_NOV)
             api(D.R2dbc.Pool.NOTATION)
