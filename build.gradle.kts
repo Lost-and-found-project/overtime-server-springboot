@@ -35,9 +35,9 @@ subprojects {
         sourceCompatibility = JavaVersion.VERSION_17
     }
     this.tasks.named<JavaCompile>("compileJava") {
-       options.compilerArgs.addAll(listOf(
-           "-parameters",
-       ))
+        options.compilerArgs.addAll(listOf(
+            "-parameters",
+        ))
     }
 
     dependencies {
@@ -47,8 +47,6 @@ subprojects {
     }
 
 }
-
-
 
 
 // configurations {

@@ -1,4 +1,4 @@
-package org.overtime.configuration;
+package org.overtime.configuration.handler;
 
 import java.lang.annotation.*;
 

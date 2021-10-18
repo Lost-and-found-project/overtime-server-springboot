@@ -1,10 +1,15 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
+import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.kotlin.dsl.project
+
 /**
  * 依赖统一版本控制
- *
  *
  */
 @Suppress("MemberVisibilityCanBePrivate", "unused")
 object D {
+
     object JetbrainsAnnotation {
         const val VERSION = "22.0.0"
         const val NOTATION = "org.jetbrains:annotations:$VERSION"
@@ -88,6 +93,7 @@ object D {
         object Cloud {
             const val VERSION = "2020.0.4"
             const val GROUP_ID = "org.springframework.cloud"
+
             /*
                 dependencyManagement {
                   imports {
@@ -131,6 +137,7 @@ object D {
     object Alibaba {
         object Cloud {
             const val GROUP_ID = "com.alibaba.cloud"
+
             object Dependencies {
                 const val VERSION = "2021.1"
                 const val NOTATION = "$GROUP_ID:spring-cloud-alibaba-dependencies:$VERSION"
@@ -147,9 +154,10 @@ object D {
             }
         }
     }
-
-
 }
 
+
+inline fun DependencyHandler.configProject(id: String) = project(":overtime-configuration:configuration-$id")
+inline fun DependencyHandler.commonProject(id: String) = project(":overtime-common:common-$id")
 
 

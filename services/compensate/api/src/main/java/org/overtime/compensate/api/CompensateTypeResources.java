@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 /**
- *
  * Resources interface.
  *
  * @author ForteScarlet
@@ -18,6 +17,7 @@ public interface CompensateTypeResources {
 
     /**
      * 对于 {@code /compensate/type/user/{userId}} 接口的资源提供约束。
+     *
      * @param userId 用户ID
      * @return 补偿类型列表。
      */

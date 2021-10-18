@@ -1,4 +1,4 @@
-package org.overtime.configuration;
+package org.overtime.configuration.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.overtime.common.CodeMessageSupport;
@@ -14,8 +14,7 @@ import reactor.core.publisher.Mono;
  * @author ForteScarlet
  */
 @Slf4j
-// @Component
-// @RestControllerAdvice
+@RestControllerAdvice
 public class OvertimeExceptionHandler {
 
 

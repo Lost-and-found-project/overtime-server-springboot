@@ -1,11 +1,15 @@
-package org.overtime.configuration;
+package org.overtime.configuration.handler;
 
 import org.jetbrains.annotations.NotNull;
 import org.overtime.common.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.codec.HttpMessageWriter;
+import org.springframework.http.codec.ServerCodecConfigurer;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.reactive.HandlerResult;
 import org.springframework.web.reactive.accept.RequestedContentTypeResolver;
+import org.springframework.web.reactive.result.method.InvocableHandlerMethod;
 import org.springframework.web.reactive.result.method.annotation.ResponseBodyResultHandler;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
@@ -34,9 +38,9 @@ public class OvertimeResponseBodyResultHandler extends ResponseBodyResultHandler
         return null;
     }
 
-    private static MethodParameter MR;
-    private static MethodParameter FR;
-    private static MethodParameter R;
+    private static final MethodParameter MR;
+    private static final MethodParameter FR;
+    private static final MethodParameter R;
 
     static {
         Class<OvertimeResponseBodyResultHandler> clazz = OvertimeResponseBodyResultHandler.class;
@@ -48,33 +52,33 @@ public class OvertimeResponseBodyResultHandler extends ResponseBodyResultHandler
             MR = new MethodParameter(mr, -1);
             FR = new MethodParameter(fr, -1);
             R = new MethodParameter(r, -1);
-
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            throw new IllegalStateException(e);
         }
-
     }
 
-    public OvertimeResponseBodyResultHandler(List<HttpMessageWriter<?>> writers, RequestedContentTypeResolver resolver) {
+    OvertimeResponseBodyResultHandler(List<HttpMessageWriter<?>> writers, RequestedContentTypeResolver resolver) {
         super(writers, resolver);
     }
 
     @Override
     public @NotNull Mono<Void> handleResult(@NotNull ServerWebExchange exchange, HandlerResult result) {
+        System.out.println("Handle result!" + exchange);
+        System.out.println("Handle result!" + result);
         Object handler = result.getHandler();
         MethodParameter actualMethodParameter;
 
-        // if (handler instanceof InvocableHandlerMethod invocableHandlerMethod) {
-        //     if (invocableHandlerMethod.getBeanType().getAnnotation(IgnoreHandlerResult.class) != null) {
-        //         return super.handleResult(exchange, result);
-        //     }
-        //     if (invocableHandlerMethod.getMethod().getAnnotation(IgnoreHandlerResult.class) != null) {
-        //         return super.handleResult(exchange, result);
-        //     }
-        //     if (invocableHandlerMethod.getMethod().getAnnotation(ExceptionHandler.class) != null) {
-        //         return super.handleResult(exchange, result);
-        //     }
-        // }
+        if (handler instanceof InvocableHandlerMethod invocableHandlerMethod) {
+            if (invocableHandlerMethod.getBeanType().getAnnotation(IgnoreHandlerResult.class) != null) {
+                return super.handleResult(exchange, result);
+            }
+            if (invocableHandlerMethod.getMethod().getAnnotation(IgnoreHandlerResult.class) != null) {
+                return super.handleResult(exchange, result);
+            }
+            if (invocableHandlerMethod.getMethod().getAnnotation(ExceptionHandler.class) != null) {
+                return super.handleResult(exchange, result);
+            }
+        }
 
         Object body = result.getReturnValue();
         if (body instanceof Mono<?> mono) {

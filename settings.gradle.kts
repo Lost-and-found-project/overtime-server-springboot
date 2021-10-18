@@ -2,18 +2,15 @@ rootProject.name = "overtime-server-springboot"
 
 
 include("overtime-application")
-// include("overtime-domain-common")
-// include("overtime-common")
-//
-// include("overtime-common:common-core")
-// include("overtime-common:common-domain")
-// include("overtime-common:common-service")
+
+includes("overtime-configuration") {
+    sub("configuration-handler")
+}
 
 includes("overtime-common") {
     sub("common-core")
     sub("common-domain")
     sub("common-service")
-    // sub("common-utils")
 }
 
 

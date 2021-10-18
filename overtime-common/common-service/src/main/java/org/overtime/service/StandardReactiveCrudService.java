@@ -5,9 +5,8 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import java.io.Serializable;
 
 /**
- *
  * 针对于 服务({@code Service}) 的标准抽象父类，提供部分常规方法。
- *
+ * <p>
  * 通过构造得到 {@link #getRepository()} 所需的 {@code repository} 实例。
  *
  * @author ForteScarlet

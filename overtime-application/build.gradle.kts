@@ -10,8 +10,10 @@ plugins {
 dependencies {
     // Utils
     // implementation(project(":overtime-utils"))
-    implementation(project(":overtime-common:common-core"))
-    implementation(project(":overtime-common:common-domain"))
+    implementation(commonProject("core"))
+    implementation(commonProject("domain"))
+    // implementation(project(":overtime-configuration:configuration:handler"))
+    implementation(configProject("handler"))
 
     // implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.5.5")
     implementation(D.Spring.Boot.Data.R2dbc.NOTATION)
@@ -27,7 +29,6 @@ dependencies {
 
     annotationProcessor(D.Lombok.NOTATION)
     compileOnly(D.Lombok.NOTATION)
-
 
 
 }

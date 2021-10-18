@@ -10,12 +10,14 @@ import org.jetbrains.annotations.NotNull;
 public interface CodeMessageSupport {
     /**
      * 得到错误码。
+     *
      * @return 错误码
      */
     int getCode();
 
     /**
      * 得到错误信息。
+     *
      * @return 错误信息
      */
     @NotNull String getMessage();

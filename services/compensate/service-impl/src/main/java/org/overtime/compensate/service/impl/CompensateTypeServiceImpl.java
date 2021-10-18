@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
 
 /**
  * 补偿类型服务接口实现。
+ *
  * @author ForteScarlet
  */
 @Service

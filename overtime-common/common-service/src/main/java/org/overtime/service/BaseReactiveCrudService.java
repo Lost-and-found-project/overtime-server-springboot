@@ -7,13 +7,11 @@ import reactor.core.publisher.Mono;
 import java.io.Serializable;
 
 /**
- *
  * 针对于 服务({@code Service}) 的抽象父类，提供部分常规方法。
  *
- * @param <ID> 持久层实体主键类型
- * @param <T> 持久层实体类型
+ * @param <ID>  持久层实体主键类型
+ * @param <T>   持久层实体类型
  * @param <REP> 持久层repository实现接口类型
- *
  * @author ForteScarlet
  */
 @SuppressWarnings("unused")

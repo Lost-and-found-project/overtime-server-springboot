@@ -6,6 +6,7 @@ import reactor.core.publisher.Mono;
 
 /**
  * 补偿类型相关服务接口
+ *
  * @author ForteScarlet
  */
 public interface CompensateService {
@@ -17,7 +18,6 @@ public interface CompensateService {
      * @return {@link CompensateType 补偿类型}
      */
     Flux<CompensateType> findCompensateTypeByUserId(long userId);
-
 
 
     /**
