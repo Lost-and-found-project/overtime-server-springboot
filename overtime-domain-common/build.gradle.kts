@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    implementation(D.SpringBoot.DataR2dbc.NOTATION)
+    implementation(D.Spring.Boot.Data.R2dbc.NOTATION)
 }
 
 tasks.getByName<Test>("test") {

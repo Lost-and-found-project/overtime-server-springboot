@@ -1,3 +1,3 @@
 dependencies {
-    implementation(D.SpringBoot.DataR2dbc.NOTATION_NOV)
+    implementation(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
 }

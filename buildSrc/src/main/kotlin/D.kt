@@ -3,7 +3,7 @@
  *
  *
  */
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate", "unused")
 object D {
     object JetbrainsAnnotation {
         const val VERSION = "22.0.0"
@@ -28,41 +28,78 @@ object D {
     }
 
     /** Springboot-starter-xxx */
-    object SpringBoot {
-        const val VERSION = "2.5.5"
+    object Spring {
+        const val VERSION = "5.3.10"
 
-        // org.springframework.boot:spring-boot-starter-data-redis-reactive
-        object DataRedis {
-            const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-data-redis-reactive"
-            const val NOTATION = "$NOTATION_NOV:$VERSION"
-        }
-
-        object DataR2dbc {
-            const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-data-r2dbc"
-            const val NOTATION = "$NOTATION_NOV:$VERSION"
-        }
-
-        object Aop {
-            const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-aop"
-            const val NOTATION = "$NOTATION_NOV:$VERSION"
-        }
-
+        // Spring-web
         object Web {
-            const val VERSION = "5.3.10"
             const val NOTATION_NOV = "org.springframework:spring-web"
             const val NOTATION = "$NOTATION_NOV:$VERSION"
         }
 
-        // implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.5")
-        object Webflux {
-            const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-webflux"
-            const val NOTATION = "$NOTATION_NOV:$VERSION"
+        /**
+         * Spring-boot相关启动器依赖
+         */
+        object Boot {
+            const val VERSION = "2.5.5"
+
+            object Data {
+                // org.springframework.boot:spring-boot-starter-data-redis-reactive
+                object Redis {
+                    const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-data-redis-reactive"
+                    const val NOTATION = "$NOTATION_NOV:$VERSION"
+                }
+
+                object R2dbc {
+                    const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-data-r2dbc"
+                    const val NOTATION = "$NOTATION_NOV:$VERSION"
+                }
+
+            }
+
+            object Aop {
+                const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-aop"
+                const val NOTATION = "$NOTATION_NOV:$VERSION"
+            }
+
+            // implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.5")
+            object Webflux {
+                const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-webflux"
+                const val NOTATION = "$NOTATION_NOV:$VERSION"
+            }
+
+            // annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.5.5")
+            object ConfigurationProcessor {
+                const val NOTATION_NOV = "org.springframework.boot:spring-boot-configuration-processor"
+                const val NOTATION = "$NOTATION_NOV:$VERSION"
+            }
         }
 
-        // annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.5.5")
-        object ConfigurationProcessor {
-            const val NOTATION_NOV = "org.springframework.boot:spring-boot-configuration-processor"
-            const val NOTATION = "$NOTATION_NOV:$VERSION"
+
+        /**
+         * Spring-cloud 相关依赖
+         */
+        object Cloud {
+            const val VERSION = "2020.0.4"
+            const val GROUP_ID = "org.springframework.cloud"
+            /*
+                dependencyManagement {
+                  imports {
+                    mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+                  }
+                }
+             */
+            object Dependencies {
+                const val NOTATION = "$GROUP_ID:spring-cloud-dependencies:$VERSION"
+            }
+
+            object Gateway {
+                const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-gateway"
+            }
+
+            object Openfeign {
+                const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-openfeign"
+            }
         }
 
 
@@ -82,6 +119,26 @@ object D {
         object Mysql {
             const val VERSION = "0.8.2.RELEASE"
             const val NOTATION = "dev.miku:r2dbc-mysql:$VERSION"
+        }
+    }
+
+    object Alibaba {
+        object Cloud {
+            const val GROUP_ID = "com.alibaba.cloud"
+            object Dependencies {
+                const val VERSION = "2021.1"
+                const val NOTATION = "$GROUP_ID:spring-cloud-alibaba-dependencies:$VERSION"
+            }
+
+            object Nacos {
+                object Discovery {
+                    const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-alibaba-nacos-discovery"
+                }
+
+                object Config {
+                    const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-alibaba-nacos-config"
+                }
+            }
         }
     }
 

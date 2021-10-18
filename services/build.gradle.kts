@@ -3,9 +3,10 @@ val p = project
 subprojects {
     println(">> $p sub project: '$this' named $name")
 
+
     dependencies {
         implementation(project(":overtime-domain-common"))
-        implementation(D.SpringBoot.DataR2dbc.NOTATION)
+        implementation(D.Spring.Boot.Data.R2dbc.NOTATION)
         annotationProcessor(D.Lombok.NOTATION)
         compileOnly(D.Lombok.NOTATION)
         testAnnotationProcessor(D.Lombok.NOTATION)
@@ -31,7 +32,7 @@ subprojects {
             implementation(findSameLevel("domain")!!)
             implementation(findSameLevel("repository")!!)
             implementation(findSameLevel("service")!!)
-            implementation(D.SpringBoot.Web.NOTATION_NOV)
+            implementation(D.Spring.Web.NOTATION_NOV)
             // And?
         }
 
@@ -40,12 +41,22 @@ subprojects {
             implementation(findSameLevel("repository")!!)
             implementation(findSameLevel("service")!!)
             implementation(findSameLevel("service-impl")!!)
-            implementation(D.SpringBoot.Webflux.NOTATION_NOV)
-            implementation(D.SpringBoot.DataR2dbc.NOTATION)
-            implementation(D.SpringBoot.Aop.NOTATION_NOV)
+            implementation(D.Spring.Boot.Webflux.NOTATION_NOV)
+            implementation(D.Spring.Boot.Data.R2dbc.NOTATION)
+            implementation(D.Spring.Boot.Aop.NOTATION_NOV)
             implementation(D.R2dbc.Pool.NOTATION)
             implementation(D.R2dbc.Mysql.NOTATION)
-            annotationProcessor(D.SpringBoot.ConfigurationProcessor.NOTATION_NOV)
+            annotationProcessor(D.Spring.Boot.ConfigurationProcessor.NOTATION_NOV)
+        }
+
+        if (name == "client") {
+            dependencyManagement {
+                imports {
+                    mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
+                }
+            }
+
+
 
         }
 
