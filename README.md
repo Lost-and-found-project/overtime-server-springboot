@@ -2,12 +2,12 @@
 
 基于Springboot的 `overtime` 服务端.
 
-## 所用内容
-- Spring Reactive (webflux)
+## 相关内容：
+- Gradle with Kotlin DSL build script
 - Java17
-- Spring Data
+- Spring Reactive (webflux)
 - Spring Data R2DBC
-- Spring Data: Redis Reactive
+- Nacos
 - Lombok
 
 
