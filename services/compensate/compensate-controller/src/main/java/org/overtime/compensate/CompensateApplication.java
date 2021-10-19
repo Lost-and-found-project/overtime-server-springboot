@@ -1,5 +1,6 @@
 package org.overtime.compensate;
 
+import org.overtime.common.controller.OvertimeStandardApplication;
 import org.overtime.common.controller.SpringApp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +12,7 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 /**
  * @author ForteScarlet
  */
-@SpringBootApplication // Unused yet.
+@OvertimeStandardApplication // Unused yet.
 public class CompensateApplication {
     public static void main(String[] args) {
         SpringApp.runStandardResourcesApi(args);

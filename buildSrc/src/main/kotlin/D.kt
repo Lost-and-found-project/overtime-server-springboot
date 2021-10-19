@@ -1,7 +1,15 @@
-@file:Suppress("NOTHING_TO_INLINE")
+@file:Suppress("NOTHING_TO_INLINE", "MemberVisibilityCanBePrivate")
 
 import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.internal.impldep.org.bouncycastle.asn1.x500.style.RFC4519Style.name
 import org.gradle.kotlin.dsl.project
+
+@Suppress("PropertyName")
+abstract class DependencyNotation(val groupId: String, val name: String, val version: String? = null) {
+    inline val NOTATION get() = if (version == null) "$groupId:$name:$version" else "$groupId:$name"
+    inline val NOTATION_NOV get() = "$groupId:$name"
+    override fun toString(): String = NOTATION
+}
 
 /**
  * 依赖统一版本控制
@@ -9,90 +17,77 @@ import org.gradle.kotlin.dsl.project
  */
 @Suppress("MemberVisibilityCanBePrivate", "unused")
 object D {
+    object JetbrainsAnnotation : DependencyNotation("org.jetbrains", "annotations", "22.0.0")
+    object Lombok : DependencyNotation("org.projectlombok", "lombok", "1.18.20")
 
-    object JetbrainsAnnotation {
-        const val VERSION = "22.0.0"
-        const val NOTATION = "org.jetbrains:annotations:$VERSION"
-    }
-
-    object Lombok {
-        const val VERSION = "1.18.20"
-        const val NOTATION = "org.projectlombok:lombok:$VERSION"
-    }
-
-    object Jupiter {
-        const val VERSION = "5.8.1"
-
-        object Api {
-            const val NOTATION = "org.junit.jupiter:junit-jupiter-api:$VERSION"
+    sealed class Jupiter(name: String) : DependencyNotation("org.junit.jupiter", name, VERSION) {
+        companion object {
+            const val VERSION = "5.8.1"
         }
 
-        object Engine {
-            const val NOTATION = "org.junit.jupiter:junit-jupiter-engine:$VERSION"
-        }
+        object Api : Jupiter("junit-jupiter-api")
+        object Engine : Jupiter("junit-jupiter-engine")
     }
 
-    /** Springboot-starter-xxx */
-    object Spring {
-        const val VERSION = "5.3.10"
+    // Spring
+    sealed class Spring(name: String) : DependencyNotation("org.springframework", name, VERSION) {
+        companion object {
+            const val VERSION = "5.3.10"
+        }
 
         // Spring-web
-        object Web {
-            const val NOTATION_NOV = "org.springframework:spring-web"
-            const val NOTATION = "$NOTATION_NOV:$VERSION"
-        }
+        object Web : Spring("spring-web")
 
         /**
          * Spring-boot相关启动器依赖
          */
-        object Boot {
-            const val VERSION = "2.5.5"
+        // Springboot-starter-xxx
+        sealed class Boot(groupId: String, name: String, version: String? = VERSION) :
+            DependencyNotation(groupId, name, version) {
+            constructor(name: String, version: String? = VERSION): this(groupId = "org.springframework.boot", name = name, version = version)
 
-            object Data {
+            companion object {
+                const val VERSION = "2.5.5"
+            }
 
-                object Commons {
-                    const val NOTATION_NOV = "org.springframework.data:spring-data-commons"
-                    const val NOTATION = "$NOTATION_NOV:$VERSION"
-                }
 
+            sealed class Data(name: String, version: String? = VERSION) : Boot("org.springframework.data", name, version) {
+                object Commons : Data("spring-data-commons", "2.5.5") // maybe not follow boot version.
+
+                ///// From Boot, but is data like.
                 // org.springframework.boot:spring-boot-starter-data-redis-reactive
-                object Redis {
-                    const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-data-redis-reactive"
-                    const val NOTATION = "$NOTATION_NOV:$VERSION"
-                }
+                object Redis : Boot("spring-boot-starter-data-redis-reactive")
+                // const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-data-redis-reactive"
 
-                object R2dbc {
-                    const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-data-r2dbc"
-                    const val NOTATION = "$NOTATION_NOV:$VERSION"
-                }
+                object R2dbc : Boot("spring-boot-starter-data-r2dbc")
+                // const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-data-r2dbc"
 
             }
 
-            object Aop {
-                const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-aop"
-                const val NOTATION = "$NOTATION_NOV:$VERSION"
-            }
+            object Aop : Boot("spring-boot-starter-aop")
+            // const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-aop"
+
 
             // implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.5")
-            object Webflux {
-                const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-webflux"
-                const val NOTATION = "$NOTATION_NOV:$VERSION"
-            }
+            object Webflux : Boot("spring-boot-starter-webflux")
+            // const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-webflux"
+
 
             // annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.5.5")
-            object ConfigurationProcessor {
-                const val NOTATION_NOV = "org.springframework.boot:spring-boot-configuration-processor"
-                const val NOTATION = "$NOTATION_NOV:$VERSION"
-            }
+            object ConfigurationProcessor : Boot("spring-boot-configuration-processor")
+            // const val NOTATION_NOV = "org.springframework.boot:spring-boot-configuration-processor"
+
         }
 
 
         /**
          * Spring-cloud 相关依赖
          */
-        object Cloud {
-            const val VERSION = "2020.0.4"
-            const val GROUP_ID = "org.springframework.cloud"
+        sealed class Cloud(name: String) : DependencyNotation(GROUP_ID, name, VERSION) {
+            companion object {
+                const val VERSION = "2020.0.4"
+                const val GROUP_ID = "org.springframework.cloud"
+            }
 
             /*
                 dependencyManagement {
@@ -101,58 +96,58 @@ object D {
                   }
                 }
              */
-            object Dependencies {
-                const val NOTATION = "$GROUP_ID:spring-cloud-dependencies:$VERSION"
-            }
+            object Dependencies : Cloud("spring-cloud-dependencies")
+            // const val NOTATION = "$GROUP_ID:spring-cloud-dependencies:$VERSION"
 
-            object Gateway {
-                const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-gateway"
-            }
+
+            object Gateway : Cloud("spring-cloud-starter-gateway")
+            // const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-gateway"
+
 
             // see https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/#reactive-support
             // Use https://github.com/Playtika/feign-reactive to support spring webflux
             /**
              * @see FeignReactor
              */
-            object Openfeign {
-                // const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-openfeign"
-                const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-openfeign"
-            }
+            object Openfeign : Cloud("spring-cloud-starter-openfeign")
+            // const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-openfeign"
 
 
-            object Loadbalancer {
-                const val NOTATION_NOV = "$GROUP_ID:spring-cloud-loadbalancer"
-            }
+            object Loadbalancer : Cloud("spring-cloud-loadbalancer")
+            // const val NOTATION_NOV = "$GROUP_ID:spring-cloud-loadbalancer"
         }
     }
 
 
-    object FeignReactor {
-        const val VERSION = "3.0.3"
-        const val GROUP_ID = "com.playtika.reactivefeign"
-
-        object WebClient {
-            const val NOTATION = "$GROUP_ID:feign-reactor-webclient:$VERSION"
+    // see https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/#reactive-support
+    // Use https://github.com/Playtika/feign-reactive to support spring webflux
+    sealed class FeignReactor(name: String) : DependencyNotation(GROUP_ID, name, VERSION) {
+        companion object {
+            const val VERSION = "3.0.3"
+            const val GROUP_ID = "com.playtika.reactivefeign"
         }
 
-        object Cloud {
-            const val NOTATION = "$GROUP_ID:feign-reactor-cloud:$VERSION"
-        }
 
-        object SpringConfiguration {
-            const val NOTATION = "$GROUP_ID:feign-reactor-spring-configuration:$VERSION"
-        }
+        object WebClient : FeignReactor("feign-reactor-webclient")
+        // const val NOTATION = "$GROUP_ID::$VERSION"
+
+
+        object Cloud : FeignReactor("feign-reactor-cloud")
+        // const val NOTATION = "$GROUP_ID:feign-reactor-cloud:$VERSION"
+
+        object SpringConfiguration : FeignReactor("feign-reactor-spring-configuration")
+        // const val NOTATION = "$GROUP_ID:feign-reactor-spring-configuration:$VERSION"
     }
 
-    object OpenFeign {
-        /*
-         <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-slf4j</artifactId>
-            <version>11.2</version>
-        </dependency
-         */
-    }
+    // object OpenFeign {
+    /*
+     <dependency>
+        <groupId>io.github.openfeign</groupId>
+        <artifactId>feign-slf4j</artifactId>
+        <version>11.2</version>
+    </dependency
+     */
+    // }
 
     /*
         implementation("io.r2dbc:r2dbc-pool:0.8.7.RELEASE")
@@ -160,34 +155,36 @@ object D {
     */
 
     object R2dbc {
-        object Pool {
-            const val VERSION = "0.8.7.RELEASE"
-            const val NOTATION = "io.r2dbc:r2dbc-pool:$VERSION"
-        }
+        object Pool : DependencyNotation("io.r2dbc", "r2dbc-pool", "0.8.7.RELEASE")
+        // const val VERSION = "0.8.7.RELEASE"
+        // const val NOTATION = "io.r2dbc:r2dbc-pool:$VERSION"
 
-        object Mysql {
-            const val VERSION = "0.8.2.RELEASE"
-            const val NOTATION = "dev.miku:r2dbc-mysql:$VERSION"
-        }
+
+        object Mysql : DependencyNotation("dev.miku", "r2dbc-mysql", "0.8.2.RELEASE")
+        // const val VERSION = "0.8.2.RELEASE"
+        // const val NOTATION = "dev.miku:r2dbc-mysql:$VERSION"
+
     }
 
-    object Alibaba {
-        object Cloud {
-            const val GROUP_ID = "com.alibaba.cloud"
-
-            object Dependencies {
+    sealed class Alibaba(groupId: String, name: String, version: String?) : DependencyNotation(groupId, name, version) {
+        sealed class Cloud(name: String) : Alibaba(GROUP_ID, name, VERSION) {
+            companion object {
                 const val VERSION = "2021.1"
-                const val NOTATION = "$GROUP_ID:spring-cloud-alibaba-dependencies:$VERSION"
+                const val GROUP_ID = "com.alibaba.cloud"
             }
 
-            object Nacos {
-                object Discovery {
-                    const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-alibaba-nacos-discovery"
-                }
+            object Dependencies : Cloud("spring-cloud-alibaba-dependencies")
+            // const val NOTATION = "$GROUP_ID:spring-cloud-alibaba-dependencies:$VERSION"
 
-                object Config {
-                    const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-alibaba-nacos-config"
-                }
+
+            sealed class Nacos(name: String) : Cloud(name) {
+                object Discovery : Nacos("spring-cloud-starter-alibaba-nacos-discovery")
+                // const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-alibaba-nacos-discovery"
+
+
+                object Config : Nacos("spring-cloud-starter-alibaba-nacos-config")
+                // const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-alibaba-nacos-config"
+
             }
         }
     }

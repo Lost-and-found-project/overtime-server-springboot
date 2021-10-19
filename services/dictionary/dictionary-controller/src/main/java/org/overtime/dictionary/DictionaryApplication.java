@@ -1,5 +1,6 @@
 package org.overtime.dictionary;
 
+import org.overtime.common.controller.OvertimeStandardApplication;
 import org.overtime.common.controller.SpringApp;
 import org.overtime.configuration.handler.EnableOvertimeHandler;
 import org.overtime.dictionary.api.DictionaryApiSupport;
@@ -17,7 +18,7 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
  * Dictionary application.
  * @author ForteScarlet
  */
-@SpringBootApplication // Unused yet.
+@OvertimeStandardApplication // Unused yet.
 public class DictionaryApplication {
     public static void main(String[] args) {
         SpringApp.runStandardResourcesApi(args);

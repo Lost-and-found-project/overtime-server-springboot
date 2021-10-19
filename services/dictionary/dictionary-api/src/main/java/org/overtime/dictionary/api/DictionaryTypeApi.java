@@ -6,6 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import reactivefeign.spring.config.ReactiveFeignClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -13,7 +14,7 @@ import reactor.core.publisher.Mono;
  * 字典类型 {@code dictionaryType} 对外API。
  * @author ForteScarlet
  */
-@FeignClient(DictionaryApiConstant.APPLICATION_NAME)
+@ReactiveFeignClient(DictionaryApiConstant.APPLICATION_NAME)
 // @RequestMapping(DictionaryTypeApi.API_REQ_MAPPING) // no
 public interface DictionaryTypeApi extends DictionaryApiSupport {
     String API_REQ_MAPPING = "/dictionaryType";

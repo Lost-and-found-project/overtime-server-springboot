@@ -5,6 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import reactivefeign.spring.config.ReactiveFeignClient;
 import reactor.core.publisher.Flux;
 
 
@@ -13,7 +14,7 @@ import reactor.core.publisher.Flux;
  *
  * @author ForteScarlet
  */
-@FeignClient(CompensateConstant.APPLICATION_NAME)
+@ReactiveFeignClient(CompensateConstant.APPLICATION_NAME)
 // @RequestMapping(CompensateTypeApi.API_REQ_MAPPING)
 public interface CompensateTypeApi {
     String API_REQ_MAPPING = "/compensateType";
