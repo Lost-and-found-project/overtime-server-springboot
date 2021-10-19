@@ -1,4 +1,4 @@
-package org.overtime.compensate.domain;
+package org.overtime.common.domain;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.annotation.Id;

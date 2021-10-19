@@ -13,4 +13,6 @@ import java.lang.annotation.*;
 @Inherited
 @Import(OvertimeHandlerConfiguration.class)
 public @interface EnableOvertimeHandler {
+    boolean exceptionHandler() default true;
+    boolean resultHandler() default true;
 }

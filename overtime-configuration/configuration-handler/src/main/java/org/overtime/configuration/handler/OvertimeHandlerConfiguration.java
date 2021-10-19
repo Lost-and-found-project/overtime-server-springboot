@@ -8,6 +8,8 @@ import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 
+import java.util.Map;
+
 /**
  * @author ForteScarlet
  */
@@ -19,18 +21,26 @@ public class OvertimeHandlerConfiguration implements ImportBeanDefinitionRegistr
             @NotNull BeanNameGenerator generator
     ) {
         // Guard against calls for sub-classes
-        if (metadata.getAnnotationAttributes(EnableOvertimeHandler.class.getName()) == null) {
+        Map<String, Object> annotationAttributes = metadata.getAnnotationAttributes(EnableOvertimeHandler.class.getName());
+        if (annotationAttributes == null) {
             return;
         }
 
-        BeanDefinitionBuilder overtimeExceptionHandlerDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(OvertimeExceptionHandler.class);
-        AbstractBeanDefinition overtimeExceptionHandlerDefinition = overtimeExceptionHandlerDefinitionBuilder.getBeanDefinition();
+        boolean exceptionHandler = (boolean) annotationAttributes.get("exceptionHandler");
+        boolean resultHandler = (boolean) annotationAttributes.get("resultHandler");
 
-        BeanDefinitionBuilder overtimeWebfluxConfigurationDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(OvertimeWebfluxConfiguration.class);
-        AbstractBeanDefinition overtimeWebfluxConfigurationDefinition = overtimeWebfluxConfigurationDefinitionBuilder.getBeanDefinition();
+        if (exceptionHandler) {
+            BeanDefinitionBuilder overtimeExceptionHandlerDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(OvertimeExceptionHandler.class);
+            AbstractBeanDefinition overtimeExceptionHandlerDefinition = overtimeExceptionHandlerDefinitionBuilder.getBeanDefinition();
+            registry.registerBeanDefinition(generator.generateBeanName(overtimeExceptionHandlerDefinition, registry), overtimeExceptionHandlerDefinition);
+        }
 
+        if (resultHandler) {
+            BeanDefinitionBuilder overtimeWebfluxConfigurationDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(OvertimeWebfluxResultHandlerConfiguration.class);
+            AbstractBeanDefinition overtimeWebfluxConfigurationDefinition = overtimeWebfluxConfigurationDefinitionBuilder.getBeanDefinition();
+            registry.registerBeanDefinition(generator.generateBeanName(overtimeWebfluxConfigurationDefinition, registry), overtimeWebfluxConfigurationDefinition);
 
-        registry.registerBeanDefinition(generator.generateBeanName(overtimeExceptionHandlerDefinition, registry), overtimeExceptionHandlerDefinition);
-        registry.registerBeanDefinition(generator.generateBeanName(overtimeWebfluxConfigurationDefinition, registry), overtimeWebfluxConfigurationDefinition);
+        }
+
     }
 }

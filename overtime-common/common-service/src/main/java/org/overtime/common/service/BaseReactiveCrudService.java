@@ -1,4 +1,4 @@
-package org.overtime.service;
+package org.overtime.common.service;
 
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;

@@ -1,6 +1,6 @@
 package org.overtime.compensate.service;
 
-import org.overtime.compensate.domain.CompensateType;
+import org.overtime.common.domain.CompensateType;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

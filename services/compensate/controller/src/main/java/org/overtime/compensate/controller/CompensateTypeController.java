@@ -1,7 +1,7 @@
 package org.overtime.compensate.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.overtime.compensate.domain.CompensateType;
+import org.overtime.common.domain.CompensateType;
 import org.overtime.compensate.service.CompensateTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

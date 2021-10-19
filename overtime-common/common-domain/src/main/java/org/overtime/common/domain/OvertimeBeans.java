@@ -1,4 +1,4 @@
-package org.overtime.compensate.domain;
+package org.overtime.common.domain;
 
 /**
  * 所有Beans的父类标记接口。

@@ -4,13 +4,15 @@ rootProject.name = "overtime-server-springboot"
 include("overtime-application")
 
 includes("overtime-configuration") {
-    sub("configuration-handler")
+    sub("configuration-handler") // 异常处理、响应值处理
+    sub("configuration-dataSource") // 数据源配置
 }
 
 includes("overtime-common") {
     sub("common-core")
     sub("common-domain")
     sub("common-service")
+    sub("common-controller")
 }
 
 
@@ -22,16 +24,12 @@ val modules =
     )
 
 includes("services") {
-    // 补偿相关模块
-    sub("compensate") {
-        subs()
-    }
-
+    // 字典模块
+    sub("dictionary") { subs() }
+    // 补偿模块
+    sub("compensate") { subs() }
     // 用户模块
-    sub("user") {
-        subs()
-
-    }
+    sub("user") { subs() }
 }
 println()
 

@@ -1,9 +1,9 @@
 package org.overtime.compensate.service.impl;
 
-import org.overtime.compensate.domain.CompensateType;
+import org.overtime.common.domain.CompensateType;
 import org.overtime.compensate.repository.CompensateTypeRepository;
 import org.overtime.compensate.service.CompensateTypeService;
-import org.overtime.service.StandardReactiveCrudService;
+import org.overtime.common.service.StandardReactiveCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

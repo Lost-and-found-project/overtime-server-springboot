@@ -11,7 +11,7 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
  * @author ForteScarlet
  */
 @Configuration
-public class OvertimeWebfluxConfiguration implements WebFluxConfigurer {
+public class OvertimeWebfluxResultHandlerConfiguration implements WebFluxConfigurer {
 
     @Bean
     public OvertimeResponseBodyResultHandler overtimeResponseBodyResultHandler(ServerCodecConfigurer serverCodecConfigurer,

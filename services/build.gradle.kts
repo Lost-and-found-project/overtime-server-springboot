@@ -60,9 +60,11 @@ subprojects {
                     mavenBom(D.Alibaba.Cloud.Dependencies.NOTATION)
                 }
             }
+            implementation(configProject("dataSource"))
             api(findSameLevel("service-impl")!!)
             api(findSameLevel("api")!!)
             api(configProject("handler"))
+            api(commonProject("controller"))
             api(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
             api(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
             api(D.Spring.Boot.Aop.NOTATION_NOV)
