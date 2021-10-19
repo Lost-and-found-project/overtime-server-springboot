@@ -1,7 +1,6 @@
 rootProject.name = "overtime-server-springboot"
 
 
-include("overtime-application")
 
 includes("overtime-configuration") {
     sub("configuration-handler") // 异常处理、响应值处理
@@ -15,6 +14,8 @@ includes("overtime-common") {
     sub("common-controller")
 }
 
+include("overtime-application")
+include("overtime-gateway")
 
 val modules =
     listOf(
@@ -33,6 +34,16 @@ includes("services") {
 }
 println()
 
+println("================================")
+println("================================")
+println()
+
+
+println()
+println("================================")
+println("================================")
+
+
 ////////////////
 @kotlin.DslMarker
 annotation class IncDsl
@@ -41,20 +52,25 @@ annotation class IncDsl
 annotation class IncOuterDsl
 
 class Include(parentPath: String?, path: String) {
-    val path: String = if (parentPath != null) {
-        "$parentPath:$path"
-    } else {
-        path
-    }
+    val path: String = if (parentPath != null) "$parentPath:$path" else path
+    // val name: String = if (parentPath != null) "$parentPath-$path" else path
 
     @Suppress("NOTHING_TO_INLINE")
     inline fun doInc(ignoreIfNotExists: Boolean = false) {
         if (ignoreIfNotExists) {
-            kotlin.runCatching { include(path) }.getOrElse {
+            kotlin.runCatching {
+                include(path).run {
+                    println(" >>>> '$path' BuildFileName: " + project(path).buildFileName)
+                    println(" >>>> '$path' name: " + project(path).name)
+                }
+            }.getOrElse {
                 println("> [Warn]: Include $path failed: ${it.localizedMessage}")
             }
         } else {
-            include(path)
+            include(path).run {
+                println(" >>>> '$path' BuildFileName: " + project(path).buildFileName)
+                println(" >>>> '$path' name: " + project(path).name)
+            }
         }
         println("> Include $path")
     }
@@ -71,8 +87,8 @@ class Include(parentPath: String?, path: String) {
 
 @IncOuterDsl
 @Suppress("NOTHING_TO_INLINE")
-inline fun includes(path: String, block: (Include.() -> Unit) = {}) {
-    val inc = Include(null, path)
+inline fun includes(id: String, block: (Include.() -> Unit) = {}) {
+    val inc = Include(null, id)
     inc.doInc()
     block(inc)
 }
@@ -87,6 +103,4 @@ inline fun Include.subs(ignoreIfNotExists: Boolean = false) {
         sub(it, ignoreIfNotExists)
     }
 }
-include("overtime-service-common")
-include("overtime-gateway")
-include("overtime-configuration")
+

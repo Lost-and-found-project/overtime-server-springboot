@@ -3,8 +3,6 @@ plugins {
 }
 val p = project
 
-dependencies {
-}
 
 subprojects {
     println(">> $p sub project: '$this' named $name")
@@ -17,7 +15,7 @@ subprojects {
         testCompileOnly(D.Lombok.NOTATION)
 
         if (name == "domain") {
-            api(project(":overtime-common:common-domain"))
+            api(commonProject("domain"))
             api(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
         }
 
@@ -47,13 +45,10 @@ subprojects {
         }
 
         if (name == "controller") {
-            /*
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-                <version>${latest.version}</version>
-            </dependency>
-             */
+            if (parent!!.name == "dictionary") {
+                // api(serviceProject("compensate", "api"))
+            }
+
             dependencyManagement {
                 imports {
                     mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
@@ -71,8 +66,6 @@ subprojects {
             api(D.R2dbc.Pool.NOTATION)
             api(D.R2dbc.Mysql.NOTATION)
         }
-
-
     }
 }
 println()

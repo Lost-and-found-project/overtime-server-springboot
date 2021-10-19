@@ -13,22 +13,28 @@ import reactor.core.publisher.Mono;
  * @author ForteScarlet
  */
 @FeignClient(DictionaryApiConstant.APPLICATION_NAME)
-@RequestMapping("/dictionaryType")
+@RequestMapping(DictionaryTypeApi.API_REQ_MAPPING)
 public interface DictionaryTypeApi {
+    String API_REQ_MAPPING = "/dictionaryType";
+
+
+    String ALL = "/all";
 
     /**
      * 查询所有的字典类型。
      * @return 所有的字典类型。
      */
-    @GetMapping("/all")
+    @GetMapping(ALL)
     Flux<DictionaryType> all();
+
+    String GET = "/get/{id}";
 
     /**
      * 根据ID查询。
      * @param id id
      * @return {@link DictionaryType}
      */
-    @GetMapping("/get/{id}")
+    @GetMapping(GET)
     Mono<DictionaryType> get(@PathVariable("id") Long id);
 
 
