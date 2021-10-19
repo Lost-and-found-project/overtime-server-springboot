@@ -11,4 +11,7 @@ dependencies {
     implementation(D.Spring.Boot.Aop.NOTATION_NOV)
     implementation(D.R2dbc.Pool.NOTATION)
     implementation(D.R2dbc.Mysql.NOTATION)
+
+    annotationProcessor(D.Lombok.NOTATION)
+    compileOnly(D.Lombok.NOTATION)
 }
