@@ -42,7 +42,10 @@ subprojects {
                 }
             }
             // feign compile only.
-            compileOnly(D.Spring.Cloud.Openfeign.NOTATION_NOV)
+            // compileOnly(D.Spring.Cloud.Openfeign.NOTATION_NOV)
+            compileOnly(D.FeignReactor.WebClient.NOTATION)
+            compileOnly(D.FeignReactor.Cloud.NOTATION)
+            compileOnly(D.FeignReactor.SpringConfiguration.NOTATION)
         }
 
         if (name.endsWith("-controller")) {

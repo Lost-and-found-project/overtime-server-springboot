@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.r2dbc.config.EnableR2dbcAuditing;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
+import reactivefeign.spring.config.EnableReactiveFeignClients;
 
 /**
  *
@@ -17,15 +18,9 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
  * @author ForteScarlet
  */
 @SuppressWarnings("ALL")
-@EnableAspectJAutoProxy
-@SpringBootApplication
-@EnableR2dbcAuditing
-@EnableR2dbcRepositories(basePackages = "org.overtime.*.repository")
-@ComponentScan("org.overtime.*.repository")
-@ComponentScan("org.overtime.*.controller")
-@ComponentScan("org.overtime.*.service")
-@ComponentScan("org.overtime.*.api")
+@OvertimeStandardApplication
 @EnableOvertimeHandler
-@EnableFeignClients(basePackages = "org.overtime.*.api") // Compile only
+@EnableReactiveFeignClients(basePackages = "org.overtime.*.api") // Compile only
+// @EnableFeignClients(basePackages = "org.overtime.*.api") // Compile only
 public abstract class StandaloneControllerApplication {
 }

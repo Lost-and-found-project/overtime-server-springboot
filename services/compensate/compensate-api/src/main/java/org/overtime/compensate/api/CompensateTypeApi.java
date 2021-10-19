@@ -14,10 +14,9 @@ import reactor.core.publisher.Flux;
  * @author ForteScarlet
  */
 @FeignClient(CompensateConstant.APPLICATION_NAME)
-@RestController(CompensateTypeApi.API_REQ_MAPPING)
+// @RequestMapping(CompensateTypeApi.API_REQ_MAPPING)
 public interface CompensateTypeApi {
     String API_REQ_MAPPING = "/compensateType";
-
     String FIND_BY_USER_ID = "/user/{userId}";
 
     /**
@@ -26,7 +25,7 @@ public interface CompensateTypeApi {
      * @param userId 用户ID
      * @return 补偿类型列表。
      */
-    @GetMapping(FIND_BY_USER_ID)
+    @GetMapping(API_REQ_MAPPING + FIND_BY_USER_ID)
     Flux<CompensateType> findByUserId(@PathVariable("userId") Long userId);
 
 }

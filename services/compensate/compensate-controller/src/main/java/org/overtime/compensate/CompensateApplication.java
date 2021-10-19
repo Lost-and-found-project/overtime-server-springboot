@@ -11,9 +11,9 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 /**
  * @author ForteScarlet
  */
+@SpringBootApplication // Unused yet.
 public class CompensateApplication {
     public static void main(String[] args) {
         SpringApp.runStandardResourcesApi(args);
-        // SpringApplication.run(CompensateApplication.class, args);
     }
 }

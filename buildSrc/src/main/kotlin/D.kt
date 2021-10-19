@@ -109,16 +109,49 @@ object D {
                 const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-gateway"
             }
 
+            // see https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/#reactive-support
+            // Use https://github.com/Playtika/feign-reactive to support spring webflux
+            /**
+             * @see FeignReactor
+             */
             object Openfeign {
+                // const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-openfeign"
                 const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-openfeign"
             }
+
 
             object Loadbalancer {
                 const val NOTATION_NOV = "$GROUP_ID:spring-cloud-loadbalancer"
             }
         }
+    }
 
 
+    object FeignReactor {
+        const val VERSION = "3.0.3"
+        const val GROUP_ID = "com.playtika.reactivefeign"
+
+        object WebClient {
+            const val NOTATION = "$GROUP_ID:feign-reactor-webclient:$VERSION"
+        }
+
+        object Cloud {
+            const val NOTATION = "$GROUP_ID:feign-reactor-cloud:$VERSION"
+        }
+
+        object SpringConfiguration {
+            const val NOTATION = "$GROUP_ID:feign-reactor-spring-configuration:$VERSION"
+        }
+    }
+
+    object OpenFeign {
+        /*
+         <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-slf4j</artifactId>
+            <version>11.2</version>
+        </dependency
+         */
     }
 
     /*
