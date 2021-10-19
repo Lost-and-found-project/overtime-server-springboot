@@ -7,6 +7,8 @@ includes("overtime-configuration") {
     sub("configuration-dataSource") // 数据源配置
 }
 
+include("overtime-gateway")
+
 includes("overtime-common") {
     sub("common-core")
     sub("common-domain")
@@ -14,15 +16,14 @@ includes("overtime-common") {
     sub("common-controller")
 }
 
-include("overtime-application")
-include("overtime-gateway")
+// include("overtime-application")
+// include("overtime-gateway")
 
-val modules =
-    listOf(
-        "domain", "repository",
-        "service", "service-impl",
-        "api", "controller"
-    )
+val modules = listOf(
+    "domain", "repository",
+    "service", "service-impl",
+    "api", "controller"
+)
 
 includes("services") {
     // 字典模块
