@@ -25,11 +25,11 @@ val modules = listOf(
 
 includes("services") {
     // 字典模块
-    sub("dictionary") { subs() }
+    sub("dictionary") { serviceSubs() }
     // 补偿模块
-    sub("compensate") { subs() }
+    sub("compensate") { serviceSubs() }
     // 用户模块
-    sub("user") { subs() }
+    sub("user") { serviceSubs() }
 }
 println()
 
@@ -50,11 +50,9 @@ annotation class IncDsl
 @kotlin.DslMarker
 annotation class IncOuterDsl
 
-class Include(parentPath: String?, path: String) {
-    private val path: String =
-        if (parentPath != null) "$parentPath:$path" else path
-    private val name: String =
-        if (parentPath != null) "$parentPath-$path" else path
+class Include(parentPath: String?, val id: String) {
+    internal val path: String =
+        if (parentPath != null) "$parentPath:$id" else id
 
     @Suppress("NOTHING_TO_INLINE")
     fun doInc(ignoreIfNotExists: Boolean = false) {
@@ -69,10 +67,6 @@ class Include(parentPath: String?, path: String) {
         }
         println("> Include $path")
         val p = project(":$path")
-        println(">> Project: $p")
-        println(">> Project.name: ${p.name}")
-        println(">> Name: $name")
-        println()
         // p.name = name
     }
 
@@ -97,11 +91,9 @@ fun includes(id: String, block: (Include.() -> Unit) = {}) {
 
 @IncOuterDsl
 @Suppress("NOTHING_TO_INLINE")
-fun Include.subs(ignoreIfNotExists: Boolean = false) {
-    // sub("domain", ignoreIfNotExists)
-    // sub("repository", ignoreIfNotExists)
+fun Include.serviceSubs(ignoreIfNotExists: Boolean = false) {
     modules.forEach {
-        sub(it, ignoreIfNotExists)
+        sub("$id-$it", ignoreIfNotExists)
     }
 }
 

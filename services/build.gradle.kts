@@ -14,27 +14,28 @@ subprojects {
         testAnnotationProcessor(D.Lombok.NOTATION)
         testCompileOnly(D.Lombok.NOTATION)
 
-        if (name == "domain") {
+        if (name.endsWith("-domain")) {
             api(commonProject("domain"))
             api(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
         }
 
-        if (name == "repository") {
-            api(findSameLevel("domain")!!)
+        if (name.endsWith("-repository")) {
+            api(findServicesSameLevel("domain")!!)
             api(D.Spring.Boot.Webflux.NOTATION_NOV)
         }
-        if (name == "service") {
-            api(findSameLevel("repository")!!)
+        if (name.endsWith("-service")) {
+            api(findServicesSameLevel("repository")!!)
         }
 
-        if (name == "service-impl") {
+        if (name.endsWith("-service-impl")) {
             // api(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
-            api(findSameLevel("service")!!)
+            api(findServicesSameLevel("service")!!)
             api(project(":overtime-common:common-service"))
         }
 
-        if (name == "api") {
-            api(findSameLevel("service")!!)
+        if (name.endsWith("-api")) {
+            implementation(findServicesSameLevel("service")!!)
+            api(findServicesSameLevel("domain")!!)
             dependencyManagement {
                 imports {
                     mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
@@ -44,11 +45,7 @@ subprojects {
             compileOnly(D.Spring.Cloud.Openfeign.NOTATION_NOV)
         }
 
-        if (name == "controller") {
-            if (parent!!.name == "dictionary") {
-                // api(serviceProject("compensate", "api"))
-            }
-
+        if (name.endsWith("-controller")) {
             dependencyManagement {
                 imports {
                     mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
@@ -56,8 +53,8 @@ subprojects {
                 }
             }
             implementation(configProject("dataSource"))
-            api(findSameLevel("service-impl")!!)
-            api(findSameLevel("api")!!)
+            api(findServicesSameLevel("service-impl")!!)
+            api(findServicesSameLevel("api")!!)
             api(configProject("handler"))
             api(commonProject("controller"))
             api(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)

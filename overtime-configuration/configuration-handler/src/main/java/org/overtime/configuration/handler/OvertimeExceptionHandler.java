@@ -23,7 +23,7 @@ public class OvertimeExceptionHandler {
         log.error("Exception handler.", exception);
 
         if (exception instanceof CodeMessageSupport) {
-            return Mono.just(Result.failure(((CodeMessageSupport) exception).getCode(), exception.getMessage(), exception.getLocalizedMessage()));
+            return Mono.just(Result.failure(((CodeMessageSupport) exception).getCode(), exception.getLocalizedMessage(), exception.toString()));
         }
 
         return Mono.just(Result.failure(exception.getLocalizedMessage()));

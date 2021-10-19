@@ -35,17 +35,17 @@ public class Result implements Serializable {
 
     private static class DefaultSuccessResult extends Result {
         private DefaultSuccessResult() {
-            super(defaultSuccessCode, defaultSuccessMsg, null);
+            super(defaultFailureCode, defaultFailureMsg, null);
         }
 
         @Override
         public int getCode() {
-            return defaultSuccessCode;
+            return defaultFailureCode;
         }
 
         @Override
         public @NotNull String getMessage() {
-            return defaultSuccessMsg;
+            return defaultFailureMsg;
         }
 
         @Override

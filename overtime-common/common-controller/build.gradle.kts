@@ -14,4 +14,5 @@ dependencies {
 
     annotationProcessor(D.Lombok.NOTATION)
     compileOnly(D.Lombok.NOTATION)
+    compileOnly(D.Spring.Cloud.Openfeign.NOTATION_NOV)
 }
