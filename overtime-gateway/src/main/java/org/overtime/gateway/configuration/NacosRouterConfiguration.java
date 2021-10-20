@@ -26,7 +26,6 @@ public class NacosRouterConfiguration implements ApplicationRunner {
                 nacosRouterProperties.getGroup(),
                 new GatewayRouterListener()
         );
-        System.out.println("Listener updated.");
     }
 
 

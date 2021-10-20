@@ -16,6 +16,14 @@ import reactor.core.publisher.Mono;
 // @SuppressWarnings("SpringFacetCodeInspection")
 // @Configuration
 public class RouteConfiguration implements RouteDefinitionRepository, ApplicationContextAware {
+    private ApplicationContext applicationContext;
+
+    @Override
+    public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
+
+
     @Override
     public Flux<RouteDefinition> getRouteDefinitions() {
         return null;
@@ -31,8 +39,4 @@ public class RouteConfiguration implements RouteDefinitionRepository, Applicatio
         return null;
     }
 
-    @Override
-    public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
-
-    }
 }

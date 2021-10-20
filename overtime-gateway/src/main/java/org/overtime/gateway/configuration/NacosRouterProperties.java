@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "overtime.router.nacos")
 @Data
 public class NacosRouterProperties {
-    // private String namesapce;
     private String dataId;
     private String group;
 }
