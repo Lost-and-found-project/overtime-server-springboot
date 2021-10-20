@@ -3,6 +3,8 @@ package org.overtime.gateway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
+import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
@@ -12,6 +14,14 @@ import org.springframework.context.ConfigurableApplicationContext;
 @EnableDiscoveryClient
 public class GatewayApplication {
     public static void main(String[] args) {
-       SpringApplication.run(GatewayApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(GatewayApplication.class, args);
+
+        RouteDefinitionWriter writer = context.getBean(RouteDefinitionWriter.class);
+        System.out.println(writer);
+        System.out.println(writer.getClass());
+
+        RouteDefinitionLocator locator = context.getBean(RouteDefinitionLocator.class);
+        System.out.println(locator);
+        System.out.println(locator.getClass());
     }
 }
