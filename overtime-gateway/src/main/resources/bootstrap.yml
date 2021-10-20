@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: overtime-gateway
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      config:
+        file-extension: yaml
+        server-addr: 127.0.0.1:8848
+        namespace: 381cc3a5-931b-4493-9606-61a8f41405f4
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+
+overtime:
+  router:
+    nacos:
+      data-id: gateway-router
+      group: DEFAULT_GROUP

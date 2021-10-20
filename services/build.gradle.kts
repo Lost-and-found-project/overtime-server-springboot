@@ -61,6 +61,10 @@ subprojects {
             api(configProject("handler"))
             api(commonProject("controller"))
             api(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
+            // 为所有的Controller提供配置中心支持
+            api(D.Alibaba.Cloud.Nacos.Config.NOTATION_NOV)
+            api(D.Spring.Cloud.Bootstrap.NOTATION_NOV)
+
             api(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
             api(D.Spring.Boot.Aop.NOTATION_NOV)
             api(D.R2dbc.Pool.NOTATION)

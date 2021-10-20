@@ -1,13 +1,12 @@
 @file:Suppress("NOTHING_TO_INLINE", "MemberVisibilityCanBePrivate")
 
 import org.gradle.api.artifacts.dsl.DependencyHandler
-import org.gradle.internal.impldep.org.bouncycastle.asn1.x500.style.RFC4519Style.name
 import org.gradle.kotlin.dsl.project
 
 @Suppress("PropertyName")
 abstract class DependencyNotation(val groupId: String, val name: String, val version: String? = null) {
-    inline val NOTATION get() = if (version == null) "$groupId:$name:$version" else "$groupId:$name"
-    inline val NOTATION_NOV get() = "$groupId:$name"
+    inline val NOTATION: String get() = if (version != null) "$groupId:$name:$version" else "$groupId:$name"
+    inline val NOTATION_NOV: String get() = "$groupId:$name"
     override fun toString(): String = NOTATION
 }
 
@@ -44,14 +43,17 @@ object D {
         // Springboot-starter-xxx
         sealed class Boot(groupId: String, name: String, version: String? = VERSION) :
             DependencyNotation(groupId, name, version) {
-            constructor(name: String, version: String? = VERSION): this(groupId = "org.springframework.boot", name = name, version = version)
+            constructor(name: String, version: String? = VERSION) : this(groupId = "org.springframework.boot",
+                name = name,
+                version = version)
 
             companion object {
                 const val VERSION = "2.5.5"
             }
 
 
-            sealed class Data(name: String, version: String? = VERSION) : Boot("org.springframework.data", name, version) {
+            sealed class Data(name: String, version: String? = VERSION) :
+                Boot("org.springframework.data", name, version) {
                 object Commons : Data("spring-data-commons", "2.5.5") // maybe not follow boot version.
 
                 ///// From Boot, but is data like.
@@ -64,8 +66,20 @@ object D {
 
             }
 
+            /*
+             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+            </dependency>
+             */
+            object Actuator : Boot("spring-boot-starter-actuator")
+
+
             object Aop : Boot("spring-boot-starter-aop")
             // const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-aop"
+
+
+            object Web : Boot("spring-boot-starter-web")
 
 
             // implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.5")
@@ -99,6 +113,8 @@ object D {
             object Dependencies : Cloud("spring-cloud-dependencies")
             // const val NOTATION = "$GROUP_ID:spring-cloud-dependencies:$VERSION"
 
+            // Enable bootstrap config file support.
+            object Bootstrap : Cloud("spring-cloud-starter-bootstrap")
 
             object Gateway : Cloud("spring-cloud-starter-gateway")
             // const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-gateway"
@@ -107,17 +123,19 @@ object D {
             // see https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/#reactive-support
             // Use https://github.com/Playtika/feign-reactive to support spring webflux
             /**
+             * 暂不支持 Reactive. 使用 [FeignReactor].
              * @see FeignReactor
              */
+            @Deprecated("Use Feign.Reactor", replaceWith = ReplaceWith("D.FeignReactor.SpringConfiguration"))
             object Openfeign : Cloud("spring-cloud-starter-openfeign")
             // const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-openfeign"
+
 
 
             object Loadbalancer : Cloud("spring-cloud-loadbalancer")
             // const val NOTATION_NOV = "$GROUP_ID:spring-cloud-loadbalancer"
         }
     }
-
 
     // see https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/#reactive-support
     // Use https://github.com/Playtika/feign-reactive to support spring webflux
