@@ -1,9 +1,8 @@
-spring:
-  # https://www.cnblogs.com/felordcn/archive/2020/07/29/13395095.html
-  r2dbc:
-    url: r2dbcs:mysql://127.0.0.1:3306/overtime
-    username: root
-    password: 12345678
+server:
+  port: 8088
 
-  jpa:
-    show-sql: true
+spring:
+  profiles:
+    include:
+      - dataSource
+

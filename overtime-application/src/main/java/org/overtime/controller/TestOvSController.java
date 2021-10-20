@@ -15,7 +15,7 @@ import java.util.Map;
  */
 @RestController
 @RequiredArgsConstructor
-public class TestController {
+public class TestOvSController {
 
     @GetMapping("/get/{num}")
     public Mono<Map<String, Integer>> get(@PathVariable("num") Integer num, ServerHttpRequest request) {

@@ -55,7 +55,6 @@ subprojects {
                     mavenBom(D.Alibaba.Cloud.Dependencies.NOTATION)
                 }
             }
-            implementation(configProject("dataSource"))
             api(findServicesSameLevel("service-impl")!!)
             api(findServicesSameLevel("api")!!)
             api(configProject("handler"))
