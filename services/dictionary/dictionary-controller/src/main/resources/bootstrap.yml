@@ -1,8 +1,13 @@
 spring:
+  profiles:
+    include:
+      - dataSource
+
   application:
     name: overtime-dictionary
   cloud:
     nacos:
+      # config by nacos
       config:
         file-extension: yaml
         server-addr: 127.0.0.1:8848

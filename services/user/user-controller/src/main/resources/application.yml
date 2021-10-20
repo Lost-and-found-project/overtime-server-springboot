@@ -1,22 +1,4 @@
-server:
-  port: 0
-
-
 spring:
-  profiles:
-    include:
-      - dataSource
-
-  application:
-    name: overtime-user
-#  # https://www.cnblogs.com/felordcn/archive/2020/07/29/13395095.html
-#  r2dbc:
-#    url: r2dbcs:mysql://127.0.0.1:3306/overtime
-#    username: root
-#    password: 12345678
-#  jpa:
-#    show-sql: true
-
   cloud:
     nacos:
       discovery:

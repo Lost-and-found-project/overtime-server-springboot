@@ -7,7 +7,7 @@
 - Java17
 - Spring Reactive (webflux)
 - Spring Data R2DBC
-- Nacos
+- 使用Nacos的配置中心与服务注册发现
 - Lombok
 
 

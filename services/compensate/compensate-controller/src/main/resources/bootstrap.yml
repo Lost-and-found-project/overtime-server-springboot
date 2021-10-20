@@ -1,4 +1,8 @@
 spring:
+  profiles:
+    include:
+      - dataSource
+
   application:
     name: overtime-compensate
   cloud:
