@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author ForteScarlet
  */
-@Configuration
+// @Configuration
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class NacosRouterConfiguration implements ApplicationRunner {
     private final NacosConfigManager manager;

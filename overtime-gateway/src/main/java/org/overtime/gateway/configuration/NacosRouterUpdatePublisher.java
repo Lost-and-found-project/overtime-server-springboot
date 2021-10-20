@@ -7,14 +7,13 @@ import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
 import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
-import org.springframework.stereotype.Service;
 
 /**
  * see https://www.cnblogs.com/jian0110/p/12862569.html
  * @author ForteScarlet
  */
 @Slf4j
-@Service
+// @Service
 public class NacosRouterUpdatePublisher implements ApplicationEventPublisherAware {
     @Autowired
     private RouteDefinitionWriter routeDefinitionWriter;

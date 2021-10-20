@@ -16,12 +16,5 @@ public class GatewayApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(GatewayApplication.class, args);
 
-        RouteDefinitionWriter writer = context.getBean(RouteDefinitionWriter.class);
-        System.out.println(writer);
-        System.out.println(writer.getClass());
-
-        RouteDefinitionLocator locator = context.getBean(RouteDefinitionLocator.class);
-        System.out.println(locator);
-        System.out.println(locator.getClass());
     }
 }

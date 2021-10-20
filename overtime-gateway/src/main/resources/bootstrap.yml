@@ -3,8 +3,6 @@ spring:
     name: overtime-gateway
   cloud:
     nacos:
-      username: nacos
-      password: nacos
       config:
         file-extension: yaml
         server-addr: 127.0.0.1:8848
