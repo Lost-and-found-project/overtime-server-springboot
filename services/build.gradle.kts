@@ -58,7 +58,6 @@ subprojects {
             api(findServicesSameLevel("service-impl")!!)
             api(findServicesSameLevel("api")!!)
             api(configProject("handler"))
-            api(commonProject("controller"))
 
             implementation(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
 
@@ -75,6 +74,7 @@ subprojects {
                     mavenBom(D.Alibaba.Cloud.Dependencies.NOTATION)
                 }
             }
+            implementation(commonProject("application"))
             implementation(findServicesSameLevel("controller")!!)
             implementation(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
             implementation(D.Alibaba.Cloud.Nacos.Config.NOTATION_NOV)

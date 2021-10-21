@@ -10,7 +10,7 @@ includes("overtime-common") {
     sub("common-core")
     sub("common-domain")
     sub("common-service")
-    sub("common-controller")
+    sub("common-application")
 }
 
 include("overtime-gateway")

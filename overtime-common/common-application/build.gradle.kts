@@ -14,6 +14,7 @@ dependencies {
 
     annotationProcessor(D.Lombok.NOTATION)
     compileOnly(D.Lombok.NOTATION)
+    @Suppress("DEPRECATION")
     compileOnly(D.Spring.Cloud.Openfeign.NOTATION_NOV)
     compileOnly(D.FeignReactor.SpringConfiguration.NOTATION)
 
