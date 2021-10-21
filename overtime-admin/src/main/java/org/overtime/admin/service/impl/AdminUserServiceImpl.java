@@ -15,9 +15,7 @@ import org.overtime.common.service.StandardR2dbcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
-import org.springframework.data.relational.core.query.Criteria;
-import org.springframework.data.relational.core.query.Query;
-import org.springframework.data.relational.core.sql.Where;
+import org.springframework.data.r2dbc.dialect.R2dbcDialect;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -58,6 +56,9 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
     @Override
     public Flux<AdminUser> queryUserPaged(AdminUserListQueryDTO queryDTO) {
 
+        final AdminUserRepository repository = getRepository();
+
+
         // template.select(AdminUser.class).from("admin_user").matching(
         //         Query.query(Criteria.where("name").is("a"))
         // )
@@ -75,14 +76,9 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
 
         // return template.select(AdminUser.class).all().limitRate(queryDTO.getPage(), queryDTO.getSize());
 
-        System.out.println(queryDTO);
 
         final Pageable pageable = queryDTO.getPageable();
-        System.out.println(pageable.getOffset());
-        System.out.println(pageable.getPageSize());
-        System.out.println(pageable.getPageNumber());
-
-        return getRepository().selectAdminUser(pageable.getOffset(), pageable.getPageSize());
+        return repository.selectAdminUser(pageable.getOffset(), pageable.getPageSize());
 
     }
 }

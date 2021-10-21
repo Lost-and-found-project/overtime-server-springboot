@@ -233,7 +233,18 @@ object D {
 
         }
 
+    }
 
+    /**
+     * https://querydsl.com/
+     */
+    sealed class Querydsl(name: String) : DependencyNotation(GROUP_ID, "querydsl-sql-$name", VERSION) {
+        companion object {
+            const val GROUP_ID = "com.querydsl"
+            const val VERSION = "5.0.0"
+        }
+
+        object Spring : Querydsl("spring")
     }
 
 

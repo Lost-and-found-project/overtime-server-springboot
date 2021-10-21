@@ -25,8 +25,14 @@ public interface AdminUserRepository extends StandardOvertimeRepository<AdminUse
 
     // QuerydslPredicateExecutor
 
-    @Query("SELECT * FROM admin_user LIMIT :offset, :size")
-    Flux<AdminUser> selectAdminUser(@Param("offset") Long offset, @Param("size") Integer size);
+    @Query("""
+        SELECT * FROM admin_user LIMIT :offset, :size
+    """)
+    Flux<AdminUser> selectAdminUser(
+            @Param("offset") Long offset,
+            @Param("size") Integer size
+    );
     // Flux<AdminUser> selectAdminUser(@Param("offset") Long offset, @Param("size") Integer size);
 
+    // SELECT * FROM admin_user LIMIT :offset, :size
 }
