@@ -21,6 +21,7 @@
 - `overtime-configuration`: 与配置相关的父模块。
   - `configuration-handler`: 针对响应值统一处理、异常统一拦截的配置模块。
 - `overtime-gateway`: 网关模块。
+- `overtime-admin`: 后台管理模块。
 - `services`: 所有的服务模块。
   - `${service-name}`: 某服务的父模块。
     - `${service-name}-domain`: 提供domain定义的模块。
