@@ -1,6 +1,6 @@
 package org.overtime.common.service;
 
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.data.r2dbc.repository.R2dbcRepository;
 
 import java.io.Serializable;
 
@@ -11,10 +11,9 @@ import java.io.Serializable;
  *
  * @author ForteScarlet
  */
-public abstract class StandardReactiveCrudService<T, ID extends Serializable, REP extends ReactiveCrudRepository<T, ID>> extends BaseReactiveCrudService<T, ID, REP> {
+public abstract class StandardR2dbcService<T, ID extends Serializable, REP extends R2dbcRepository<T, ID>> extends BaseR2dbcService<T, ID, REP> {
     private final REP repository;
-
-    protected StandardReactiveCrudService(REP repository) {
+    public StandardR2dbcService(REP repository) {
         this.repository = repository;
     }
 

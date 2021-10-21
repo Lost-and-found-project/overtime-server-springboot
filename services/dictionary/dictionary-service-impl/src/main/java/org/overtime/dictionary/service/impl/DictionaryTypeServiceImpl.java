@@ -1,6 +1,6 @@
 package org.overtime.dictionary.service.impl;
 
-import org.overtime.common.service.StandardReactiveCrudService;
+import org.overtime.common.service.StandardR2dbcService;
 import org.overtime.dictionary.domain.DictionaryType;
 import org.overtime.dictionary.repository.DictionaryTypeRepository;
 import org.overtime.dictionary.service.DictionaryTypeService;
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  * @author ForteScarlet
  */
 @Service
-public class DictionaryTypeServiceImpl extends StandardReactiveCrudService<DictionaryType, Long, DictionaryTypeRepository> implements DictionaryTypeService {
+public class DictionaryTypeServiceImpl extends StandardR2dbcService<DictionaryType, Long, DictionaryTypeRepository> implements DictionaryTypeService {
 
     @Autowired
     DictionaryTypeServiceImpl(DictionaryTypeRepository repository) {

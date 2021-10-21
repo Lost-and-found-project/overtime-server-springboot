@@ -21,6 +21,11 @@ dependencies {
     implementation(D.Alibaba.Cloud.Nacos.Config.NOTATION_NOV)
     implementation(D.Spring.Boot.Actuator.NOTATION_NOV)
 
+    // R2dbc
+    implementation(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
+    implementation(D.R2dbc.Mysql.NOTATION)
+    implementation(D.R2dbc.Pool.NOTATION)
+
 
 
 }

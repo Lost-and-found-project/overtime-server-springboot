@@ -1,5 +1,6 @@
 package org.overtime.common.service;
 
+import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -15,7 +16,7 @@ import java.io.Serializable;
  * @author ForteScarlet
  */
 @SuppressWarnings("unused")
-public abstract class BaseReactiveCrudService<T, ID extends Serializable, REP extends ReactiveCrudRepository<T, ID>> {
+public abstract class BaseR2dbcService<T, ID extends Serializable, REP extends R2dbcRepository<T, ID>> {
 
     /**
      * 得到一个 {@link ReactiveCrudRepository} 实例。
