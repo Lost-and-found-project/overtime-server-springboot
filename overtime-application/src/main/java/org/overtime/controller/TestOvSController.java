@@ -30,7 +30,7 @@ public class TestOvSController {
     @GetMapping("/got/{num}")
     public Integer got(@PathVariable("num") Integer num) {
         if (num == 0) {
-            throw new IllegalArgumentException("不能是1! ");
+            throw new IllegalArgumentException("不能是0! ");
         }
         return num;
     }

@@ -196,11 +196,15 @@ object D {
 
 
             sealed class Nacos(name: String) : Cloud(name) {
-                object Discovery : Nacos("spring-cloud-starter-alibaba-nacos-discovery")
+                object Discovery : Nacos("spring-cloud-starter-alibaba-nacos-discovery") {
+                    const val MODULE = "spring-cloud-starter-alibaba-nacos-discovery"
+                }
                 // const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-alibaba-nacos-discovery"
 
 
-                object Config : Nacos("spring-cloud-starter-alibaba-nacos-config")
+                object Config : Nacos("spring-cloud-starter-alibaba-nacos-config") {
+                    const val MODULE = "spring-cloud-starter-alibaba-nacos-config"
+                }
                 // const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-alibaba-nacos-config"
 
             }

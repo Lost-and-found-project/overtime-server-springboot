@@ -12,7 +12,7 @@
 
 
 ## 基本结构：
-- `overtime-application`: 测试用启动器。*未来为改造为fatJar(单机)模块*。
+- `overtime-application`: 所有服务的单机模块。
 - `overtime-common`: 公共模块的父模块。
   - `overtime-core`: 没有特别所属，供全局使用的公共模块，一般提供一些工具类、响应数据封装等内容。
   - `overtime-controller`: 为Controller模块服务的公共模块，其中提供了针对于启动器Application的配置工具等内容。

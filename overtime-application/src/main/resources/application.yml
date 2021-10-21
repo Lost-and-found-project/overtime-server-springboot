@@ -1,8 +1,11 @@
 server:
-  port: 8088
+  port: 8080
 
 spring:
   profiles:
     include:
       - dataSource
 
+
+  main:
+    allow-bean-definition-overriding: true

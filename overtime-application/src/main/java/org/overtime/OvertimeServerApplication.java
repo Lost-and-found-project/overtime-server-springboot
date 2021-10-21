@@ -19,7 +19,7 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 @EnableR2dbcRepositories
 @EnableR2dbcAuditing
 @EnableOvertimeHandler
-@ComponentScan("org.overtime")
+// @ComponentScan("org.overtime")
 public class OvertimeServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(OvertimeServerApplication.class, args);

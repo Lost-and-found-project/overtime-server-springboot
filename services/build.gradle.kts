@@ -59,15 +59,26 @@ subprojects {
             api(findServicesSameLevel("api")!!)
             api(configProject("handler"))
             api(commonProject("controller"))
-            api(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
-            // 为所有的Controller提供配置中心支持
-            api(D.Alibaba.Cloud.Nacos.Config.NOTATION_NOV)
-            api(D.Spring.Cloud.Bootstrap.NOTATION_NOV)
+
+            implementation(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
 
             api(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
             api(D.Spring.Boot.Aop.NOTATION_NOV)
             api(D.R2dbc.Pool.NOTATION)
             api(D.R2dbc.Mysql.NOTATION)
+        }
+
+        if (name.endsWith("-application")) {
+            dependencyManagement {
+                imports {
+                    mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
+                    mavenBom(D.Alibaba.Cloud.Dependencies.NOTATION)
+                }
+            }
+            implementation(findServicesSameLevel("controller")!!)
+            implementation(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
+            implementation(D.Alibaba.Cloud.Nacos.Config.NOTATION_NOV)
+            implementation(D.Spring.Cloud.Bootstrap.NOTATION_NOV)
         }
     }
 }

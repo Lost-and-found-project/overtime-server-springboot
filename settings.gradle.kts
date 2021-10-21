@@ -18,7 +18,7 @@ include("overtime-gateway")
 val modules = listOf(
     "domain", "repository",
     "service", "service-impl",
-    "api", "controller"
+    "api", "controller", "application"
 )
 
 includes("services") {
