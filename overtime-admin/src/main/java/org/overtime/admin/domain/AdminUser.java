@@ -22,6 +22,6 @@ public record AdminUser(
         Long username,
         Long password,
         LocalDateTime createTime,
-        Integer status
+        Short status
 ) {
 }

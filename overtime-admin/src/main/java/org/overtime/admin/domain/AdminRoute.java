@@ -3,6 +3,9 @@ package org.overtime.admin.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * 管理权限的路由信息
  *
@@ -11,6 +14,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("admin_route")
 public record AdminRoute(
         @Id Integer id,
-        String route
+        String route,
+        LocalDateTime create_time
 ) {
 }

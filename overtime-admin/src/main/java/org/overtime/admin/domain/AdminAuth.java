@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Table("admin_auth")
 public record AdminAuth(
         @Id Integer id,
+        String key,
         String name,
         LocalDateTime createTime
 ) {

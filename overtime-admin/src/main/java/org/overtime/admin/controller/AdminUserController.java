@@ -20,20 +20,11 @@ import reactor.core.publisher.Mono;
 public class AdminUserController {
     private final AdminUserService adminUserService;
 
-    @GetMapping("/test1")
-    public Mono<AdminUserListQueryParamVO> test() {
-        return Mono.error(new NullPointerException("test1"));
-    }
-
-    @GetMapping("/test2")
-    public Mono<AdminUserListQueryParamVO> test2() {
-        throw new NullPointerException("test2");
-    }
-
+    /**
+     * 获取列表查询参数。
+     */
     @GetMapping("/listQueryParam")
     public Mono<AdminUserListQueryParamVO> getUserListQueryParam() {
-
-
         return adminUserService.getUserListQueryParam();
     }
 
