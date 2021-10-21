@@ -1,6 +1,6 @@
 package org.overtime.admin.repository;
 
-import org.overtime.admin.domain.AdminRoute;
+import org.overtime.admin.bean.domain.AdminRoute;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.stereotype.Repository;
 

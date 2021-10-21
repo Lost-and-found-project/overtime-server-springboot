@@ -1,4 +1,4 @@
-package org.overtime.admin.domain;
+package org.overtime.admin.bean.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;

@@ -1,6 +1,6 @@
 package org.overtime.admin.service;
 
-import org.overtime.admin.vo.AdminUserListQueryParamVO;
+import org.overtime.admin.bean.vo.AdminUserListQueryParamVO;
 import reactor.core.publisher.Mono;
 
 /**

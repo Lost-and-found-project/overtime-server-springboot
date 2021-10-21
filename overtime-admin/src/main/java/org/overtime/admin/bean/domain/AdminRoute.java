@@ -1,4 +1,4 @@
-package org.overtime.admin.domain;
+package org.overtime.admin.bean.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
@@ -6,15 +6,14 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.time.LocalDateTime;
 
 /**
- * 管理权限信息
+ * 管理权限的路由信息
  *
  * @author ForteScarlet
  */
-@Table("admin_auth")
-public record AdminAuth(
+@Table("admin_route")
+public record AdminRoute(
         @Id Integer id,
-        String key,
-        String name,
-        LocalDateTime createTime
+        String route,
+        LocalDateTime create_time
 ) {
 }

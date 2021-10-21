@@ -1,6 +1,6 @@
 package org.overtime.admin.service;
 
-import org.overtime.admin.domain.AdminRole;
+import org.overtime.admin.bean.domain.AdminRole;
 import reactor.core.publisher.Mono;
 
 /**

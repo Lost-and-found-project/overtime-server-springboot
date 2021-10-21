@@ -1,12 +1,12 @@
 package org.overtime.admin.service.impl;
 
-import org.overtime.admin.domain.AdminUser;
+import org.overtime.admin.bean.domain.AdminUser;
 import org.overtime.admin.repository.AdminAuthRepository;
 import org.overtime.admin.repository.AdminRoleRepository;
 import org.overtime.admin.repository.AdminRouteRepository;
 import org.overtime.admin.repository.AdminUserRepository;
 import org.overtime.admin.service.AdminUserService;
-import org.overtime.admin.vo.AdminUserListQueryParamVO;
+import org.overtime.admin.bean.vo.AdminUserListQueryParamVO;
 import org.overtime.common.service.StandardR2dbcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

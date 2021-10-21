@@ -1,4 +1,4 @@
-package org.overtime.admin.dto;
+package org.overtime.admin.bean.dto;
 
 import lombok.Data;
 

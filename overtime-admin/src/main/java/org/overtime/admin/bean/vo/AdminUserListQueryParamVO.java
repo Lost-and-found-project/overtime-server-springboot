@@ -1,8 +1,8 @@
-package org.overtime.admin.vo;
+package org.overtime.admin.bean.vo;
 
-import org.overtime.admin.domain.AdminAuth;
-import org.overtime.admin.domain.AdminRole;
-import org.overtime.admin.domain.AdminRoute;
+import org.overtime.admin.bean.domain.AdminAuth;
+import org.overtime.admin.bean.domain.AdminRole;
+import org.overtime.admin.bean.domain.AdminRoute;
 
 import java.util.List;
 

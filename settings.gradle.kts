@@ -11,7 +11,7 @@ includes("overtime-common") {
     sub("common-domain")
     sub("common-service")
     sub("common-application")
-    sub("common-dataMapping")
+    sub("common-jwt")
 }
 
 include("overtime-gateway")

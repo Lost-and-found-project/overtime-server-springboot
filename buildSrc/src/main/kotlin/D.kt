@@ -7,7 +7,7 @@ import org.gradle.kotlin.dsl.project
 abstract class DependencyNotation(val groupId: String, val name: String, val version: String? = null) {
     inline val NOTATION: String get() = if (version != null) "$groupId:$name:$version" else "$groupId:$name"
     inline val NOTATION_NOV: String get() = "$groupId:$name"
-    override fun toString(): String = NOTATION
+    override fun toString(): String = "DependencyNotation(notation=$NOTATION)"
 }
 
 /**
@@ -210,6 +210,33 @@ object D {
             }
         }
     }
+
+    /**
+     * Jwt 实现
+     */
+    sealed class Jwt(groupId: String, name: String, version: String): DependencyNotation(groupId, name, version) {
+
+        /**
+         * see https://github.com/auth0/java-jwt
+         */
+        object JavaJwt : Jwt("com.auth0", "java-jwt", "3.18.2")
+        sealed class Jjwt(name: String) : Jwt("io.jsonwebtoken", "jjwt-$name", VERSION) {
+            companion object {
+                const val VERSION = "0.11.2"
+            }
+
+
+            object Api : Jjwt("api")
+            object Impl : Jjwt("impl") // runtimeOnly
+            object Jackson : Jjwt("jackson") // runtimeOnly
+            object Gson : Jjwt("gson") // runtimeOnly
+
+        }
+
+
+    }
+
+
 }
 
 

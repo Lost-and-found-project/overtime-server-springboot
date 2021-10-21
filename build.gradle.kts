@@ -46,30 +46,17 @@ subprojects {
         testRuntimeOnly(D.Jupiter.Engine.NOTATION)
     }
 
+    tasks.getByName<Test>("test") {
+        // useJUnitPlatform()
+        useJUnit()
+    }
+
 }
-
-
-// configurations {
-//     compileOnly {
-//         extendsFrom annotationProcessor
-//     }
-// }
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    // implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    // implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
-    // implementation("∂org.springframework.boot:spring-boot-starter-data-redis-reactive")
-    // implementation("org.springframework.boot:spring-boot-starter-webflux")
-    // compileOnly("org.projectlombok:lombok")
-    // annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-    // annotationProcessor("org.projectlombok:lombok")
-    // testImplementation("org.springframework.boot:spring-boot-starter-test")
-    // testImplementation("io.projectreactor:reactor-test")
-}
 
 tasks.forEach {
     it.enabled = false

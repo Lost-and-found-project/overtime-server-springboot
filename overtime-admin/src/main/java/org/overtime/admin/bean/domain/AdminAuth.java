@@ -1,20 +1,20 @@
-package org.overtime.admin.domain;
+package org.overtime.admin.bean.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * 管理权限的路由信息
+ * 管理权限信息
  *
  * @author ForteScarlet
  */
-@Table("admin_route")
-public record AdminRoute(
+@Table("admin_auth")
+public record AdminAuth(
         @Id Integer id,
-        String route,
-        LocalDateTime create_time
+        String key,
+        String name,
+        LocalDateTime createTime
 ) {
 }

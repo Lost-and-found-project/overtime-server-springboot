@@ -2,7 +2,7 @@ package org.overtime.admin.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.overtime.admin.service.AdminUserService;
-import org.overtime.admin.vo.AdminUserListQueryParamVO;
+import org.overtime.admin.bean.vo.AdminUserListQueryParamVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
