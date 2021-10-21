@@ -1,13 +1,14 @@
 package org.overtime.admin.repository;
 
-import org.overtime.admin.domain.AdminRole;
+import org.overtime.admin.domain.AdminUser;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * 角色repo
+ * 用户repo
+ *
  * @author ForteScarlet
  */
 @Repository
-public interface AdminRoleRepository extends R2dbcRepository<AdminRole, Integer> {
+public interface AdminUserRepository extends R2dbcRepository<AdminUser, Integer> {
 }

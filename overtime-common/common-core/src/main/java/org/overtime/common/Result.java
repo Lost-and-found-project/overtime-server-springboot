@@ -57,17 +57,17 @@ public class Result implements Serializable {
 
     private static class DefaultFailureResult extends Result {
         private DefaultFailureResult() {
-            super(defaultSuccessCode, defaultSuccessMsg, null);
+            super(defaultFailureCode, defaultFailureMsg, null);
         }
 
         @Override
         public int getCode() {
-            return defaultSuccessCode;
+            return defaultFailureCode;
         }
 
         @Override
         public @NotNull String getMessage() {
-            return defaultSuccessMsg;
+            return defaultFailureMsg;
         }
 
         @Override
@@ -158,6 +158,7 @@ public class Result implements Serializable {
         }
         return failure(FAILURE.getCode(), msg, null);
     }
+
 
     public static Result failure(int code, @NotNull String msg, Object data) {
         if (data == null && FAILURE.getCode() == code && FAILURE.getMessage().equals(msg)) {

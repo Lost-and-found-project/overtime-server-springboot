@@ -14,6 +14,7 @@ dependencies {
     implementation(commonProject("domain"))
     implementation(commonProject("service"))
     implementation(commonProject("application"))
+    implementation(commonProject("dataMapping"))
     implementation(configProject("handler"))
     implementation(D.Spring.Cloud.Bootstrap.NOTATION_NOV)
     // 服务发现，但是不注册服务

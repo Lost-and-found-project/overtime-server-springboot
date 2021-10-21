@@ -1,3 +1,3 @@
-dependencies {
-    implementation(D.Spring.Boot.Data.R2dbc.NOTATION)
-}
+// dependencies {
+//     implementation(D.Spring.Boot.Data.R2dbc.NOTATION)
+// }
