@@ -58,7 +58,7 @@ class Include(parentPath: String?, val id: String) {
             include(path)
         }
         println("> Include $path")
-        val p = project(":$path")
+        // val p = project(":$path")
         // p.name = name
     }
 
