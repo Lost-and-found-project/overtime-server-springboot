@@ -1,9 +1,5 @@
 package org.overtime.admin.bean.vo;
 
-import org.overtime.admin.bean.domain.AdminAuth;
-import org.overtime.admin.bean.domain.AdminRole;
-import org.overtime.admin.bean.domain.AdminRoute;
-
 import java.util.List;
 
 /**
@@ -13,8 +9,8 @@ import java.util.List;
  * @author ForteScarlet
  */
 public record AdminUserListQueryParamVO(
-        List<AdminRole> roles,
-        List<AdminAuth> auths,
-        List<AdminRoute> routes
+        List<RoleVO> roles,
+        List<AuthVO> auths,
+        List<RouteVO> routes
 ) {
 }

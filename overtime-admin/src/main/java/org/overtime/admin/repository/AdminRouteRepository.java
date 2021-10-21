@@ -1,6 +1,7 @@
 package org.overtime.admin.repository;
 
 import org.overtime.admin.bean.domain.AdminRoute;
+import org.overtime.common.repository.StandardOvertimeRepository;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +11,5 @@ import org.springframework.stereotype.Repository;
  * @author ForteScarlet
  */
 @Repository
-public interface AdminRouteRepository extends R2dbcRepository<AdminRoute, Integer> {
+public interface AdminRouteRepository extends StandardOvertimeRepository<AdminRoute, Integer> {
 }

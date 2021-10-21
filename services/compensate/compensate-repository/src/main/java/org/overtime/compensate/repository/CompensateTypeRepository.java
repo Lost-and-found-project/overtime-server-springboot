@@ -1,6 +1,7 @@
 package org.overtime.compensate.repository;
 
 import org.overtime.common.domain.CompensateType;
+import org.overtime.common.repository.StandardOvertimeRepository;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.data.repository.query.Param;
@@ -12,7 +13,7 @@ import reactor.core.publisher.Flux;
  * @author ForteScarlet
  */
 @Repository
-public interface CompensateTypeRepository extends R2dbcRepository<CompensateType, Long> {
+public interface CompensateTypeRepository extends StandardOvertimeRepository<CompensateType, Long> {
 
     /**
      * 取出第一条数据

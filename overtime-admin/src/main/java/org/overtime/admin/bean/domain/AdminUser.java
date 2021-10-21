@@ -19,8 +19,8 @@ import java.time.LocalDateTime;
 public record AdminUser(
         @Id
         Integer id,
-        Long username,
-        Long password,
+        String username,
+        String password,
         LocalDateTime createTime,
         Short status
 ) {

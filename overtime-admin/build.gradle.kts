@@ -16,6 +16,7 @@ dependencies {
     implementation(commonProject("core"))
     implementation(commonProject("domain"))
     implementation(commonProject("service"))
+    implementation(commonProject("repository"))
     implementation(commonProject("application"))
     implementation(commonProject("jwt"))
     //endregion

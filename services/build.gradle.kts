@@ -21,6 +21,7 @@ subprojects {
 
         if (name.endsWith("-repository")) {
             api(findServicesSameLevel("domain")!!)
+            api(commonProject("repository"))
             api(D.Spring.Boot.Webflux.NOTATION_NOV)
         }
         if (name.endsWith("-service")) {
