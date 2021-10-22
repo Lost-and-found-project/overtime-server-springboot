@@ -1,54 +1,29 @@
 package org.overtime.admin.bean.domain;
 
 import java.io.Serial;
-import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
+
+import lombok.Value;
 import org.overtime.common.domain.View;
+import org.springframework.data.relational.core.mapping.Table;
 
-@Data
-public class AdminUserWithRole implements View {
-    /**
-     *
-     */
-    private Integer id;
 
-    /**
-     *
-     */
-    private String username;
-
-    /**
-     *
-     */
-    private String password;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 状态码。-1：停用，0：正常
-     * 用户的过期状态在查询的时候进行检测与设置。
-     */
-    private Short status;
-
-    /**
-     *
-     */
-    private Integer roleId;
-
-    /**
-     * 角色名称，不可重复
-     */
-    private String roleName;
-
-    /**
-     * 创建日期
-     */
-    private Date roleCreateTime;
-
+/**
+ * @param id              ID
+ * @param username        用户名
+ * @param password        密码
+ * @param createTime      用户创建时间
+ * @param status          用户状态
+ * @param roleId          角色ID
+ * @param roleName        角色名称，不可重复
+ * @param roleCreateTime  创建日期
+ *
+ * @author forte
+ */
+@Table("admin_user_with_role")
+public record AdminUserWithRole(Integer id, String username, String password,
+                                Date createTime, Short status, Integer roleId,
+                                String roleName, Date roleCreateTime) implements View {
     @Serial
     private static final long serialVersionUID = 1L;
 }

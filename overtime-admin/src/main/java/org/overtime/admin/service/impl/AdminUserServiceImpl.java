@@ -2,29 +2,22 @@ package org.overtime.admin.service.impl;
 
 import org.overtime.admin.bean.domain.AdminUser;
 import org.overtime.admin.bean.dto.AdminUserListQueryDTO;
-import org.overtime.admin.bean.vo.AdminUserListQueryParamVO;
-import org.overtime.admin.bean.vo.AuthVO;
-import org.overtime.admin.bean.vo.RoleVO;
-import org.overtime.admin.bean.vo.RouteVO;
+import org.overtime.admin.bean.vo.*;
 import org.overtime.admin.repository.AdminAuthRepository;
 import org.overtime.admin.repository.AdminRoleRepository;
 import org.overtime.admin.repository.AdminRouteRepository;
 import org.overtime.admin.repository.AdminUserRepository;
 import org.overtime.admin.service.AdminUserService;
 import org.overtime.common.service.StandardR2dbcService;
+import org.overtime.common.service.utils.CriteriaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
-import org.springframework.data.r2dbc.core.StatementMapper;
 import org.springframework.data.relational.core.query.Criteria;
-import org.springframework.data.relational.core.query.CriteriaDefinition;
 import org.springframework.data.relational.core.query.Query;
 import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.time.LocalDateTime;
 
 /**
  * @author ForteScarlet
@@ -64,26 +57,43 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
     }
 
     @Override
-    public Flux<AdminUser> queryUserPaged(AdminUserListQueryDTO queryDTO) {
-        // final AdminUserRepository repository = getRepository();
-        System.out.println(template);
-        // Criteria.where("")
+    public Flux<AdminUserViewSupport> queryUserPaged(AdminUserListQueryDTO queryDTO) {
+        Criteria criteria = Criteria.empty();
+        final var name = queryDTO.getName();
+        criteria = CriteriaUtil.notNull(criteria, "username", name, (c, v) -> c.like("%" + v + "%"));
 
-        var baseTableName = "ad_user";
-        var sqlBuilder = new StringBuilder("SELECT id, username, password, create_time, status FROM admin_user ").append(baseTableName).append(" ");
-        queryDTO.join(baseTableName, sqlBuilder);
+        final var roles = queryDTO.getRoles();
+        final var auths = queryDTO.getAuths();
+        final var routes = queryDTO.getRoutes();
 
-        // System.out.println(sqlBuilder);
+        criteria = CriteriaUtil.andInIfNotEmpty(criteria, "role_id", roles);
+        criteria = CriteriaUtil.andInIfNotEmpty(criteria, "auth_id", auths);
+        criteria = CriteriaUtil.andInIfNotEmpty(criteria, "route_id", routes);
 
-        var genericExecuteSpec = databaseClient.sql(sqlBuilder.toString());
-        return queryDTO.bind(genericExecuteSpec).map((row) -> {
-            var id = row.get("id", Integer.class);
-            var username = row.get("username", String.class);
-            var password = row.get("password", String.class);
-            var createTime = row.get("create_time", LocalDateTime.class);
-            var status = row.get("status", Short.class);
-            return new AdminUser(id, username, password, createTime, status);
-        }).all();
+        final Query query = Query.query(criteria);
+
+
+        System.out.println("criteria = " + criteria);
+        System.out.println("query = " + query);
+
+        return template.select(query, AdminUserViewSupport.class);
+
+        //
+        // var baseTableName = "ad_user";
+        // var sqlBuilder = new StringBuilder("SELECT id, username, password, create_time, status FROM admin_user ").append(baseTableName).append(" ");
+        // queryDTO.join(baseTableName, sqlBuilder);
+        //
+        // // System.out.println(sqlBuilder);
+        //
+        // var genericExecuteSpec = databaseClient.sql(sqlBuilder.toString());
+        // return queryDTO.bind(genericExecuteSpec).map((row) -> {
+        //     var id = row.get("id", Integer.class);
+        //     var username = row.get("username", String.class);
+        //     var password = row.get("password", String.class);
+        //     var createTime = row.get("create_time", LocalDateTime.class);
+        //     var status = row.get("status", Short.class);
+        //     return new AdminUser(id, username, password, createTime, status);
+        // }).all();
 
         // statementMapper.createSelect("admin_user")
         //         .doWithTable((t, s) -> {
@@ -111,4 +121,6 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
         // return repository.findAdminUser(pageable.getOffset(), pageable.getPageSize());
 
     }
+
+
 }

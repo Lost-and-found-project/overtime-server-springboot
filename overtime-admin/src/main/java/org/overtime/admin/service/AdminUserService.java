@@ -3,6 +3,7 @@ package org.overtime.admin.service;
 import org.overtime.admin.bean.domain.AdminUser;
 import org.overtime.admin.bean.dto.AdminUserListQueryDTO;
 import org.overtime.admin.bean.vo.AdminUserListQueryParamVO;
+import org.overtime.admin.bean.vo.AdminUserViewSupport;
 import org.springframework.data.domain.Page;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -23,5 +24,5 @@ public interface AdminUserService {
      * @param queryDTO params
      * @return Page AdminUser
      */
-    Flux<AdminUser> queryUserPaged(AdminUserListQueryDTO queryDTO);
+    Flux<AdminUserViewSupport> queryUserPaged(AdminUserListQueryDTO queryDTO);
 }

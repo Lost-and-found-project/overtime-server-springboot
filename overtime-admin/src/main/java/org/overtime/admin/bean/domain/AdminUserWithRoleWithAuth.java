@@ -1,74 +1,35 @@
 package org.overtime.admin.bean.domain;
 
 import java.io.Serial;
-import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
+
+import lombok.Value;
 import org.overtime.common.domain.View;
+import org.springframework.data.relational.core.mapping.Table;
 
-@Data
-public class AdminUserWithRoleWithAuth implements View {
-    /**
-     * ID
-     */
-    private Integer id;
 
-    /**
-     * 登录用户名。不可重复，只能是英文
-     */
-    private String username;
-
-    /**
-     * 登录密码。考虑加密
-     */
-    private String password;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 状态码。-1：停用，0：正常
-     * 用户的过期状态在查询的时候进行检测与设置。
-     */
-    private Short status;
-
-    /**
-     * 角色ID
-     */
-    private Integer roleId;
-
-    /**
-     * 角色名称，不可重复
-     */
-    private String roleName;
-
-    /**
-     * 创建日期
-     */
-    private Date roleCreateTime;
-
-    /**
-     * 权限ID
-     */
-    private Integer authId;
-
-    /**
-     * 权限key，应该为全英文，不可重复
-     */
-    private String authKey;
-
-    /**
-     * 权限描述名称
-     */
-    private String authName;
-
-    /**
-     * 创建时间
-     */
-    private Date authCreateTime;
-
+/**
+ * @param id              ID
+ * @param username        用户名
+ * @param password        密码
+ * @param createTime      用户创建时间
+ * @param status          用户状态
+ * @param roleId          角色ID
+ * @param roleName        角色名称，不可重复
+ * @param roleCreateTime  创建日期
+ * @param authId          权限ID
+ * @param authKey         权限key，应该为全英文，不可重复
+ * @param authName        权限描述名称
+ * @param authCreateTime  创建时间
+ *
+ * @author forte
+ */
+@Table("admin_user_with_role_with_auth")
+public record AdminUserWithRoleWithAuth(Integer id, String username, String password,
+                                        Date createTime, Short status, Integer roleId,
+                                        String roleName, Date roleCreateTime,
+                                        Integer authId, String authKey, String authName,
+                                        Date authCreateTime) implements View {
     @Serial
     private static final long serialVersionUID = 1L;
 }

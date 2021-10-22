@@ -3,6 +3,7 @@ package org.overtime.admin.controller;
 import lombok.RequiredArgsConstructor;
 import org.overtime.admin.bean.domain.AdminUser;
 import org.overtime.admin.bean.dto.AdminUserListQueryDTO;
+import org.overtime.admin.bean.vo.AdminUserViewSupport;
 import org.overtime.admin.service.AdminUserService;
 import org.overtime.admin.bean.vo.AdminUserListQueryParamVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class AdminUserController {
      * @return
      */
     @GetMapping("/queryUser")
-    public Flux<AdminUser> queryUser(AdminUserListQueryDTO queryDTO) {
+    public Flux<AdminUserViewSupport> queryUser(AdminUserListQueryDTO queryDTO) {
         System.out.println("queryDTO = " + queryDTO);
         return adminUserService.queryUserPaged(queryDTO);
     }
