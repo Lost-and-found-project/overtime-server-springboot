@@ -15,13 +15,8 @@ import java.util.function.BiFunction;
  * critters
  */
 @SuppressWarnings("unused")
-public class CriteriaUtil {
+public final class CriteriaUtil {
 
-    public static void main(String[] args) {
-        final Criteria empty = Criteria.empty();
-        System.out.println(empty);
-
-    }
 
     @NotNull
     @Contract(pure = true)

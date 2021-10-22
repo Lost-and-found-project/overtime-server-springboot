@@ -12,15 +12,17 @@ import org.overtime.common.PageInfo;
 import org.overtime.common.Paged;
 import org.overtime.common.service.StandardR2dbcService;
 import org.overtime.common.service.utils.CriteriaUtil;
+import org.overtime.common.service.utils.SqlIdentifierUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.data.relational.core.query.Criteria;
 import org.springframework.data.relational.core.query.Query;
-import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.stream.Collectors;
 
 /**
  * @author ForteScarlet
@@ -70,9 +72,9 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
         criteria = CriteriaUtil.andInIfNotEmpty(criteria, "auth_id", queryDTO.getAuths());
         criteria = CriteriaUtil.andInIfNotEmpty(criteria, "route_id", queryDTO.getRoutes());
 
-        final var query = Query.query(criteria).with(queryDTO.getPageable());
+        final var query = Query.query(criteria).columns("id", "username", "create_time", "status");
 
-        final var adminUserHidePassVO = queryUserPaged(query);
+        final var adminUserHidePassVO = queryUserPaged(query, queryDTO.getPageable());
         final var userPageInfo = getUserPageInfo(query, queryDTO.getPageable());
 
         return Paged.toPaged(adminUserHidePassVO, userPageInfo);
@@ -84,8 +86,24 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
      * @param query query
      * @return {@link AdminUserHidePassVO}
      */
-    private Flux<AdminUserHidePassVO> queryUserPaged(Query query) {
-        return template.select(query, AdminUserHidePassVO.class);
+    private Flux<AdminUserHidePassVO> queryUserPaged(Query query, Pageable pageable) {
+        // template : R2dbcEntityTemplate
+        final var statementMapper = template.getDataAccessStrategy().getStatementMapper();
+        var selectSpec = statementMapper.createSelect("admin_user_with_role_with_auth_with_route")
+                // distinct!
+                .distinct()
+                .withPage(pageable)
+                .doWithTable((table, spec) -> spec.withProjection(query.getColumns().stream().map(table::column).collect(Collectors.toList())));
+
+        final var criteria = query.getCriteria();
+        if (criteria.isPresent()) {
+            selectSpec = criteria.map(selectSpec::withCriteria).orElse(selectSpec);
+        }
+
+        final var operation = statementMapper.getMappedObject(selectSpec);
+        final var rowMapper = template.getDataAccessStrategy().getRowMapper(AdminUserHidePassVO.class);
+
+        return template.getDatabaseClient().sql(operation).map(rowMapper).all();
     }
 
     /**
@@ -98,4 +116,7 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
         final var count = template.count(query, AdminUserHidePassVO.class);
         return count.map(total -> PageInfo.toPageInfo(total, pageable));
     }
+
+
 }
+

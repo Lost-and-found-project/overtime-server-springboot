@@ -19,7 +19,7 @@ public record PageInfo(
         int pageSize
 ) {
     public static PageInfo toPageInfo(long total, Pageable pageable) {
-        return new PageInfo(total, getTotalPages(pageable.getPageSize(), total), pageable.getPageNumber(), pageable.getPageSize());
+        return new PageInfo(total, getTotalPages(pageable.getPageSize(), total), pageable.getPageNumber() + 1, pageable.getPageSize());
     }
 
     private static int getTotalPages(int size, long total) {
