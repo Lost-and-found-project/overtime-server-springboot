@@ -59,12 +59,13 @@ public class OvertimeResponseBodyResultHandler extends ResponseBodyResultHandler
 
     OvertimeResponseBodyResultHandler(List<HttpMessageWriter<?>> writers, RequestedContentTypeResolver resolver) {
         super(writers, resolver);
+        // default handler was 100.
+        setOrder(99);
     }
 
     @Override
     public @NotNull Mono<Void> handleResult(@NotNull ServerWebExchange exchange, HandlerResult result) {
         Object handler = result.getHandler();
-        System.out.println("handler: " + handler);
         MethodParameter actualMethodParameter;
 
         if (handler instanceof InvocableHandlerMethod invocableHandlerMethod) {
@@ -85,7 +86,7 @@ public class OvertimeResponseBodyResultHandler extends ResponseBodyResultHandler
             actualMethodParameter = MR;
         } else if (body instanceof Flux<?> flux) {
             body = toResult(flux);
-            actualMethodParameter = FR;
+            actualMethodParameter = MR;
         } else {
             body = toResult(body);
             actualMethodParameter = R;
@@ -99,8 +100,8 @@ public class OvertimeResponseBodyResultHandler extends ResponseBodyResultHandler
         return mono.map(Result.asSuccess());
     }
 
-    private static Flux<Result> toResult(Flux<?> flux) {
-        return flux.map(Result.asSuccess());
+    private static Mono<Result> toResult(Flux<?> flux) {
+        return toResult(flux.collectList());
     }
 
     private static Result toResult(Object obj) {

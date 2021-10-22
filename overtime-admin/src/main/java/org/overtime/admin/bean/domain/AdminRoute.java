@@ -14,6 +14,6 @@ import java.time.LocalDateTime;
 public record AdminRoute(
         @Id Integer id,
         String route,
-        LocalDateTime create_time
+        LocalDateTime createTime
 ) {
 }

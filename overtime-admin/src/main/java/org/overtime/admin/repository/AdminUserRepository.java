@@ -28,7 +28,7 @@ public interface AdminUserRepository extends StandardOvertimeRepository<AdminUse
     @Query("""
         SELECT * FROM admin_user LIMIT :offset, :size
     """)
-    Flux<AdminUser> selectAdminUser(
+    Flux<AdminUser> findAdminUser(
             @Param("offset") Long offset,
             @Param("size") Integer size
     );

@@ -2,8 +2,10 @@ package org.overtime.admin.repository;
 
 import org.overtime.admin.bean.domain.AdminAuth;
 import org.overtime.common.repository.StandardOvertimeRepository;
+import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 
 /**
  * 权限repo
@@ -12,5 +14,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AdminAuthRepository extends StandardOvertimeRepository<AdminAuth, Integer> {
-    // StandardOvertimeRepository
+    /**
+     * Find all.
+     *
+     * @param type type
+     * @return all
+     */
+    @Query("SELECT id, `key`, name, create_time FROM admin_auth")
+    <S> Flux<S> findAll(Class<S> type);
 }
