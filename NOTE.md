@@ -12,7 +12,7 @@
   - Gradle多层级模块
   - Kotlin DSL script
   - buildSrc
-  - 项目结构构想
+  - 项目结构的思考
 
 - 二 webflux
   - 统一响应值
