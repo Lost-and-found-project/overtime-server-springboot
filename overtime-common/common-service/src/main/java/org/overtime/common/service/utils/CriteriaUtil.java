@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.data.relational.core.query.Criteria;
+import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 import java.util.function.BiFunction;
@@ -32,6 +33,37 @@ public class CriteriaUtil {
         return criteria.and(function.apply(Criteria.where(column), value));
     }
 
+
+    @NotNull
+    @Contract(pure = true)
+    public static <S extends CharSequence> Criteria notEmpty(@NotNull Criteria criteria, String column, @Nullable S value, BiFunction<Criteria.CriteriaStep, @NotNull S, Criteria> function) {
+        if (value == null || value.toString().isEmpty()) {
+            return criteria;
+        }
+
+        return criteria.and(function.apply(Criteria.where(column), value));
+    }
+
+    @NotNull
+    @Contract(pure = true)
+    public static <S extends CharSequence> Criteria notBlank(@NotNull Criteria criteria, String column, @Nullable S value, BiFunction<Criteria.CriteriaStep, @NotNull S, Criteria> function) {
+        if (value == null || value.toString().isBlank()) {
+            return criteria;
+        }
+
+        return criteria.and(function.apply(Criteria.where(column), value));
+    }
+
+
+    @NotNull
+    @Contract(pure = true)
+    public static <C extends Collection<?>> Criteria notEmpty(@NotNull Criteria criteria, String column, @Nullable C value, BiFunction<Criteria.CriteriaStep, @NotNull C, Criteria> function) {
+        if (value == null || value.isEmpty()) {
+            return criteria;
+        }
+
+        return criteria.and(function.apply(Criteria.where(column), value));
+    }
 
     /**
      * 使用 {@link Criteria#and(String)} {@link org.springframework.data.relational.core.query.Criteria.CriteriaStep#in(Object...)}

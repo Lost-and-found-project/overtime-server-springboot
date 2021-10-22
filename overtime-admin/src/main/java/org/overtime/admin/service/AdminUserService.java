@@ -1,10 +1,10 @@
 package org.overtime.admin.service;
 
-import org.overtime.admin.bean.domain.AdminUser;
 import org.overtime.admin.bean.dto.AdminUserListQueryDTO;
 import org.overtime.admin.bean.vo.AdminUserListQueryParamVO;
-import org.overtime.admin.bean.vo.AdminUserViewSupport;
-import org.springframework.data.domain.Page;
+import org.overtime.admin.bean.vo.AdminUserHidePassVO;
+import org.overtime.common.PageInfo;
+import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -24,5 +24,13 @@ public interface AdminUserService {
      * @param queryDTO params
      * @return Page AdminUser
      */
-    Flux<AdminUserViewSupport> queryUserPaged(AdminUserListQueryDTO queryDTO);
+    Flux<AdminUserHidePassVO> queryUserPaged(AdminUserListQueryDTO queryDTO);
+
+
+    /**
+     * 根据 {@link #queryUserPaged(AdminUserListQueryDTO)} 的请求参数获取分页信息。
+     * @param queryDTO dto
+     * @return {@link PageInfo}
+     */
+    Mono<PageInfo> getUserPageInfo(AdminUserListQueryDTO queryDTO);
 }

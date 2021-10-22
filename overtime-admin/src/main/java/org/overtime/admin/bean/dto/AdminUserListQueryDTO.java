@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Data
 public class AdminUserListQueryDTO {
-    private String name;
+    private String username;
     private List<Integer> roles = Collections.emptyList();
     private List<Integer> auths = Collections.emptyList();
     private List<Integer> routes = Collections.emptyList();

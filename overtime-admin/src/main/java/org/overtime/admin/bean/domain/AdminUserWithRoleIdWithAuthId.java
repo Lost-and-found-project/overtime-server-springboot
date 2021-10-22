@@ -1,6 +1,7 @@
 package org.overtime.admin.bean.domain;
 
 import java.io.Serial;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.Value;
@@ -21,7 +22,7 @@ import org.springframework.data.relational.core.mapping.Table;
  */
 @Table("admin_user_with_role_id_with_auth_id")
 public record AdminUserWithRoleIdWithAuthId(Integer id, String username, String password,
-                                            Date createTime, Short status, Integer roleId,
+                                            LocalDateTime createTime, Short status, Integer roleId,
                                             Integer authId) implements View {
     @Serial
     private static final long serialVersionUID = 1L;

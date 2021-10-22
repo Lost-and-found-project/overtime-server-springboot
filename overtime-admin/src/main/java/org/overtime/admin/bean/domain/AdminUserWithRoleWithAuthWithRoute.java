@@ -1,10 +1,11 @@
 package org.overtime.admin.bean.domain;
 
+import org.overtime.admin.bean.vo.AdminUserHidePassVO;
 import org.overtime.common.domain.View;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.io.Serial;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @param id              ID
@@ -26,14 +27,18 @@ import java.util.Date;
  */
 @Table("admin_user_with_role_with_auth_with_route")
 public record AdminUserWithRoleWithAuthWithRoute(Integer id, String username,
-                                                 String password, Date createTime,
+                                                 String password, LocalDateTime createTime,
                                                  Short status, Integer roleId,
-                                                 String roleName, Date roleCreateTime,
+                                                 String roleName, LocalDateTime roleCreateTime,
                                                  Integer authId, String authKey,
-                                                 String authName, Date authCreateTime,
+                                                 String authName, LocalDateTime authCreateTime,
                                                  Integer routeId, String route,
-                                                 Date routeCreateTime) implements View {
+                                                 LocalDateTime routeCreateTime) implements View {
     @Serial
     private static final long serialVersionUID = 1L;
+    public AdminUserHidePassVO toViewSupport() {
+        return new AdminUserHidePassVO(id(), username(), createTime(), status());
+    }
+
 }
 

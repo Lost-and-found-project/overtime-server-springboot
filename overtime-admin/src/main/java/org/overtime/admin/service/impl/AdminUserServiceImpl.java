@@ -8,9 +8,11 @@ import org.overtime.admin.repository.AdminRoleRepository;
 import org.overtime.admin.repository.AdminRouteRepository;
 import org.overtime.admin.repository.AdminUserRepository;
 import org.overtime.admin.service.AdminUserService;
+import org.overtime.common.PageInfo;
 import org.overtime.common.service.StandardR2dbcService;
 import org.overtime.common.service.utils.CriteriaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.data.relational.core.query.Criteria;
 import org.springframework.data.relational.core.query.Query;
@@ -57,70 +59,27 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
     }
 
     @Override
-    public Flux<AdminUserViewSupport> queryUserPaged(AdminUserListQueryDTO queryDTO) {
+    public Flux<AdminUserHidePassVO> queryUserPaged(AdminUserListQueryDTO queryDTO) {
         Criteria criteria = Criteria.empty();
-        final var name = queryDTO.getName();
-        criteria = CriteriaUtil.notNull(criteria, "username", name, (c, v) -> c.like("%" + v + "%"));
+        // username.
+        criteria = CriteriaUtil.notNull(criteria, "username", queryDTO.getUsername(), (c, v) -> c.like("%" + v + "%"));
+        criteria = CriteriaUtil.andInIfNotEmpty(criteria, "role_id", queryDTO.getRoles());
+        criteria = CriteriaUtil.andInIfNotEmpty(criteria, "auth_id", queryDTO.getAuths());
+        criteria = CriteriaUtil.andInIfNotEmpty(criteria, "route_id", queryDTO.getRoutes());
 
-        final var roles = queryDTO.getRoles();
-        final var auths = queryDTO.getAuths();
-        final var routes = queryDTO.getRoutes();
-
-        criteria = CriteriaUtil.andInIfNotEmpty(criteria, "role_id", roles);
-        criteria = CriteriaUtil.andInIfNotEmpty(criteria, "auth_id", auths);
-        criteria = CriteriaUtil.andInIfNotEmpty(criteria, "route_id", routes);
-
-        final Query query = Query.query(criteria);
-
+        final Query query = Query.query(criteria).with(queryDTO.getPageable());
 
         System.out.println("criteria = " + criteria);
         System.out.println("query = " + query);
 
-        return template.select(query, AdminUserViewSupport.class);
+        // SqlIdentifier.quoted()
 
-        //
-        // var baseTableName = "ad_user";
-        // var sqlBuilder = new StringBuilder("SELECT id, username, password, create_time, status FROM admin_user ").append(baseTableName).append(" ");
-        // queryDTO.join(baseTableName, sqlBuilder);
-        //
-        // // System.out.println(sqlBuilder);
-        //
-        // var genericExecuteSpec = databaseClient.sql(sqlBuilder.toString());
-        // return queryDTO.bind(genericExecuteSpec).map((row) -> {
-        //     var id = row.get("id", Integer.class);
-        //     var username = row.get("username", String.class);
-        //     var password = row.get("password", String.class);
-        //     var createTime = row.get("create_time", LocalDateTime.class);
-        //     var status = row.get("status", Short.class);
-        //     return new AdminUser(id, username, password, createTime, status);
-        // }).all();
-
-        // statementMapper.createSelect("admin_user")
-        //         .doWithTable((t, s) -> {
-        //
-        //         });
-        //
-        //
-        // Mono.from(connectionFactory.create())
-        //         .flatMap(c -> {
-        //             var builder = new StringBuilder("""
-        //                     SELECT id, username, password, create_time, status FROM admin_user
-        //                     """);
-        //             queryDTO.join(builder);
-        //             var statement = c.createStatement(builder.toString()); //.bind()
-        //             return Mono.from(queryDTO.bind(statement).execute()).doFinally(st -> c.close());
-        //         }).flatMapMany(result -> result.map((row, metadata) -> {
-        //
-        //
-        //             return "";
-        //         }));
-        //
-        //
-        //
-        // final Pageable pageable = queryDTO.getPageable();
-        // return repository.findAdminUser(pageable.getOffset(), pageable.getPageSize());
-
+        return template.select(query, AdminUserHidePassVO.class);
     }
 
 
+    @Override
+    public Mono<PageInfo> getUserPageInfo(AdminUserListQueryDTO queryDTO) {
+        return null;
+    }
 }

@@ -17,7 +17,6 @@ public class OvertimeWebfluxResultHandlerConfiguration implements WebFluxConfigu
     public OvertimeResponseBodyResultHandler overtimeResponseBodyResultHandler(ServerCodecConfigurer serverCodecConfigurer,
                                                                                RequestedContentTypeResolver requestedContentTypeResolver) {
 
-        System.out.println("Handler get!");
 
         return new OvertimeResponseBodyResultHandler(serverCodecConfigurer.getWriters(), requestedContentTypeResolver);
     }

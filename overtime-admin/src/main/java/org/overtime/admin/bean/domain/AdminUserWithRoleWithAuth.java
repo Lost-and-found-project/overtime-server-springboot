@@ -1,11 +1,11 @@
 package org.overtime.admin.bean.domain;
 
-import java.io.Serial;
-import java.util.Date;
-
-import lombok.Value;
 import org.overtime.common.domain.View;
 import org.springframework.data.relational.core.mapping.Table;
+
+import java.io.Serial;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 
 /**
@@ -26,10 +26,10 @@ import org.springframework.data.relational.core.mapping.Table;
  */
 @Table("admin_user_with_role_with_auth")
 public record AdminUserWithRoleWithAuth(Integer id, String username, String password,
-                                        Date createTime, Short status, Integer roleId,
-                                        String roleName, Date roleCreateTime,
+                                        LocalDateTime createTime, Short status, Integer roleId,
+                                        String roleName, LocalDateTime roleCreateTime,
                                         Integer authId, String authKey, String authName,
-                                        Date authCreateTime) implements View {
+                                        LocalDateTime authCreateTime) implements View {
     @Serial
     private static final long serialVersionUID = 1L;
 }
