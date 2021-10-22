@@ -9,6 +9,7 @@ import org.overtime.admin.repository.AdminRouteRepository;
 import org.overtime.admin.repository.AdminUserRepository;
 import org.overtime.admin.service.AdminUserService;
 import org.overtime.common.PageInfo;
+import org.overtime.common.Paged;
 import org.overtime.common.service.StandardR2dbcService;
 import org.overtime.common.service.utils.CriteriaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,6 @@ import reactor.core.publisher.Mono;
 public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Integer, AdminUserRepository> implements AdminUserService {
 
     private final R2dbcEntityTemplate template;
-    private final DatabaseClient databaseClient;
     private final AdminRoleRepository roleRepository;
     private final AdminAuthRepository authRepository;
     private final AdminRouteRepository routeRepository;
@@ -36,13 +36,11 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
     @Autowired
     public AdminUserServiceImpl(AdminUserRepository repository,
                                 R2dbcEntityTemplate template,
-                                DatabaseClient databaseClient,
                                 AdminRoleRepository roleRepository,
                                 AdminAuthRepository authRepository,
                                 AdminRouteRepository routeRepository) {
         super(repository);
         this.template = template;
-        this.databaseClient = databaseClient;
         this.roleRepository = roleRepository;
         this.authRepository = authRepository;
         this.routeRepository = routeRepository;
@@ -58,28 +56,46 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
         return Mono.zip(roles, auths, routes).map((tuple) -> new AdminUserListQueryParamVO(tuple.getT1(), tuple.getT2(), tuple.getT3()));
     }
 
+    /**
+     * 根据参数查询用户列表
+     * @param queryDTO params
+     * @return Page AdminUser
+     */
     @Override
-    public Flux<AdminUserHidePassVO> queryUserPaged(AdminUserListQueryDTO queryDTO) {
-        Criteria criteria = Criteria.empty();
+    public Mono<Paged<AdminUserHidePassVO>> queryUserPaged(AdminUserListQueryDTO queryDTO) {
+        var criteria = Criteria.empty();
         // username.
         criteria = CriteriaUtil.notNull(criteria, "username", queryDTO.getUsername(), (c, v) -> c.like("%" + v + "%"));
         criteria = CriteriaUtil.andInIfNotEmpty(criteria, "role_id", queryDTO.getRoles());
         criteria = CriteriaUtil.andInIfNotEmpty(criteria, "auth_id", queryDTO.getAuths());
         criteria = CriteriaUtil.andInIfNotEmpty(criteria, "route_id", queryDTO.getRoutes());
 
-        final Query query = Query.query(criteria).with(queryDTO.getPageable());
+        final var query = Query.query(criteria).with(queryDTO.getPageable());
 
-        System.out.println("criteria = " + criteria);
-        System.out.println("query = " + query);
+        final var adminUserHidePassVO = queryUserPaged(query);
+        final var userPageInfo = getUserPageInfo(query, queryDTO.getPageable());
 
-        // SqlIdentifier.quoted()
-
-        return template.select(query, AdminUserHidePassVO.class);
+        return Paged.toPaged(adminUserHidePassVO, userPageInfo);
     }
 
 
-    @Override
-    public Mono<PageInfo> getUserPageInfo(AdminUserListQueryDTO queryDTO) {
-        return null;
+    /**
+     * 根据 query 查询数据。
+     * @param query query
+     * @return {@link AdminUserHidePassVO}
+     */
+    private Flux<AdminUserHidePassVO> queryUserPaged(Query query) {
+        return template.select(query, AdminUserHidePassVO.class);
+    }
+
+    /**
+     * 根据 query 获取分页信息。
+     *
+     * @param query query
+     * @return {@link PageInfo}
+     */
+    private Mono<PageInfo> getUserPageInfo(Query query, Pageable pageable) {
+        final var count = template.count(query, AdminUserHidePassVO.class);
+        return count.map(total -> PageInfo.toPageInfo(total, pageable));
     }
 }

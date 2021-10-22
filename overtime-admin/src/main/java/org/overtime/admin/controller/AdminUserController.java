@@ -5,6 +5,7 @@ import org.overtime.admin.bean.dto.AdminUserListQueryDTO;
 import org.overtime.admin.bean.vo.AdminUserHidePassVO;
 import org.overtime.admin.service.AdminUserService;
 import org.overtime.admin.bean.vo.AdminUserListQueryParamVO;
+import org.overtime.common.Paged;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,11 +35,11 @@ public class AdminUserController {
 
     /**
      * 查询用户列表
-     * @param queryDTO
-     * @return
+     * @param queryDTO dto
+     * @return AdminUserHidePassVO paged.
      */
     @GetMapping("/queryUser")
-    public Flux<AdminUserHidePassVO> queryUser(AdminUserListQueryDTO queryDTO) {
+    public Mono<Paged<AdminUserHidePassVO>> queryUser(AdminUserListQueryDTO queryDTO) {
         return adminUserService.queryUserPaged(queryDTO);
     }
 
