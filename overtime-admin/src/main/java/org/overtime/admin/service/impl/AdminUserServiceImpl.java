@@ -87,13 +87,21 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
      * @return {@link AdminUserHidePassVO}
      */
     private Flux<AdminUserHidePassVO> queryUserPaged(Query query, Pageable pageable) {
+        var columns = query.getColumns();
+
         // template : R2dbcEntityTemplate
         final var statementMapper = template.getDataAccessStrategy().getStatementMapper();
         var selectSpec = statementMapper.createSelect("admin_user_with_role_with_auth_with_route")
                 // distinct!
                 .distinct()
                 .withPage(pageable)
-                .doWithTable((table, spec) -> spec.withProjection(query.getColumns().stream().map(table::column).collect(Collectors.toList())));
+                .doWithTable((table, spec) -> {
+                    if (columns.isEmpty()) {
+                        return spec.withProjection(table.asterisk());
+                    } else {
+                        return spec.withProjection(columns.stream().map(table::column).collect(Collectors.toList()));
+                    }
+                });
 
         final var criteria = query.getCriteria();
         if (criteria.isPresent()) {
