@@ -1,5 +1,7 @@
 package org.overtime.admin.service.impl;
 
+import io.r2dbc.spi.Row;
+import io.r2dbc.spi.RowMetadata;
 import org.overtime.admin.bean.domain.AdminUser;
 import org.overtime.admin.bean.dto.AdminUserListQueryDTO;
 import org.overtime.admin.bean.vo.*;
@@ -12,17 +14,18 @@ import org.overtime.common.PageInfo;
 import org.overtime.common.Paged;
 import org.overtime.common.service.StandardR2dbcService;
 import org.overtime.common.service.utils.CriteriaUtil;
-import org.overtime.common.service.utils.SqlIdentifierUtil;
+import org.overtime.common.service.utils.SimpleDistinctFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
+import org.springframework.data.r2dbc.core.StatementMapper;
 import org.springframework.data.relational.core.query.Criteria;
-import org.springframework.data.relational.core.query.Query;
+import org.springframework.data.relational.core.sql.Functions;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.stream.Collectors;
+import java.util.function.BiFunction;
 
 /**
  * @author ForteScarlet
@@ -35,6 +38,9 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
     private final AdminAuthRepository authRepository;
     private final AdminRouteRepository routeRepository;
 
+    private final BiFunction<Row, RowMetadata, AdminUserHidePassVO> adminUserHidePassVoRowMapper;
+
+
     @Autowired
     public AdminUserServiceImpl(AdminUserRepository repository,
                                 R2dbcEntityTemplate template,
@@ -46,6 +52,10 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
         this.roleRepository = roleRepository;
         this.authRepository = authRepository;
         this.routeRepository = routeRepository;
+
+        // init row mapper
+        this.adminUserHidePassVoRowMapper = template.getDataAccessStrategy().getRowMapper(AdminUserHidePassVO.class);
+
     }
 
     @Override
@@ -72,10 +82,18 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
         criteria = CriteriaUtil.andInIfNotEmpty(criteria, "auth_id", queryDTO.getAuths());
         criteria = CriteriaUtil.andInIfNotEmpty(criteria, "route_id", queryDTO.getRoutes());
 
-        final var query = Query.query(criteria).columns("id", "username", "create_time", "status");
+        // final var query = Query.query(criteria).columns("id", "username", "create_time", "status");
+        // var columns = query.getColumns();
 
-        final var adminUserHidePassVO = queryUserPaged(query, queryDTO.getPageable());
-        final var userPageInfo = getUserPageInfo(query, queryDTO.getPageable());
+        final var statementMapper = template.getDataAccessStrategy().getStatementMapper();
+        final var selectSpec = statementMapper.createSelect("admin_user_with_role_with_auth_with_route")
+                .distinct()
+                .withPage(queryDTO.getPageable())
+                .withCriteria(criteria);
+
+
+        final var adminUserHidePassVO = queryUserPaged(statementMapper, selectSpec);
+        final var userPageInfo = getUserPageInfo(statementMapper, selectSpec, queryDTO.getPageable());
 
         return Paged.toPaged(adminUserHidePassVO, userPageInfo);
     }
@@ -83,46 +101,29 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
 
     /**
      * 根据 query 查询数据。
-     * @param query query
      * @return {@link AdminUserHidePassVO}
      */
-    private Flux<AdminUserHidePassVO> queryUserPaged(Query query, Pageable pageable) {
-        var columns = query.getColumns();
-
-        // template : R2dbcEntityTemplate
-        final var statementMapper = template.getDataAccessStrategy().getStatementMapper();
-        var selectSpec = statementMapper.createSelect("admin_user_with_role_with_auth_with_route")
-                // distinct!
-                .distinct()
-                .withPage(pageable)
-                .doWithTable((table, spec) -> {
-                    if (columns.isEmpty()) {
-                        return spec.withProjection(table.asterisk());
-                    } else {
-                        return spec.withProjection(columns.stream().map(table::column).collect(Collectors.toList()));
-                    }
-                });
-
-        final var criteria = query.getCriteria();
-        if (criteria.isPresent()) {
-            selectSpec = criteria.map(selectSpec::withCriteria).orElse(selectSpec);
-        }
-
+    private Flux<AdminUserHidePassVO> queryUserPaged(StatementMapper statementMapper, StatementMapper.SelectSpec selectSpec) {
+        selectSpec = selectSpec.doWithTable((table, spec) -> spec.withProjection(table.column("id"), table.column("username"), table.column("create_time"), table.column("status")));
         final var operation = statementMapper.getMappedObject(selectSpec);
-        final var rowMapper = template.getDataAccessStrategy().getRowMapper(AdminUserHidePassVO.class);
 
-        return template.getDatabaseClient().sql(operation).map(rowMapper).all();
+        return template.getDatabaseClient().sql(operation).map(adminUserHidePassVoRowMapper).all();
     }
 
     /**
      * 根据 query 获取分页信息。
      *
-     * @param query query
      * @return {@link PageInfo}
      */
-    private Mono<PageInfo> getUserPageInfo(Query query, Pageable pageable) {
-        final var count = template.count(query, AdminUserHidePassVO.class);
-        return count.map(total -> PageInfo.toPageInfo(total, pageable));
+    private Mono<PageInfo> getUserPageInfo(StatementMapper statementMapper, StatementMapper.SelectSpec selectSpec, Pageable pageable) {
+        // selectSpec = selectSpec.doWithTable((table, spec) -> spec.withProjection(Functions.count(table.column("id"))));
+        selectSpec = selectSpec.doWithTable((table, spec) -> spec.withProjection(SimpleDistinctFunction.count(table.column("id"))));
+        final var operation = statementMapper.getMappedObject(selectSpec);
+        System.out.println(operation.get());
+        return template.getDatabaseClient().sql(operation).map((r) -> r.get(0, Long.class)).first().map(total -> PageInfo.toPageInfo(total, pageable));
+
+        // final var count = template.count(query, AdminUserHidePassVO.class);
+        // return count.map(total -> PageInfo.toPageInfo(total, pageable));
     }
 
 
