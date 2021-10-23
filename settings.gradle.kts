@@ -4,6 +4,7 @@ rootProject.name = "overtime-server-springboot"
 // include("overtime-gateway")
 includes("overtime-configuration") {
     sub("configuration-handler") // 异常处理、响应值处理
+    sub("configuration-r2dbc-template") // r2dbc template.
 }
 
 includes("overtime-common") {

@@ -86,6 +86,7 @@ object D {
             object Webflux : Boot("spring-boot-starter-webflux")
             // const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-webflux"
 
+            object Autoconfigure : Boot("spring-boot-autoconfigure")
 
             // annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.5.5")
             object ConfigurationProcessor : Boot("spring-boot-configuration-processor")

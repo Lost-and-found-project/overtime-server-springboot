@@ -23,6 +23,7 @@ dependencies {
 
     //region configs
     implementation(configProject("handler"))
+    api(configProject("r2dbc-template"))
     //endregion
 
     //region spring

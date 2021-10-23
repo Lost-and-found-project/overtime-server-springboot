@@ -14,48 +14,52 @@ import java.util.List;
 
 /**
  *
- * A distinct function, like:
- * {@code functionName(DISTINCT ...)}.
+ * Function: {@code COUNT(DISTINCT ... )}
  *
- * {@code COUNT(DISTINCT ...)}
- *
- * @see SimpleFunction
- * @see Expression
+ * @see org.springframework.data.relational.core.sql.Functions
+ * @see org.springframework.data.relational.core.sql.SimpleFunction
  * @author ForteScarlet
  */
-@SuppressWarnings("JavadocReference")
-public class SimpleDistinctFunction implements Expression {
-    private final String functionName;
+public class CountDistinctFunction extends SimpleDistinctFunction implements Expression {
+    private static final String FUNCTION_NAME = "COUNT";
     private final List<Expression> expressions;
 
-    protected SimpleDistinctFunction(String functionName, List<Expression> expressions) {
-        this.functionName = functionName;
+    private CountDistinctFunction(List<Expression> expressions) {
+        super(FUNCTION_NAME, expressions);
         this.expressions = expressions;
     }
 
-
-    public static SimpleDistinctFunction create(String functionName, Expression... expressions) {
-        return new SimpleDistinctFunction(functionName, Arrays.asList(expressions));
+    public static CountDistinctFunction getInstance(Expression... expressions) {
+        return new CountDistinctFunction(Arrays.asList(expressions));
     }
 
+    /**
+     * @see SimpleFunction#toString()
+     */
+    @Override
+    public @NotNull String toString() {
+        return FUNCTION_NAME + "(DISTINCT " + StringUtils.collectionToDelimitedString(expressions, ", ") + ")";
+    }
 
-
+    /**
+     * @see SimpleFunction#getFunctionName()
+     */
     public String getFunctionName() {
-        return functionName;
+        return FUNCTION_NAME;
     }
 
+    /**
+     * @see SimpleFunction#getExpressions()
+     */
     public List<Expression> getExpressions() {
         return Collections.unmodifiableList(expressions);
     }
 
-    @Override
-    public @NotNull String toString() {
-        return functionName + "(DISTINCT " + StringUtils.collectionToDelimitedString(expressions, ", ") + ")";
-    }
 
     /**
      * @see org.springframework.data.relational.core.sql.AbstractSegment
      */
+    @SuppressWarnings("JavadocReference")
     @Override
     public void visit(@NotNull Visitor visitor) {
         Assert.notNull(visitor, "Visitor must not be null!");
@@ -67,6 +71,7 @@ public class SimpleDistinctFunction implements Expression {
     /**
      * @see org.springframework.data.relational.core.sql.AbstractSegment
      */
+    @SuppressWarnings("JavadocReference")
     @Override
     public int hashCode() {
         return toString().hashCode();
@@ -75,6 +80,7 @@ public class SimpleDistinctFunction implements Expression {
     /**
      * @see org.springframework.data.relational.core.sql.AbstractSegment
      */
+    @SuppressWarnings("JavadocReference")
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Segment && toString().equals(obj.toString());

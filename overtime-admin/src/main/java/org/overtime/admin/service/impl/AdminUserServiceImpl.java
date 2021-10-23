@@ -12,15 +12,17 @@ import org.overtime.admin.repository.AdminUserRepository;
 import org.overtime.admin.service.AdminUserService;
 import org.overtime.common.PageInfo;
 import org.overtime.common.Paged;
+import org.overtime.common.service.OvertimeR2dbcEntityTemplate;
 import org.overtime.common.service.StandardR2dbcService;
 import org.overtime.common.service.utils.CriteriaUtil;
-import org.overtime.common.service.utils.SimpleDistinctFunction;
+import org.overtime.common.service.utils.DistinctFunctions;
+import org.overtime.configuration.r2dbc.OvertimeR2dbcEntityTemplateConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.data.r2dbc.core.StatementMapper;
 import org.springframework.data.relational.core.query.Criteria;
-import org.springframework.data.relational.core.sql.Functions;
+import org.springframework.data.relational.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -34,6 +36,7 @@ import java.util.function.BiFunction;
 public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Integer, AdminUserRepository> implements AdminUserService {
 
     private final R2dbcEntityTemplate template;
+    private final OvertimeR2dbcEntityTemplate ovTemplate;
     private final AdminRoleRepository roleRepository;
     private final AdminAuthRepository authRepository;
     private final AdminRouteRepository routeRepository;
@@ -44,11 +47,13 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
     @Autowired
     public AdminUserServiceImpl(AdminUserRepository repository,
                                 R2dbcEntityTemplate template,
+                                OvertimeR2dbcEntityTemplate ovTemplate,
                                 AdminRoleRepository roleRepository,
                                 AdminAuthRepository authRepository,
                                 AdminRouteRepository routeRepository) {
         super(repository);
         this.template = template;
+        this.ovTemplate = ovTemplate;
         this.roleRepository = roleRepository;
         this.authRepository = authRepository;
         this.routeRepository = routeRepository;
@@ -81,21 +86,23 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
         criteria = CriteriaUtil.andInIfNotEmpty(criteria, "role_id", queryDTO.getRoles());
         criteria = CriteriaUtil.andInIfNotEmpty(criteria, "auth_id", queryDTO.getAuths());
         criteria = CriteriaUtil.andInIfNotEmpty(criteria, "route_id", queryDTO.getRoutes());
-
         // final var query = Query.query(criteria).columns("id", "username", "create_time", "status");
         // var columns = query.getColumns();
 
-        final var statementMapper = template.getDataAccessStrategy().getStatementMapper();
-        final var selectSpec = statementMapper.createSelect("admin_user_with_role_with_auth_with_route")
-                .distinct()
-                .withPage(queryDTO.getPageable())
-                .withCriteria(criteria);
+        return ovTemplate.selectPaged(AdminUserHidePassVO.class, AdminUserHidePassVO.class, Query.query(criteria)
+                .columns("id", "username", "create_time", "status")
+                .with(queryDTO.getPageable()), true);
 
-
-        final var adminUserHidePassVO = queryUserPaged(statementMapper, selectSpec);
-        final var userPageInfo = getUserPageInfo(statementMapper, selectSpec, queryDTO.getPageable());
-
-        return Paged.toPaged(adminUserHidePassVO, userPageInfo);
+        // final var statementMapper = template.getDataAccessStrategy().getStatementMapper();
+        // final var selectSpec = statementMapper.createSelect("admin_user_with_role_with_auth_with_route")
+        //         .withPage(queryDTO.getPageable())
+        //         .withCriteria(criteria);
+        //
+        //
+        // final var adminUserHidePassVO = queryUserPaged(statementMapper, selectSpec);
+        // final var userPageInfo = getUserPageInfo(statementMapper, selectSpec, queryDTO.getPageable());
+        //
+        // return Paged.toPaged(adminUserHidePassVO, userPageInfo);
     }
 
 
@@ -104,7 +111,9 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
      * @return {@link AdminUserHidePassVO}
      */
     private Flux<AdminUserHidePassVO> queryUserPaged(StatementMapper statementMapper, StatementMapper.SelectSpec selectSpec) {
-        selectSpec = selectSpec.doWithTable((table, spec) -> spec.withProjection(table.column("id"), table.column("username"), table.column("create_time"), table.column("status")));
+        selectSpec = selectSpec
+                .distinct()
+                .doWithTable((table, spec) -> spec.withProjection(table.column("id"), table.column("username"), table.column("create_time"), table.column("status")));
         final var operation = statementMapper.getMappedObject(selectSpec);
 
         return template.getDatabaseClient().sql(operation).map(adminUserHidePassVoRowMapper).all();
@@ -116,14 +125,11 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
      * @return {@link PageInfo}
      */
     private Mono<PageInfo> getUserPageInfo(StatementMapper statementMapper, StatementMapper.SelectSpec selectSpec, Pageable pageable) {
-        // selectSpec = selectSpec.doWithTable((table, spec) -> spec.withProjection(Functions.count(table.column("id"))));
-        selectSpec = selectSpec.doWithTable((table, spec) -> spec.withProjection(SimpleDistinctFunction.count(table.column("id"))));
+        selectSpec = selectSpec.doWithTable((table, spec) -> spec.withProjection(DistinctFunctions.count(table.column("id"))));
         final var operation = statementMapper.getMappedObject(selectSpec);
-        System.out.println(operation.get());
-        return template.getDatabaseClient().sql(operation).map((r) -> r.get(0, Long.class)).first().map(total -> PageInfo.toPageInfo(total, pageable));
 
-        // final var count = template.count(query, AdminUserHidePassVO.class);
-        // return count.map(total -> PageInfo.toPageInfo(total, pageable));
+
+        return template.getDatabaseClient().sql(operation).map(r -> r.get(0, Long.class)).first().map(total -> PageInfo.toPageInfo(total, pageable));
     }
 
 
