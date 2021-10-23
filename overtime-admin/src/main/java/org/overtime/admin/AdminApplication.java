@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 @OvertimeStandardApplication
 public class AdminApplication {
     public static void main(String[] args) {
-        SpringApp.runStandardController(args, ConfigOvr2dbc.class);
+        SpringApp.runStandardController(args);
     }
 
 

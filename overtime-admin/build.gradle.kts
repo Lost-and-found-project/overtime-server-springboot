@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin.Companion.isIncludeCompileClasspath
+
 dependencyManagement {
     imports {
         mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
@@ -23,10 +25,14 @@ dependencies {
 
     //region configs
     implementation(configProject("handler"))
-    api(configProject("r2dbc-template"))
+    // this.bootArchives()
+    implementation(project(":overtime-configuration:configuration-r2dbc-template")) // TODO?
+    // implementation(configProject("r2dbc-template"))
+
     //endregion
 
     //region spring
+    implementation(D.Spring.Boot.Autoconfigure.NOTATION_NOV)
     implementation(D.Spring.Boot.Webflux.NOTATION_NOV)
     implementation(D.Spring.Cloud.Bootstrap.NOTATION_NOV)
     // 服务发现，但是不注册服务

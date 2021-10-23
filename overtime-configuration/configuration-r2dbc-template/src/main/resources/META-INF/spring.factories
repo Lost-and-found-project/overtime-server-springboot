@@ -1,1 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=org.overtime.configuration.r2dbc.OvertimeR2dbcEntityTemplateConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.overtime.configuration.r2dbc.OvertimeR2dbcEntityTemplateConfiguration
