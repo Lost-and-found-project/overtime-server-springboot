@@ -19,6 +19,8 @@ object D {
     object JetbrainsAnnotation : DependencyNotation("org.jetbrains", "annotations", "22.0.0")
     object Lombok : DependencyNotation("org.projectlombok", "lombok", "1.18.20")
 
+
+
     sealed class Jupiter(name: String) : DependencyNotation("org.junit.jupiter", name, VERSION) {
         companion object {
             const val VERSION = "5.8.1"
@@ -26,6 +28,20 @@ object D {
 
         object Api : Jupiter("junit-jupiter-api")
         object Engine : Jupiter("junit-jupiter-engine")
+    }
+
+
+
+
+
+    sealed class Reactor(name: String) : DependencyNotation("io.projectreactor", "reactor-$name", null) {
+        object Test : Reactor("test")
+    }
+
+    sealed class Springfox(name: String) : DependencyNotation("io.springfox", name, VERSION) {
+        companion object {
+            const val VERSION = "3.0.0"
+        }
     }
 
     // Spring
@@ -66,12 +82,9 @@ object D {
 
             }
 
-            /*
-             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-actuator</artifactId>
-            </dependency>
-             */
+            object Test : Boot("spring-boot-starter-test")
+
+
             object Actuator : Boot("spring-boot-starter-actuator")
 
 

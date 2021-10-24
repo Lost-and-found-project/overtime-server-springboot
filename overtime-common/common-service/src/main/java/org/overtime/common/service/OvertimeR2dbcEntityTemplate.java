@@ -12,6 +12,7 @@ import org.springframework.data.relational.core.query.CriteriaDefinition;
 import org.springframework.data.relational.core.query.Query;
 import org.springframework.data.relational.core.sql.Functions;
 import org.springframework.data.relational.core.sql.SqlIdentifier;
+import org.springframework.data.relational.core.sql.Table;
 import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.r2dbc.core.PreparedOperation;
 import org.springframework.stereotype.Component;
@@ -37,6 +38,7 @@ public class OvertimeR2dbcEntityTemplate {
 
     public <T> Mono<Paged<T>> selectPaged(Class<T> resultType, Class<?> tableType, Query query, boolean distinct) {
         final SqlIdentifier table = r2dbcEntityTemplate.getDataAccessStrategy().getTableName(tableType);
+
         final List<SqlIdentifier> identifierColumns = r2dbcEntityTemplate.getDataAccessStrategy().getIdentifierColumns(tableType);
         if (identifierColumns.size() != 1) {
             throw new IllegalArgumentException("IdentifierColumns size must be 1.");
@@ -47,7 +49,6 @@ public class OvertimeR2dbcEntityTemplate {
         final int limit = query.getLimit();
         final long offset = query.getOffset();
         StatementMapper.SelectSpec spec = statementMapper.createSelect(table).withSort(query.getSort());
-                ;
 
         StatementMapper.SelectSpec spec0 = spec;
 
@@ -63,9 +64,6 @@ public class OvertimeR2dbcEntityTemplate {
 
         final PreparedOperation<?> listOperation = statementMapper.getMappedObject(listSpec);
         final PreparedOperation<?> countOperation = statementMapper.getMappedObject(countSpec);
-
-        log.info("LIST  SQL: {}", listOperation.get());
-        log.info("COUNT SQL: {}", countOperation.get());
 
         final DatabaseClient client = r2dbcEntityTemplate.getDatabaseClient();
         final Flux<T> list = client.sql(listOperation).map(r2dbcEntityTemplate.getDataAccessStrategy().getRowMapper(resultType)).all();

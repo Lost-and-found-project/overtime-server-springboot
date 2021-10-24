@@ -1,5 +1,7 @@
 @file:Suppress("PropertyName")
 
+import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+
 plugins {
     id("org.springframework.boot") version "2.5.5" apply false
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
@@ -25,7 +27,6 @@ subprojects {
     }
     group = p.group
     version = p.version
-    // apply(plugin = "org.gradle.kotlin.kotlin-dsl")
     apply(plugin = "java")
     apply(plugin = "java-library")
     apply(plugin = "org.springframework.boot")
@@ -34,22 +35,29 @@ subprojects {
         // Set Java 17
         sourceCompatibility = JavaVersion.VERSION_17
     }
-    this.tasks.named<JavaCompile>("compileJava") {
+    tasks.named<JavaCompile>("compileJava") {
         options.compilerArgs.addAll(listOf(
             "-parameters",
         ))
+    }
+    tasks.named("bootJar") {
+        enabled = false
+    }
+
+    tasks.test {
+        useJUnitPlatform()
     }
 
     dependencies {
         compileOnly(D.JetbrainsAnnotation.NOTATION)
         testImplementation(D.Jupiter.Api.NOTATION)
         testRuntimeOnly(D.Jupiter.Engine.NOTATION)
+
+        testImplementation(D.Spring.Boot.Test.NOTATION_NOV)
+        testImplementation(D.Reactor.Test.NOTATION_NOV)
     }
 
-    tasks.getByName<Test>("test") {
-        // useJUnitPlatform()
-        useJUnit()
-    }
+
 
 }
 

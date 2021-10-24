@@ -25,9 +25,8 @@ dependencies {
 
     //region configs
     implementation(configProject("handler"))
-    // this.bootArchives()
-    implementation(project(":overtime-configuration:configuration-r2dbc-template")) // TODO?
-    // implementation(configProject("r2dbc-template"))
+    // implementation(project(":overtime-configuration:configuration-r2dbc-template")) // TODO?
+    implementation(configProject("r2dbc-template"))
 
     //endregion
 
@@ -47,7 +46,10 @@ dependencies {
     implementation(D.R2dbc.Mysql.NOTATION)
     implementation(D.R2dbc.Pool.NOTATION)
     //endregion
+}
 
 
 
+tasks.bootJar {
+    enabled = true
 }
