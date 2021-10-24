@@ -5,6 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.r2dbc.config.EnableR2dbcAuditing;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -19,6 +20,7 @@ import java.lang.annotation.Target;
 @EnableAspectJAutoProxy
 @SpringBootApplication
 @EnableR2dbcAuditing
+@EnableTransactionManagement
 @EnableR2dbcRepositories(basePackages = "org.overtime.*.repository")
 @ComponentScan("org.overtime.*.repository")
 @ComponentScan("org.overtime.*.controller")
