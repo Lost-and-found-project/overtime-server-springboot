@@ -24,7 +24,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- *
  * 针对于 {@link R2dbcEntityTemplate} 而提供的一些扩展操作，比如字段去重、COUNT去重等。
  *
  * @author ForteScarlet
@@ -35,16 +34,47 @@ public class OvertimeR2dbcEntityTemplate {
     @Getter
     private final R2dbcEntityTemplate r2dbcEntityTemplate;
 
+    /**
+     * @see #selectPaged(Class, SqlIdentifier, SqlIdentifier, Query, boolean)
+     */
+    public <T> Mono<Paged<T>> selectPaged(Class<T> type, Query query, boolean distinct) {
+        return selectPaged(type, type, query, distinct);
+    }
 
+
+    /**
+     * @see #selectPaged(Class, SqlIdentifier, SqlIdentifier, Query, boolean)
+     */
     public <T> Mono<Paged<T>> selectPaged(Class<T> resultType, Class<?> tableType, Query query, boolean distinct) {
         final SqlIdentifier table = r2dbcEntityTemplate.getDataAccessStrategy().getTableName(tableType);
 
         final List<SqlIdentifier> identifierColumns = r2dbcEntityTemplate.getDataAccessStrategy().getIdentifierColumns(tableType);
         if (identifierColumns.size() != 1) {
-            throw new IllegalArgumentException("IdentifierColumns size must be 1.");
+            throw new IllegalArgumentException("IdentifierColumns size must be 1, but "+ identifierColumns.size());
         }
         final SqlIdentifier id = identifierColumns.get(0);
 
+        return selectPaged(resultType, table, id, query, distinct);
+    }
+
+
+    /**
+     * @see #selectPaged(Class, SqlIdentifier, SqlIdentifier, Query, boolean)
+     */
+    public <T> Mono<Paged<T>> selectPaged(Class<T> resultType, String table, String id, Query query, boolean distinct) {
+        return selectPaged(resultType, SqlIdentifier.unquoted(table), SqlIdentifier.unquoted(id), query, distinct);
+    }
+
+
+    /**
+     * 分页条件查询。
+     *
+     * @param resultType 返回值类型
+     * @param table      携带表信息的类型
+     * @param query      查询
+     * @param distinct   是否去重。包括字段去重与COUNT去重。
+     */
+    public <T> Mono<Paged<T>> selectPaged(Class<T> resultType, SqlIdentifier table, SqlIdentifier id, Query query, boolean distinct) {
         final StatementMapper statementMapper = r2dbcEntityTemplate.getDataAccessStrategy().getStatementMapper();
         final int limit = query.getLimit();
         final long offset = query.getOffset();
@@ -57,8 +87,12 @@ public class OvertimeR2dbcEntityTemplate {
             spec = criteria.map(spec0::withCriteria).orElse(spec);
         }
 
+        List<SqlIdentifier> columns = query.getColumns();
+        if (columns.isEmpty()) {
+            columns = r2dbcEntityTemplate.getDataAccessStrategy().getAllColumns(resultType);
+        }
 
-        StatementMapper.SelectSpec listSpec = listSpec(spec, limit, offset, query.getColumns(), distinct);
+        StatementMapper.SelectSpec listSpec = listSpec(spec, limit, offset, columns, distinct);
         StatementMapper.SelectSpec countSpec = countSpec(spec, id, distinct);
 
 
@@ -70,6 +104,7 @@ public class OvertimeR2dbcEntityTemplate {
         final Mono<PageInfo> pageInfo = client.sql(countOperation).map(r -> r.get(0, Long.class)).first().map(total -> PageInfo.toPageInfo(total, limit, limit == 0 ? 0 : (int) (offset / limit)));
         return Paged.toPaged(list, pageInfo);
     }
+
 
     private StatementMapper.SelectSpec listSpec(StatementMapper.SelectSpec spec, int limit, long offset, List<SqlIdentifier> columns, boolean distinct) {
         spec = spec.limit(limit)
@@ -88,7 +123,6 @@ public class OvertimeR2dbcEntityTemplate {
 
     }
 
-
     private StatementMapper.SelectSpec countSpec(StatementMapper.SelectSpec spec, SqlIdentifier id, boolean distinct) {
         return spec.doWithTable((table, sp) -> {
             if (distinct) {
@@ -97,7 +131,6 @@ public class OvertimeR2dbcEntityTemplate {
                 return sp.withProjection(Functions.count(table.column(id)));
             }
         });
-
     }
 
 }
