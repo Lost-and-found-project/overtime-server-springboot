@@ -14,6 +14,8 @@ dependencies {
     compileOnly(D.Lombok.NOTATION)
     //endregion
 
+    implementation(serviceProject("dictionary", "api"))
+
     //region commons
     implementation(commonProject("core"))
     implementation(commonProject("domain"))
@@ -25,7 +27,6 @@ dependencies {
 
     //region configs
     implementation(configProject("handler"))
-    // implementation(project(":overtime-configuration:configuration-r2dbc-template")) // TODO?
     implementation(configProject("r2dbc-template"))
 
     //endregion

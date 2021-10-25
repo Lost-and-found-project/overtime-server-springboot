@@ -11,7 +11,7 @@ import java.util.function.Function;
  *
  * <p> {@link #message} 不应该为null。
  * <p>
- * 只能通过静态方法获取实例。
+ * 只应通过静态方法获取实例。
  *
  * @author ForteScarlet
  */

@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 /**
  * Admin user controller.
@@ -18,7 +21,7 @@ import reactor.core.publisher.Mono;
  * @author ForteScarlet
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/admin/user")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AdminUserController {
     private final AdminUserService adminUserService;
@@ -27,19 +30,25 @@ public class AdminUserController {
      * 获取列表查询参数。
      */
     @GetMapping("/listQueryParam")
-    public Mono<AdminUserListQueryParamVO> getUserListQueryParam() {
+    public Mono<AdminUserListQueryParamVO> getListQueryParam() {
         return adminUserService.getUserListQueryParam();
     }
 
 
     /**
-     * 查询用户列表
+     * 查询用户分页列表。
      * @param queryDTO dto
      * @return AdminUserHidePassVO paged.
      */
-    @GetMapping("/queryUser")
+    @GetMapping("/page")
     public Mono<Paged<AdminUserHidePassVO>> queryUser(AdminUserListQueryDTO queryDTO) {
         return adminUserService.queryUserPaged(queryDTO);
     }
+
+
+
+
+
+
 
 }
