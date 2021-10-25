@@ -27,3 +27,5 @@
 
 
 - ? Event source
+
+- 痛点
