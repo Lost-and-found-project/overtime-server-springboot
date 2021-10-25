@@ -16,7 +16,7 @@ import java.util.function.Function;
  * @author ForteScarlet
  */
 @SuppressWarnings("unused")
-public class Result implements Serializable {
+public sealed class Result implements Serializable {
     private static int defaultSuccessCode = 0;
     @NotNull
     private static String defaultSuccessMsg = "Ok";
@@ -27,54 +27,26 @@ public class Result implements Serializable {
     /**
      * 默认成功的实例。
      */
-    public static final Result SUCCESS = new DefaultSuccessResult();
+    public static Result SUCCESS = null;
+
     /**
      * 默认失败的实例。
      */
-    public static final Result FAILURE = new DefaultFailureResult();
+    public static Result FAILURE = null;
 
-    private static class DefaultSuccessResult extends Result {
+    private static final class DefaultSuccessResult extends Result {
         private DefaultSuccessResult() {
             super(defaultFailureCode, defaultFailureMsg, null);
         }
-
-        @Override
-        public int getCode() {
-            return defaultFailureCode;
-        }
-
-        @Override
-        public @NotNull String getMessage() {
-            return defaultFailureMsg;
-        }
-
-        @Override
-        public Object getData() {
-            return null;
-        }
     }
 
 
-    private static class DefaultFailureResult extends Result {
+    private static final class DefaultFailureResult extends Result {
         private DefaultFailureResult() {
             super(defaultFailureCode, defaultFailureMsg, null);
         }
-
-        @Override
-        public int getCode() {
-            return defaultFailureCode;
-        }
-
-        @Override
-        public @NotNull String getMessage() {
-            return defaultFailureMsg;
-        }
-
-        @Override
-        public Object getData() {
-            return null;
-        }
     }
+
 
     /**
      * 设置默认成功情况下的成功码。全局设置，立即生效，包括已经获取过的实例。
@@ -82,7 +54,8 @@ public class Result implements Serializable {
      * @param code 默认成功码
      */
     public static void setDefaultSuccessCode(int code) {
-        defaultSuccessCode = code;
+        Result.defaultSuccessCode = code;
+        SUCCESS = null;
     }
 
     /**
@@ -92,18 +65,31 @@ public class Result implements Serializable {
      */
     public static void setDefaultSuccessMsg(@NotNull String msg) {
         Result.defaultSuccessMsg = msg;
+        SUCCESS = null;
     }
 
     public static void setDefaultFailureCode(int defaultFailureCode) {
         Result.defaultFailureCode = defaultFailureCode;
+        FAILURE = null;
     }
 
     public static void setDefaultFailureMsg(@NotNull String defaultFailureMsg) {
         Result.defaultFailureMsg = defaultFailureMsg;
+        FAILURE = null;
+    }
+
+    private static @NotNull Result getDefaultSuccess() {
+        final Result success = SUCCESS;
+        if (success == null) {
+            final DefaultSuccessResult newSuccess = new DefaultSuccessResult();
+            SUCCESS = newSuccess;
+            return newSuccess;
+        }
+        return success;
     }
 
     public static Result success() {
-        return SUCCESS;
+        return getDefaultSuccess();
     }
 
 
@@ -133,59 +119,70 @@ public class Result implements Serializable {
 
     // Failed methods
 
+    private static @NotNull Result getDefaultFailure() {
+        final Result failure = FAILURE;
+        if (failure == null) {
+            final DefaultFailureResult newFailure = new DefaultFailureResult();
+            FAILURE = newFailure;
+            return newFailure;
+        }
+        return failure;
+    }
+
     public static Result failure() {
         return FAILURE;
     }
 
     public static Result failure(int code, @NotNull String msg) {
-        if (FAILURE.code == code && FAILURE.message.equals(msg)) {
-            return FAILURE;
+        if (defaultFailureCode == code && defaultFailureMsg.equals(msg)) {
+            return failure();
         }
         return failure(code, msg, null);
     }
 
     public static Result failure(int code) {
-        if (FAILURE.getCode() == code) {
-            return FAILURE;
+        if (defaultFailureCode == code) {
+            return failure();
         }
-        return failure(code, FAILURE.getMessage(), null);
+        return failure(code, defaultFailureMsg, null);
     }
 
 
     public static Result failureWithMessage(String msg) {
-        if (FAILURE.getMessage().equals(msg)) {
-            return FAILURE;
+        if (defaultFailureMsg.equals(msg)) {
+            return failure();
         }
-        return failure(FAILURE.getCode(), msg, null);
+        return failure(defaultFailureCode, msg, null);
     }
 
 
     public static Result failure(int code, @NotNull String msg, Object data) {
-        if (data == null && FAILURE.getCode() == code && FAILURE.getMessage().equals(msg)) {
-            return FAILURE;
+        if (data == null && defaultFailureCode == code && defaultFailureMsg.equals(msg)) {
+            return failure();
         }
         return new Result(code, msg, data);
     }
 
     public static Result failure(Object data) {
         if (data == null) {
-            return FAILURE;
+            return failure();
         }
-        return new Result(FAILURE.getCode(), FAILURE.getMessage(), data);
+        return new Result(defaultFailureCode, defaultFailureMsg, data);
     }
 
     public static <T> Function<T, Result> asFailure(int code) {
-        return (t) -> Result.failure(code, FAILURE.getMessage(), t);
+        return (t) -> Result.failure(code, defaultFailureMsg, t);
     }
 
 
     public static <T> Function<T, Result> asFailure(String message) {
-        return (t) -> Result.failure(FAILURE.getCode(), FAILURE.getMessage(), t);
+        return (t) -> Result.failure(defaultFailureCode, defaultFailureMsg, t);
     }
 
     public static <T> Function<T, Result> asFailure() {
         return Result::failure;
     }
+
 
     // ******************** Instance ********************* //
 
