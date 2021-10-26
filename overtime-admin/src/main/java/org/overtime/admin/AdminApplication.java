@@ -1,17 +1,23 @@
 package org.overtime.admin;
 
-import org.overtime.common.controller.OvertimeStandardApplication;
-import org.overtime.common.controller.SpringApp;
+import org.overtime.common.application.OvertimeStandardApplication;
+import org.overtime.common.application.SpringApp;
 import org.overtime.configuration.handler.EnableOvertimeHandler;
+import org.springframework.boot.SpringApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author ForteScarlet
  */
 @EnableOvertimeHandler
 @OvertimeStandardApplication
+@EnableDiscoveryClient
 public class AdminApplication {
     public static void main(String[] args) {
-        SpringApp.runStandardController(args);
+        SpringApplication.run(AdminApplication.class, args);
+        // SpringApp.runStandardController(args);
     }
+
+
 
 }

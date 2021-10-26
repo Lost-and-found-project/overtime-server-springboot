@@ -1,7 +1,7 @@
 package org.overtime.compensate;
 
-import org.overtime.common.controller.OvertimeStandardApplication;
-import org.overtime.common.controller.SpringApp;
+import org.overtime.common.application.OvertimeStandardApplication;
+import org.overtime.common.application.SpringApp;
 
 /**
  * @author ForteScarlet

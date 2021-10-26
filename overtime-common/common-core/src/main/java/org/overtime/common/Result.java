@@ -130,7 +130,7 @@ public sealed class Result implements Serializable {
     }
 
     public static Result failure() {
-        return FAILURE;
+        return getDefaultFailure();
     }
 
     public static Result failure(int code, @NotNull String msg) {

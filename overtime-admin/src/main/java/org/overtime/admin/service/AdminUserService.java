@@ -1,12 +1,9 @@
 package org.overtime.admin.service;
 
-import org.overtime.admin.bean.dto.AdminUserListQueryDTO;
+import org.overtime.admin.bean.param.AdminUserListQueryParam;
 import org.overtime.admin.bean.vo.AdminUserListQueryParamVO;
 import org.overtime.admin.bean.vo.AdminUserHidePassVO;
-import org.overtime.common.PageInfo;
 import org.overtime.common.Paged;
-import org.springframework.data.domain.Pageable;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -25,6 +22,6 @@ public interface AdminUserService {
      * @param queryDTO params
      * @return Page AdminUser
      */
-    Mono<Paged<AdminUserHidePassVO>> queryUserPaged(AdminUserListQueryDTO queryDTO);
+    Mono<Paged<AdminUserHidePassVO>> queryUserPaged(AdminUserListQueryParam queryDTO);
 
 }

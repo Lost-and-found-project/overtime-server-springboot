@@ -1,7 +1,8 @@
-package org.overtime.admin.bean.dto;
+package org.overtime.admin.bean.param;
 
 import io.r2dbc.spi.Statement;
 import lombok.Data;
+import org.overtime.common.domain.Param;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.r2dbc.core.DatabaseClient;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author ForteScarlet
  */
 @Data
-public class AdminUserListQueryDTO {
+public class AdminUserListQueryParam implements Param {
     private String username;
     private List<Integer> roles = Collections.emptyList();
     private List<Integer> auths = Collections.emptyList();
@@ -33,7 +34,6 @@ public class AdminUserListQueryDTO {
     public Pageable getPageable() {
         return PageRequest.of(getPage() - 1, getSize());
     }
-
 
 
     public void join(String baseTableName, StringBuilder builder) {

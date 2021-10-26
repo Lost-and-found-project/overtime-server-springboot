@@ -1,9 +1,7 @@
 package org.overtime.admin.service.impl;
 
-import io.r2dbc.spi.Row;
-import io.r2dbc.spi.RowMetadata;
 import org.overtime.admin.bean.domain.AdminUser;
-import org.overtime.admin.bean.dto.AdminUserListQueryDTO;
+import org.overtime.admin.bean.param.AdminUserListQueryParam;
 import org.overtime.admin.bean.vo.*;
 import org.overtime.admin.repository.AdminAuthRepository;
 import org.overtime.admin.repository.AdminRoleRepository;
@@ -15,13 +13,10 @@ import org.overtime.common.service.OvertimeR2dbcEntityTemplate;
 import org.overtime.common.service.StandardR2dbcService;
 import org.overtime.common.service.utils.CriteriaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.data.relational.core.query.Criteria;
 import org.springframework.data.relational.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-
-import java.util.function.BiFunction;
 
 /**
  * @author ForteScarlet
@@ -52,9 +47,9 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
 
     @Override
     public Mono<AdminUserListQueryParamVO> getUserListQueryParam() {
-        final var roles = roleRepository.findAll(RoleVO.class).collectList();
-        final var auths = authRepository.findAll(AuthVO.class).collectList();
-        final var routes = routeRepository.findAll(RouteVO.class).collectList();
+        final var roles = roleRepository.findAllForQueryParam(RoleVO.class).collectList();
+        final var auths = authRepository.findAllForQueryParam(AuthVO.class).collectList();
+        final var routes = routeRepository.findAllForQueryParam(RouteVO.class).collectList();
 
 
         return Mono.zip(roles, auths, routes).map((tuple) -> new AdminUserListQueryParamVO(tuple.getT1(), tuple.getT2(), tuple.getT3()));
@@ -66,7 +61,7 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
      * @return Page AdminUser
      */
     @Override
-    public Mono<Paged<AdminUserHidePassVO>> queryUserPaged(AdminUserListQueryDTO queryDTO) {
+    public Mono<Paged<AdminUserHidePassVO>> queryUserPaged(AdminUserListQueryParam queryDTO) {
         var criteria = Criteria.empty();
         // username.
         criteria = CriteriaUtil.notNull(criteria, "username", queryDTO.getUsername(), (c, v) -> c.like("%" + v + "%"));

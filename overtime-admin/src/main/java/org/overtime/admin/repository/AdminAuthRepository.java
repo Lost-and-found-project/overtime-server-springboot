@@ -21,5 +21,5 @@ public interface AdminAuthRepository extends StandardOvertimeRepository<AdminAut
      * @return all
      */
     @Query("SELECT id, `key`, name, create_time FROM admin_auth")
-    <S> Flux<S> findAll(Class<S> type);
+    <S> Flux<S> findAllForQueryParam(Class<S> type);
 }

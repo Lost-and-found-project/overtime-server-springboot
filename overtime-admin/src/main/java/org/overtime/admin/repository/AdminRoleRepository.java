@@ -21,6 +21,6 @@ public interface AdminRoleRepository extends StandardOvertimeRepository<AdminRol
      * @return all
      */
     @Query("SELECT id, name, create_time FROM admin_role")
-    <S> Flux<S> findAll(Class<S> type);
+    <S> Flux<S> findAllForQueryParam(Class<S> type);
 
 }

@@ -1,4 +1,4 @@
-package org.overtime.common.controller;
+package org.overtime.common.application;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;

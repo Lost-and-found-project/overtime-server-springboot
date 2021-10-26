@@ -1,9 +1,7 @@
 package org.overtime.user;
 
-import org.overtime.common.controller.OvertimeStandardApplication;
-import org.overtime.common.controller.SpringApp;
-import org.overtime.common.controller.StandardResourceApiApplication;
-import org.springframework.boot.SpringApplication;
+import org.overtime.common.application.OvertimeStandardApplication;
+import org.overtime.common.application.SpringApp;
 
 /**
  * @author ForteScarlet

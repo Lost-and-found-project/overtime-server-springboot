@@ -55,7 +55,7 @@ public class OvertimeExceptionHandler {
 
         // default response status: 500
         response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
-        return Mono.just(Result.failure(Result.FAILURE.getCode(), exception.getLocalizedMessage(), exception.toString()));
+        return Mono.just(Result.failure(Result.failure().getCode(), exception.getLocalizedMessage(), exception.toString()));
     }
 
 
