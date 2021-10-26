@@ -11,7 +11,6 @@ import reactor.core.publisher.Mono;
  */
 public interface AdminRouteService {
 
-
     /**
      * 根据ID查询AdminRoute。
      * @param id id。不应为null。
@@ -29,5 +28,22 @@ public interface AdminRouteService {
      * @return admin route
      */
     Flux<AdminRoute> findByParentId(@Nullable Integer parentId, boolean full);
+
+
+    /**
+     * 新增多个新的路由信息
+     * @param route route
+     * @return Admin Route
+     */
+    Flux<AdminRoute> createRoutes(AdminRoute... route);
+
+
+    /**
+     * 删除多个路由。如果为根路由，将会删除下面的子路由。
+     * TODO 是否约束？
+     * @param routeIds 路由ID列表
+     * @return deleted routes.
+     */
+    Mono<Void> deleteRoutes(Integer... routeIds);
 
 }

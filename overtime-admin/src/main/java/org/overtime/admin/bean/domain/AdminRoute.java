@@ -24,6 +24,7 @@ public class AdminRoute {
     private Integer parentId;
 
     private String route;
+    private String description;
     private LocalDateTime createTime;
 
     @Transient
