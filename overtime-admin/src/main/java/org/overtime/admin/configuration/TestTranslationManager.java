@@ -49,8 +49,8 @@ public class TestTranslationManager extends R2dbcTransactionManager implements R
      */
     @Override
     protected @NotNull Object doGetTransaction(@NotNull TransactionSynchronizationManager synchronizationManager) throws TransactionException {
-        log.info("========== do get transaction ==========");
-        log.info("synchronizationManager = {} ", synchronizationManager);
+        log.debug("========== do get transaction ==========");
+        log.debug("synchronizationManager = {} ", synchronizationManager);
 
         return super.doGetTransaction(synchronizationManager);
     }
@@ -76,10 +76,10 @@ public class TestTranslationManager extends R2dbcTransactionManager implements R
      */
     @Override
     protected @NotNull Mono<Void> doBegin(@NotNull TransactionSynchronizationManager synchronizationManager, @NotNull Object transaction, @NotNull TransactionDefinition definition) throws TransactionException {
-        log.info("========== do begin ==========");
-        log.info("synchronizationManager = {}", synchronizationManager);
-        log.info("transaction = {}", transaction);
-        log.info("definition = {}", definition);
+        log.debug("========== do begin ==========");
+        log.debug("synchronizationManager = {}", synchronizationManager);
+        log.debug("transaction = {}", transaction);
+        log.debug("definition = {}", definition);
 
         return super.doBegin(synchronizationManager, transaction, definition);
     }
@@ -98,9 +98,9 @@ public class TestTranslationManager extends R2dbcTransactionManager implements R
      */
     @Override
     protected @NotNull Mono<Void> doCommit(@NotNull TransactionSynchronizationManager synchronizationManager, @NotNull GenericReactiveTransaction status) throws TransactionException {
-        log.info("========== do commit ==========");
-        log.info("synchronizationManager = {}", synchronizationManager);
-        log.info("status = {}", status);
+        log.debug("========== do commit ==========");
+        log.debug("synchronizationManager = {}", synchronizationManager);
+        log.debug("status = {}", status);
 
         return super.doCommit(synchronizationManager, status);
     }
@@ -118,9 +118,9 @@ public class TestTranslationManager extends R2dbcTransactionManager implements R
      */
     @Override
     protected @NotNull Mono<Void> doRollback(@NotNull TransactionSynchronizationManager synchronizationManager, @NotNull GenericReactiveTransaction status) throws TransactionException {
-        log.info("========== do rollback ==========");
-        log.info("synchronizationManager = {}", synchronizationManager);
-        log.info("status = {}", status);
+        log.debug("========== do rollback ==========");
+        log.debug("synchronizationManager = {}", synchronizationManager);
+        log.debug("status = {}", status);
 
         return super.doRollback(synchronizationManager, status);
     }
