@@ -1,22 +1,18 @@
 package org.overtime.admin.controller;
 
-import io.netty.buffer.ByteBuf;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.overtime.admin.bean.domain.AdminRoute;
 import org.overtime.admin.service.AdminRouteService;
-import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.BufferedReader;
-import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.stream.Stream;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author ForteScarlet
@@ -89,8 +85,25 @@ public class AdminRouteController {
      */
     @PostMapping("/create")
     public Mono<AdminRoute> createAdminRoute(@NotNull @RequestBody AdminRoute route) {
-        return adminRouteService.createRoutes(route).last();
+        return adminRouteService.createRoutes(Collections.singletonList(route)).last();
     }
+
+
+    /**
+     * 修改一个路由信息。
+     *
+     * @param routes routes.
+     * @return updated routes.
+     */
+    @PostMapping("/update")
+    public Flux<AdminRoute> updateAdminRoute(@Nullable @RequestBody List<AdminRoute> routes) {
+        if (routes == null) {
+            routes = Collections.emptyList();
+        }
+
+        return adminRouteService.updateRoutes(routes);
+    }
+
 
     /**
      * 删除一个管理路由。
@@ -98,17 +111,6 @@ public class AdminRouteController {
     @PostMapping("/delete/{id}")
     public Mono<Void> deleteAdminRoute(@PathVariable Integer id) {
         return adminRouteService.deleteRoutes(id);
-    }
-
-
-    @GetMapping("/test")
-    public Flux<String> test() {
-        return Flux.push(sink -> {
-            sink.onRequest(req -> {
-                System.out.println("REQ: " + req);
-                sink.next("REQ: " + req);
-            });
-        });
     }
 
 

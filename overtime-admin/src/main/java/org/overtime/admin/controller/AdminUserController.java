@@ -2,14 +2,14 @@ package org.overtime.admin.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.overtime.admin.bean.param.AdminUserListQueryParam;
+import org.overtime.admin.bean.param.AdminUserRoleEditParam;
 import org.overtime.admin.bean.vo.AdminUserHidePassVO;
 import org.overtime.admin.bean.vo.AdminUserListQueryParamVO;
 import org.overtime.admin.service.AdminUserService;
 import org.overtime.common.Paged;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -43,8 +43,22 @@ public class AdminUserController {
     }
 
 
+    /**
+     * 为某个用户设置部分管理角色
+     */
+    @PostMapping("/addRole")
+    public Flux<Integer> addRole(@RequestBody AdminUserRoleEditParam param) {
+        return adminUserService.addRole(param);
+    }
 
 
+    /**
+     * 为某个用户移除部分管理角色
+     */
+    @PostMapping("/removeRole")
+    public Flux<Integer> removeRole(@RequestBody AdminUserRoleEditParam param) {
+        return adminUserService.removeRole(param);
+    }
 
 
 

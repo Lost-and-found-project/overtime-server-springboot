@@ -1,9 +1,11 @@
 package org.overtime.admin.service;
 
 import org.overtime.admin.bean.param.AdminUserListQueryParam;
+import org.overtime.admin.bean.param.AdminUserRoleEditParam;
 import org.overtime.admin.bean.vo.AdminUserListQueryParamVO;
 import org.overtime.admin.bean.vo.AdminUserHidePassVO;
 import org.overtime.common.Paged;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -24,4 +26,18 @@ public interface AdminUserService {
      */
     Mono<Paged<AdminUserHidePassVO>> queryUserPaged(AdminUserListQueryParam queryDTO);
 
+    /**
+     * 增加管理用户的角色，返回增加后的角色ID列表。
+     * @param param param
+     * @return ids
+     */
+    Flux<Integer> addRole(AdminUserRoleEditParam param);
+
+
+    /**
+     * 移除管理用户的角色，返回移除后的角色ID列表。
+     * @param param param
+     * @return ids
+     */
+    Flux<Integer> removeRole(AdminUserRoleEditParam param);
 }

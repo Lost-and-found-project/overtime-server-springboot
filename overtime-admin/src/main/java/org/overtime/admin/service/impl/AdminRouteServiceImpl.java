@@ -13,6 +13,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * implements for {@link org.overtime.admin.service.AdminRouteService}
@@ -75,8 +76,8 @@ public class AdminRouteServiceImpl extends StandardR2dbcService<AdminRoute, Inte
      */
     @Override
     @Transactional
-    public Flux<AdminRoute> createRoutes(AdminRoute... routes) {
-        if (routes.length == 0) {
+    public Flux<AdminRoute> createRoutes(Collection<AdminRoute> routes) {
+        if (routes == null || routes.isEmpty()) {
             return Flux.empty();
         }
 
@@ -88,7 +89,30 @@ public class AdminRouteServiceImpl extends StandardR2dbcService<AdminRoute, Inte
         }
 
 
-        return getRepository().saveAll(Arrays.asList(routes));
+        return getRepository().saveAll(routes);
+    }
+
+    /**
+     * 批量修改多个路由信息
+     *
+     * @param routes routes
+     * @return updated.
+     */
+    @Override
+    public Flux<AdminRoute> updateRoutes(Collection<AdminRoute> routes) {
+        if (routes == null || routes.isEmpty()) {
+            return Flux.empty();
+        }
+
+        for (AdminRoute route : routes) {
+            // 0, is null also.
+            if (route.getId() == 0) {
+                route.setId(null);
+            }
+            Check.requireNotnull(route.getId(), "Route.id");
+        }
+
+        return getRepository().saveAll(routes);
     }
 
     /**

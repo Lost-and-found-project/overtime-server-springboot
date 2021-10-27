@@ -2,6 +2,7 @@ package org.overtime.admin.service.impl;
 
 import org.overtime.admin.bean.domain.AdminUser;
 import org.overtime.admin.bean.param.AdminUserListQueryParam;
+import org.overtime.admin.bean.param.AdminUserRoleEditParam;
 import org.overtime.admin.bean.vo.*;
 import org.overtime.admin.repository.AdminAuthRepository;
 import org.overtime.admin.repository.AdminRoleRepository;
@@ -16,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.relational.core.query.Criteria;
 import org.springframework.data.relational.core.query.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -57,6 +60,7 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
 
     /**
      * 根据参数查询用户列表
+     *
      * @param queryDTO params
      * @return Page AdminUser
      */
@@ -74,6 +78,61 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
                 .with(queryDTO.getPageable()), true);
     }
 
+    /**
+     * 增加用户的角色，返回增加后的角色ID列表。
+     *
+     * @param param param
+     * @return ids
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Flux<Integer> addRole(AdminUserRoleEditParam param) {
+        if (param.getRoles().isEmpty()) {
+            return getUserRoleIds(param.getUserId());
+        }
 
+        final Integer userId = param.getUserId();
+        final var insert = ovTemplate.getR2dbcEntityTemplate()
+                .insert(AdminUserRoleEditParam.Entity.class)
+                .into(AdminUserRoleEditParam.Entity.TABLE);
+
+        return param.toEntryFlux().flatMap(insert::using)
+                .concatMap(v -> getUserRoleIds(userId));
+    }
+
+
+    /**
+     * 移除管理用户的角色，返回移除后的角色ID列表。
+     *
+     * @param param param
+     * @return ids
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Flux<Integer> removeRole(AdminUserRoleEditParam param) {
+        final Integer userId = param.getUserId();
+        if (param.getRoles().isEmpty()) {
+            return getUserRoleIds(userId);
+        }
+
+        final Criteria userIdCriteria = Criteria.where("user_id").is(userId);
+        final Criteria rolesCriteria = Criteria.where("roles").in(param.getRoles());
+        Query query = Query.query(userIdCriteria.and(rolesCriteria));
+
+        return ovTemplate.getR2dbcEntityTemplate()
+                .delete(AdminUserRoleEditParam.Entity.class)
+                .from(AdminUserRoleEditParam.Entity.TABLE)
+                .matching(query).all().flatMapMany(rows -> getUserRoleIds(userId));
+    }
+
+
+    /**
+     * 查询管理账户下所有对应的角色列表。
+     * @param userId userId
+     * @return roles
+     */
+    private Flux<Integer> getUserRoleIds(int userId) {
+        return getRepository().getUserRolesId(userId);
+    }
 }
 

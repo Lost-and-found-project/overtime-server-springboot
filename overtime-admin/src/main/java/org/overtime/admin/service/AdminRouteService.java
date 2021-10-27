@@ -5,6 +5,8 @@ import org.overtime.admin.bean.domain.AdminRoute;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Collection;
+
 /**
  * 路由服务接口。
  * @author ForteScarlet
@@ -32,10 +34,18 @@ public interface AdminRouteService {
 
     /**
      * 新增多个新的路由信息
-     * @param route route
+     * @param routes routes
      * @return Admin Route
      */
-    Flux<AdminRoute> createRoutes(AdminRoute... route);
+    Flux<AdminRoute> createRoutes(Collection<AdminRoute> routes);
+
+
+    /**
+     * 批量修改多个路由信息
+     * @param routes routes
+     * @return updated.
+     */
+    Flux<AdminRoute> updateRoutes(Collection<AdminRoute> routes);
 
 
     /**
