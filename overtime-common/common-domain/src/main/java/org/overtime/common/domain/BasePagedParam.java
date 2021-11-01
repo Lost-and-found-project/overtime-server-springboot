@@ -16,6 +16,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class BasePagedParam<D> {
-    private D data;
+    private D param;
     private PageInfo page;
 }
