@@ -1,3 +1,12 @@
-// dependencies {
-//     implementation(D.Spring.Boot.Data.R2dbc.NOTATION)
-// }
+dependencyManagement {
+    imports {
+        mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
+        mavenBom(D.Alibaba.Cloud.Dependencies.NOTATION)
+    }
+}
+
+dependencies {
+    annotationProcessor(D.Lombok.NOTATION)
+    compileOnly(D.Lombok.NOTATION)
+    implementation(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
+}

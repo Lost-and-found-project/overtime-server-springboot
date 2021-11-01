@@ -1,13 +1,16 @@
 package org.overtime.user.api;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.overtime.common.Paged;
 import org.overtime.user.domain.entity.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import reactivefeign.spring.config.ReactiveFeignClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
+ * 对外的用户服务API。
  * @author ForteScarlet
  */
 @ReactiveFeignClient(UserApiConstant.USER_SERVICE)
@@ -28,5 +31,20 @@ public interface UserApi {
 
 
 
+    String ALL = "/all";
+
+    /**
+   Post根据参数直接获取所有用户。
+     *
+     * @return users
+     */
+    @PostMapping(ALL)
+    Flux<User> all(@Nullable @RequestBody User user);
+
+
+    String PAGED = "/paged";
+
+    @PostMapping(PAGED)
+    Mono<Paged<User>> paged(User user);
 
 }
