@@ -15,7 +15,6 @@ import reactor.core.publisher.Mono;
  * @author ForteScarlet
  */
 @ReactiveFeignClient(DictionaryApiConstant.APPLICATION_NAME)
-// @RequestMapping(DictionaryTypeApi.API_REQ_MAPPING) // no
 public interface DictionaryTypeApi extends DictionaryApiSupport {
     String API_REQ_MAPPING = "/dictionaryType";
     String ALL = API_REQ_MAPPING + "/all";

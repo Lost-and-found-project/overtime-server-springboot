@@ -1,7 +1,7 @@
 create table admin_auth_route
 (
-    auth_id  int not null,
-    route_id int not null,
+    auth_id  int not null comment '权限ID',
+    route_id int not null comment '路由ID',
     constraint admin_auth_route_auth_id_route_id_uindex
         unique (auth_id, route_id),
     constraint admin_auth_route_admin_auth_id_fk

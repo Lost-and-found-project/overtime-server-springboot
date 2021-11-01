@@ -1,6 +1,6 @@
 create table admin_auth
 (
-    id          int auto_increment
+    id          int auto_increment comment '权限ID'
         primary key,
     `key`       varchar(50) null comment '权限key，应该为全英文，不可重复',
     name        varchar(50) null comment '权限描述名称',

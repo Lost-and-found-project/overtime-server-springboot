@@ -1,7 +1,7 @@
 create table admin_role_auth
 (
-    role_id int not null,
-    auth_id int not null,
+    role_id int not null comment '角色ID',
+    auth_id int not null comment '权限ID',
     constraint admin_role_auth_role_id_auth_id_uindex
         unique (role_id, auth_id),
     constraint admin_role_auth_admin_auth_id_fk

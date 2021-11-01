@@ -1,6 +1,6 @@
 create table admin_role
 (
-    id          int auto_increment
+    id          int auto_increment comment '角色ID'
         primary key,
     name        varchar(20) not null comment '角色名称，不可重复',
     create_time datetime    not null comment '创建日期',

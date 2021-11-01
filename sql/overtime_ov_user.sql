@@ -1,13 +1,17 @@
 create table ov_user
 (
-    id          int auto_increment comment 'overtime-基础用户表'
+    id          int auto_increment comment 'ID'
         primary key,
-    username    varchar(20)            not null comment '用户名，或者说用户昵称',
-    password    varchar(100)           not null comment '用户的密码。应该是加密的',
-    email       varchar(50) default '' not null comment '用户邮箱。为空则代表没有',
-    phone       varchar(50) default '' not null comment '用户手机号，可能会携带区号之类的信息。为空则无',
-    create_time datetime               not null comment '创建时间',
-    status      int         default 0  not null comment '用户状态码。'
+    username    varchar(20)       not null comment '登录用户名。不可重复，只能是英文',
+    password    varchar(50)       not null comment '登录密码。考虑加密',
+    create_time datetime          not null comment '创建时间',
+    status      smallint          null comment '状态码。-1：停用，0：正常
+用户的过期状态在查询的时候进行检测与设置。',
+    is_admin    tinyint default 0 not null comment '是否为管理员账号。0：否，1：是',
+    constraint admin_user_username_uindex
+        unique (username)
 )
-    comment 'Overtime- 基础用户表';
+    comment '管理用户账号';
 
+INSERT INTO overtime.ov_user (id, username, password, create_time, status, is_admin) VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 0);
+INSERT INTO overtime.ov_user (id, username, password, create_time, status, is_admin) VALUES (2, 'admin2', 'admin', '2021-10-27 14:20:30', 0, 0);
