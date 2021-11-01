@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.overtime.common.Paged;
 import org.overtime.user.domain.entity.User;
+import org.overtime.user.domain.param.UserPagedParam;
 import org.springframework.web.bind.annotation.*;
 import reactivefeign.spring.config.ReactiveFeignClient;
 import reactor.core.publisher.Flux;
@@ -44,7 +45,12 @@ public interface UserApi {
 
     String PAGED = "/paged";
 
+    /**
+     * 根据查询条件分页查询用户信息。
+     * @param userPagedParam userPagedParam
+     * @return user paged.
+     */
     @PostMapping(PAGED)
-    Mono<Paged<User>> paged(User user);
+    Mono<Paged<User>> paged(UserPagedParam userPagedParam);
 
 }

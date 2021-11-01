@@ -29,9 +29,9 @@ subprojects {
         }
 
         if (name.endsWith("-service-impl")) {
-            // api(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
+            api(commonProject("service"))
+            api(configProject("r2dbc-template"))
             api(findServicesSameLevel("service")!!)
-            api(project(":overtime-common:common-service"))
         }
 
         if (name.endsWith("-api")) {

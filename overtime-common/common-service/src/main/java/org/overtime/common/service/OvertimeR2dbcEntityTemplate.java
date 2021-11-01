@@ -1,21 +1,23 @@
 package org.overtime.common.service;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.overtime.common.PageInfo;
+import org.overtime.common.PageInfoSupport;
 import org.overtime.common.Paged;
 import org.overtime.common.service.utils.CountDistinctFunction;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.data.r2dbc.core.StatementMapper;
 import org.springframework.data.relational.core.query.CriteriaDefinition;
 import org.springframework.data.relational.core.query.Query;
 import org.springframework.data.relational.core.sql.Functions;
 import org.springframework.data.relational.core.sql.SqlIdentifier;
-import org.springframework.data.relational.core.sql.Table;
+import org.springframework.data.relational.repository.query.RelationalExampleMapper;
 import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.r2dbc.core.PreparedOperation;
-import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -29,10 +31,20 @@ import java.util.stream.Collectors;
  * @author ForteScarlet
  */
 @Slf4j
-@RequiredArgsConstructor
 public class OvertimeR2dbcEntityTemplate {
     @Getter
     private final R2dbcEntityTemplate r2dbcEntityTemplate;
+
+    /**
+     * @see org.springframework.data.r2dbc.repository.support.SimpleR2dbcRepository
+     */
+    private final RelationalExampleMapper exampleMapper;
+
+    public OvertimeR2dbcEntityTemplate(R2dbcEntityTemplate r2dbcEntityTemplate) {
+        this.r2dbcEntityTemplate = r2dbcEntityTemplate;
+        this.exampleMapper = new RelationalExampleMapper(r2dbcEntityTemplate.getConverter().getMappingContext());
+    }
+
 
     /**
      * @see #selectPaged(Class, SqlIdentifier, SqlIdentifier, Query, boolean)
@@ -107,8 +119,7 @@ public class OvertimeR2dbcEntityTemplate {
 
 
     private StatementMapper.SelectSpec listSpec(StatementMapper.SelectSpec spec, int limit, long offset, List<SqlIdentifier> columns, boolean distinct) {
-        spec = spec.limit(limit)
-                .offset(offset);
+        spec = spec.limit(limit).offset(offset);
         if (distinct) {
             spec = spec.distinct();
         }
@@ -131,6 +142,16 @@ public class OvertimeR2dbcEntityTemplate {
                 return sp.withProjection(Functions.count(table.column(id)));
             }
         });
+    }
+
+    /**
+     * 根据原始查询参数通过 Example 进行查询。
+     */
+    public <T> Mono<Paged<T>> selectPaged(Example<T> example, PageInfoSupport pageInfoSupport) {
+        final Pageable pageable = pageInfoSupport.pageable();
+        final Query query = exampleMapper.getMappedExample(example).offset(pageable.getOffset()).limit(pageable.getPageSize());
+
+        return selectPaged(example.getProbeType(), query, false);
     }
 
 }
