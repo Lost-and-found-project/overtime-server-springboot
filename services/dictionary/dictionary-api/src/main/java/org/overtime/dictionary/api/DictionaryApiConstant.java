@@ -1,7 +1,6 @@
 package org.overtime.dictionary.api;
 
 /**
- *
  * 字典API常量。
  *
  * @author ForteScarlet

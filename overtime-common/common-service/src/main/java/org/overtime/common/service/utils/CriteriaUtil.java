@@ -4,7 +4,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.data.relational.core.query.Criteria;
-import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 import java.util.function.BiFunction;

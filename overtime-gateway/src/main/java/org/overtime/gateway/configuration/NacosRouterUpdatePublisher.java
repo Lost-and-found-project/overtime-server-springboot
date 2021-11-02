@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationEventPublisherAware;
 
 /**
  * see https://www.cnblogs.com/jian0110/p/12862569.html
+ *
  * @author ForteScarlet
  */
 @Slf4j
@@ -26,7 +27,6 @@ public class NacosRouterUpdatePublisher implements ApplicationEventPublisherAwar
     public void setApplicationEventPublisher(@NotNull ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
     }
-
 
 
 }

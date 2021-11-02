@@ -80,6 +80,7 @@ subprojects {
             implementation(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
             implementation(D.Alibaba.Cloud.Nacos.Config.NOTATION_NOV)
             implementation(D.Spring.Cloud.Bootstrap.NOTATION_NOV)
+            implementation(D.Spring.Boot.Actuator.NOTATION_NOV)
 
             tasks.bootJar {
                 enabled = true

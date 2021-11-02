@@ -15,4 +15,6 @@ create table compensate_type
 )
     comment '补偿的类型';
 
-INSERT INTO overtime.compensate_type (id, name, unit, proportion, description, type, create_time, last_modified_time, user_id) VALUES (1, '调休', '分钟', '1', '调休，一分钟加班抵一分钟调休', 0, '2021-10-12 13:09:25', '2021-10-12 13:09:29', 0);
+INSERT INTO overtime.compensate_type (id, name, unit, proportion, description, type, create_time, last_modified_time,
+                                      user_id)
+VALUES (1, '调休', '分钟', '1', '调休，一分钟加班抵一分钟调休', 0, '2021-10-12 13:09:25', '2021-10-12 13:09:29', 0);

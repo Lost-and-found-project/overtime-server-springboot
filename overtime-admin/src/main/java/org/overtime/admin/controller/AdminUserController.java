@@ -34,6 +34,7 @@ public class AdminUserController {
 
     /**
      * 查询用户分页列表。
+     *
      * @param queryDTO dto
      * @return AdminUserHidePassVO paged.
      */
@@ -59,7 +60,6 @@ public class AdminUserController {
     public Flux<Integer> removeRole(@RequestBody AdminUserRoleEditParam param) {
         return adminUserService.removeRole(param);
     }
-
 
 
 }

@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin.Companion.isIncludeCompileClasspath
-
 dependencyManagement {
     imports {
         mavenBom(D.Spring.Cloud.Dependencies.NOTATION)

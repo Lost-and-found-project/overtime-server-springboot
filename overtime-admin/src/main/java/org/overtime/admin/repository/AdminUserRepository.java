@@ -1,7 +1,6 @@
 package org.overtime.admin.repository;
 
 import org.overtime.admin.bean.domain.AdminUser;
-import org.overtime.admin.bean.param.AdminUserRoleEditParam;
 import org.overtime.common.repository.StandardOvertimeRepository;
 import org.springframework.data.r2dbc.repository.Modifying;
 import org.springframework.data.r2dbc.repository.Query;

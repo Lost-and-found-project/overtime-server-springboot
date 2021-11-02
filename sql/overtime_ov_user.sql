@@ -13,5 +13,7 @@ create table ov_user
 )
     comment '管理用户账号';
 
-INSERT INTO overtime.ov_user (id, username, password, create_time, status, is_admin) VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 0);
-INSERT INTO overtime.ov_user (id, username, password, create_time, status, is_admin) VALUES (2, 'admin2', 'admin', '2021-10-27 14:20:30', 0, 0);
+INSERT INTO overtime.ov_user (id, username, password, create_time, status, is_admin)
+VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 0);
+INSERT INTO overtime.ov_user (id, username, password, create_time, status, is_admin)
+VALUES (2, 'admin2', 'admin', '2021-10-27 14:20:30', 0, 0);

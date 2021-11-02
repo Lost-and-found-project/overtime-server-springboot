@@ -22,7 +22,6 @@ import java.time.LocalDateTime;
  * @param authCreateTime  创建时间
  * @param routeId         路由的路径。不可重复
  * @param routeCreateTime 创建时间
- *
  * @author forte
  */
 @Table("admin_user_with_role_with_auth_with_route")
@@ -36,6 +35,7 @@ public record AdminUserWithRoleWithAuthWithRoute(Integer id, String username,
                                                  LocalDateTime routeCreateTime) implements View {
     @Serial
     private static final long serialVersionUID = 1L;
+
     public AdminUserHidePassVO toViewSupport() {
         return new AdminUserHidePassVO(id(), username(), createTime(), status());
     }

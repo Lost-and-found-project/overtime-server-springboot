@@ -20,6 +20,7 @@ import java.lang.annotation.Target;
 @SpringBootApplication
 @EnableR2dbcAuditing
 @EnableR2dbcRepositories(basePackages = "org.overtime.*.repository")
+@ComponentScan("org.overtime.*.controller")
 @ComponentScan("org.overtime.*.repository")
 @ComponentScan("org.overtime.*.application")
 @ComponentScan("org.overtime.*.service")

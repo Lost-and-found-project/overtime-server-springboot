@@ -21,5 +21,7 @@ from (`overtime`.`admin_user` `au`
 
 -- comment on column admin_user_with_role_id.role_id not supported: 角色ID
 
-INSERT INTO overtime.admin_user_with_role_id (id, username, password, create_time, status, role_id) VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1);
-INSERT INTO overtime.admin_user_with_role_id (id, username, password, create_time, status, role_id) VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 2);
+INSERT INTO overtime.admin_user_with_role_id (id, username, password, create_time, status, role_id)
+VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1);
+INSERT INTO overtime.admin_user_with_role_id (id, username, password, create_time, status, role_id)
+VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 2);

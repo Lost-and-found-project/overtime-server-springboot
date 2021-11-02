@@ -1,7 +1,6 @@
 package org.overtime.admin;
 
 import org.overtime.common.application.OvertimeStandardApplication;
-import org.overtime.common.application.SpringApp;
 import org.overtime.configuration.handler.EnableOvertimeHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -17,7 +16,6 @@ public class AdminApplication {
         SpringApplication.run(AdminApplication.class, args);
         // SpringApp.runStandardController(args);
     }
-
 
 
 }

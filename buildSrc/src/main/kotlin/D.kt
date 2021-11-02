@@ -20,7 +20,6 @@ object D {
     object Lombok : DependencyNotation("org.projectlombok", "lombok", "1.18.20")
 
 
-
     sealed class Jupiter(name: String) : DependencyNotation("org.junit.jupiter", name, VERSION) {
         companion object {
             const val VERSION = "5.8.1"
@@ -29,9 +28,6 @@ object D {
         object Api : Jupiter("junit-jupiter-api")
         object Engine : Jupiter("junit-jupiter-engine")
     }
-
-
-
 
 
     sealed class Reactor(name: String) : DependencyNotation("io.projectreactor", "reactor-$name", null) {
@@ -145,7 +141,6 @@ object D {
             // const val NOTATION_NOV = "$GROUP_ID:spring-cloud-starter-openfeign"
 
 
-
             object Loadbalancer : Cloud("spring-cloud-loadbalancer")
             // const val NOTATION_NOV = "$GROUP_ID:spring-cloud-loadbalancer"
         }
@@ -228,7 +223,7 @@ object D {
     /**
      * Jwt 实现
      */
-    sealed class Jwt(groupId: String, name: String, version: String): DependencyNotation(groupId, name, version) {
+    sealed class Jwt(groupId: String, name: String, version: String) : DependencyNotation(groupId, name, version) {
 
         /**
          * see https://github.com/auth0/java-jwt

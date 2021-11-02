@@ -1,11 +1,7 @@
 package org.overtime.gateway.configuration;
 
 import com.alibaba.nacos.api.config.ConfigChangeEvent;
-import com.alibaba.nacos.api.config.ConfigChangeItem;
-import com.alibaba.nacos.api.config.listener.Listener;
 import com.alibaba.nacos.client.config.listener.impl.AbstractConfigChangeListener;
-
-import java.util.concurrent.Executor;
 
 /**
  * @author ForteScarlet

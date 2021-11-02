@@ -27,5 +27,9 @@ from (`overtime`.`admin_user_with_role_id` `au`
 
 -- comment on column admin_user_with_role.role_create_time not supported: 创建日期
 
-INSERT INTO overtime.admin_user_with_role (id, username, password, create_time, status, role_id, role_name, role_create_time) VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1, '超级管理员', '2021-10-21 17:17:27');
-INSERT INTO overtime.admin_user_with_role (id, username, password, create_time, status, role_id, role_name, role_create_time) VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 2, '用户管理员', '2021-10-21 17:17:27');
+INSERT INTO overtime.admin_user_with_role (id, username, password, create_time, status, role_id, role_name,
+                                           role_create_time)
+VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1, '超级管理员', '2021-10-21 17:17:27');
+INSERT INTO overtime.admin_user_with_role (id, username, password, create_time, status, role_id, role_name,
+                                           role_create_time)
+VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 2, '用户管理员', '2021-10-21 17:17:27');

@@ -1,7 +1,5 @@
 @file:Suppress("PropertyName")
 
-import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
-
 plugins {
     id("org.springframework.boot") version "2.5.5" apply false
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
@@ -56,7 +54,6 @@ subprojects {
         testImplementation(D.Spring.Boot.Test.NOTATION_NOV)
         testImplementation(D.Reactor.Test.NOTATION_NOV)
     }
-
 
 
 }

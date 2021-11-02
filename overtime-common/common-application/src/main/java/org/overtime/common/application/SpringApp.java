@@ -6,6 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * SpringApplication 启动器工具。
+ *
  * @author ForteScarlet
  */
 @SuppressWarnings({"UnusedReturnValue", "unused"})
@@ -14,7 +15,8 @@ public final class SpringApp {
 
     /**
      * 根据提供的参数启动Spring。
-     * @param args args
+     *
+     * @param args           args
      * @param primarySources primary sources.
      * @return {@link ConfigurableApplicationContext}
      */
@@ -27,6 +29,7 @@ public final class SpringApp {
 
     /**
      * 通过 {@link StandardControllerApplication} 启动spring application。
+     *
      * @param args args
      * @return {@link ConfigurableApplicationContext}
      */
@@ -40,6 +43,7 @@ public final class SpringApp {
 
     /**
      * 通过 {@link StandardResourceApiApplication} 启动spring application。
+     *
      * @param args args
      * @return {@link ConfigurableApplicationContext}
      */
@@ -53,6 +57,7 @@ public final class SpringApp {
 
     /**
      * 通过 {@link StandardNoHandlerApplication} 启动spring application。
+     *
      * @param args args
      * @return {@link ConfigurableApplicationContext}
      */
@@ -66,6 +71,7 @@ public final class SpringApp {
 
     /**
      * 通过 {@link StandaloneControllerApplication} 启动spring application。
+     *
      * @param args args
      * @return {@link ConfigurableApplicationContext}
      */
@@ -79,6 +85,7 @@ public final class SpringApp {
 
     /**
      * 通过 {@link StandaloneResourceApiApplication} 启动spring application。
+     *
      * @param args args
      * @return {@link ConfigurableApplicationContext}
      */
@@ -92,6 +99,7 @@ public final class SpringApp {
 
     /**
      * 通过 {@link StandaloneNoHandlerApplication} 启动spring application。
+     *
      * @param args args
      * @return {@link ConfigurableApplicationContext}
      */

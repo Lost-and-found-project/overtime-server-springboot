@@ -2,7 +2,6 @@ package org.overtime.common.service;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.overtime.common.PageInfo;
 import org.overtime.common.PageInfoSupport;
 import org.overtime.common.Paged;
@@ -28,8 +27,13 @@ import java.util.stream.Collectors;
 /**
  * 针对于 {@link R2dbcEntityTemplate} 而提供的一些扩展操作，比如字段去重、COUNT去重等。
  *
+ * <p>
+ * <p>
+ * 通过 `configuration-r2dbc-template` 模块进行自动装配。
+ *
  * @author ForteScarlet
  */
+@SuppressWarnings("unused")
 @Slf4j
 public class OvertimeR2dbcEntityTemplate {
     @Getter
@@ -62,7 +66,7 @@ public class OvertimeR2dbcEntityTemplate {
 
         final List<SqlIdentifier> identifierColumns = r2dbcEntityTemplate.getDataAccessStrategy().getIdentifierColumns(tableType);
         if (identifierColumns.size() != 1) {
-            throw new IllegalArgumentException("IdentifierColumns size must be 1, but "+ identifierColumns.size());
+            throw new IllegalArgumentException("IdentifierColumns size must be 1, but " + identifierColumns.size());
         }
         final SqlIdentifier id = identifierColumns.get(0);
 
@@ -149,9 +153,20 @@ public class OvertimeR2dbcEntityTemplate {
      */
     public <T> Mono<Paged<T>> selectPaged(Example<T> example, PageInfoSupport pageInfoSupport) {
         final Pageable pageable = pageInfoSupport.pageable();
-        final Query query = exampleMapper.getMappedExample(example).offset(pageable.getOffset()).limit(pageable.getPageSize());
+        final Query query = exampleMapper.getMappedExample(example).with(pageInfoSupport.pageable());
+                //.offset(pageable.getOffset()).limit(pageable.getPageSize());
 
         return selectPaged(example.getProbeType(), query, false);
+    }
+
+
+    /**
+     * 将 {@link Example} 转化为 {@link Query}.
+     * @param example example instance
+     * @return query instance.
+     */
+    public Query getMappedExample(Example<?> example) {
+        return exampleMapper.getMappedExample(example);
     }
 
 }

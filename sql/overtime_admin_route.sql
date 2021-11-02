@@ -14,10 +14,17 @@ create table admin_route
 )
     comment '管理权限中的对应路由';
 
-INSERT INTO overtime.admin_route (id, parent_id, route, create_time, description) VALUES (1, null, '/test', '2021-10-26 09:37:30', '');
-INSERT INTO overtime.admin_route (id, parent_id, route, create_time, description) VALUES (2, null, '/test2', '2021-10-26 09:37:39', '');
-INSERT INTO overtime.admin_route (id, parent_id, route, create_time, description) VALUES (3, 1, '/test/hello', '2021-10-26 09:38:15', '');
-INSERT INTO overtime.admin_route (id, parent_id, route, create_time, description) VALUES (4, 1, '/test/user', '2021-10-26 09:38:23', '');
-INSERT INTO overtime.admin_route (id, parent_id, route, create_time, description) VALUES (5, 2, '/test2/world', '2021-10-26 09:38:42', '');
-INSERT INTO overtime.admin_route (id, parent_id, route, create_time, description) VALUES (6, 2, '/test2/like', '2021-10-26 09:38:52', '');
-INSERT INTO overtime.admin_route (id, parent_id, route, create_time, description) VALUES (7, null, '/test3', '2021-10-26 14:38:09', '第三个测试路由');
+INSERT INTO overtime.admin_route (id, parent_id, route, create_time, description)
+VALUES (1, null, '/test', '2021-10-26 09:37:30', '');
+INSERT INTO overtime.admin_route (id, parent_id, route, create_time, description)
+VALUES (2, null, '/test2', '2021-10-26 09:37:39', '');
+INSERT INTO overtime.admin_route (id, parent_id, route, create_time, description)
+VALUES (3, 1, '/test/hello', '2021-10-26 09:38:15', '');
+INSERT INTO overtime.admin_route (id, parent_id, route, create_time, description)
+VALUES (4, 1, '/test/user', '2021-10-26 09:38:23', '');
+INSERT INTO overtime.admin_route (id, parent_id, route, create_time, description)
+VALUES (5, 2, '/test2/world', '2021-10-26 09:38:42', '');
+INSERT INTO overtime.admin_route (id, parent_id, route, create_time, description)
+VALUES (6, 2, '/test2/like', '2021-10-26 09:38:52', '');
+INSERT INTO overtime.admin_route (id, parent_id, route, create_time, description)
+VALUES (7, null, '/test3', '2021-10-26 14:38:09', '第三个测试路由');

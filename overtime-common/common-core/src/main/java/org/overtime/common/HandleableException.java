@@ -1,6 +1,6 @@
 package org.overtime.common;
 
-import org.jetbrains.annotations.NotNull;
+import lombok.Getter;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -8,10 +8,15 @@ import java.io.PrintWriter;
 /**
  * @author ForteScarlet
  */
+@SuppressWarnings("unused")
 public class HandleableException extends Exception implements CodeMessageSupport {
+    @Getter
     private final int code;
+    @Getter
     private final int httpCode;
+    @Getter
     private final String message;
+    @Getter
     private final Exception exception;
 
     public HandleableException(int code, int httpCode, String message, Exception exception) {
@@ -37,25 +42,6 @@ public class HandleableException extends Exception implements CodeMessageSupport
         this.exception = exception;
     }
 
-
-    @Override
-    public int getCode() {
-        return code;
-    }
-
-    @Override
-    public @NotNull String getMessage() {
-        return message;
-    }
-
-    @Override
-    public int getHttpResponseStatus() {
-        return httpCode;
-    }
-
-    public Exception getException() {
-        return exception;
-    }
 
     @Override
     public String toString() {

@@ -1,15 +1,10 @@
 package org.overtime.common;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Collection;
-import java.util.Collections;
-
 /**
- * 分页信息数据。
+ * 用于响应的分页信息数据。
+ *
  * @author ForteScarlet
  */
 public record PageInfo(

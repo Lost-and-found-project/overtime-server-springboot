@@ -1,7 +1,6 @@
 package org.overtime.admin.bean.domain;
 
 import lombok.Data;
-import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;

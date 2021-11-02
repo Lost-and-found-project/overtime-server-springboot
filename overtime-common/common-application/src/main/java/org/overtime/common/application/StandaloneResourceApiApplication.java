@@ -4,7 +4,6 @@ import org.overtime.configuration.handler.EnableOvertimeHandler;
 import reactivefeign.spring.config.EnableReactiveFeignClients;
 
 /**
- *
  * 没有服务发现的资源API。只携带着异常处理。
  *
  * @author ForteScarlet

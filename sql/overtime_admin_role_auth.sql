@@ -13,7 +13,11 @@ create table admin_role_auth
 )
     comment '角色-权限中间表';
 
-INSERT INTO overtime.admin_role_auth (role_id, auth_id) VALUES (1, 1);
-INSERT INTO overtime.admin_role_auth (role_id, auth_id) VALUES (1, 2);
-INSERT INTO overtime.admin_role_auth (role_id, auth_id) VALUES (1, 3);
-INSERT INTO overtime.admin_role_auth (role_id, auth_id) VALUES (2, 3);
+INSERT INTO overtime.admin_role_auth (role_id, auth_id)
+VALUES (1, 1);
+INSERT INTO overtime.admin_role_auth (role_id, auth_id)
+VALUES (1, 2);
+INSERT INTO overtime.admin_role_auth (role_id, auth_id)
+VALUES (1, 3);
+INSERT INTO overtime.admin_role_auth (role_id, auth_id)
+VALUES (2, 3);

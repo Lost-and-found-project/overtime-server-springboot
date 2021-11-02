@@ -27,7 +27,15 @@ from (((`overtime`.`admin_user` `au` left join `overtime`.`admin_user_role` `aur
 
 -- comment on column admin_user_with_role_id_with_auth_id_with_route_id.route_id not supported: 路由ID
 
-INSERT INTO overtime.admin_user_with_role_id_with_auth_id_with_route_id (id, username, password, create_time, status, role_id, auth_id, route_id) VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1, 1, null);
-INSERT INTO overtime.admin_user_with_role_id_with_auth_id_with_route_id (id, username, password, create_time, status, role_id, auth_id, route_id) VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1, 2, null);
-INSERT INTO overtime.admin_user_with_role_id_with_auth_id_with_route_id (id, username, password, create_time, status, role_id, auth_id, route_id) VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1, 3, null);
-INSERT INTO overtime.admin_user_with_role_id_with_auth_id_with_route_id (id, username, password, create_time, status, role_id, auth_id, route_id) VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 2, 3, null);
+INSERT INTO overtime.admin_user_with_role_id_with_auth_id_with_route_id (id, username, password, create_time, status,
+                                                                         role_id, auth_id, route_id)
+VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1, 1, null);
+INSERT INTO overtime.admin_user_with_role_id_with_auth_id_with_route_id (id, username, password, create_time, status,
+                                                                         role_id, auth_id, route_id)
+VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1, 2, null);
+INSERT INTO overtime.admin_user_with_role_id_with_auth_id_with_route_id (id, username, password, create_time, status,
+                                                                         role_id, auth_id, route_id)
+VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1, 3, null);
+INSERT INTO overtime.admin_user_with_role_id_with_auth_id_with_route_id (id, username, password, create_time, status,
+                                                                         role_id, auth_id, route_id)
+VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 2, 3, null);

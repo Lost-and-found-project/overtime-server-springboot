@@ -8,6 +8,9 @@ create table admin_auth
 )
     comment '管理账号中角色的权限';
 
-INSERT INTO overtime.admin_auth (id, `key`, name, create_time) VALUES (1, 'CREATE_ADMIN', '创建管理员', '2021-10-21 17:20:33');
-INSERT INTO overtime.admin_auth (id, `key`, name, create_time) VALUES (2, 'MODIFY_ADMIN', '操作管理员', '2021-10-21 17:20:56');
-INSERT INTO overtime.admin_auth (id, `key`, name, create_time) VALUES (3, 'QUERY_LOG', '查看操作日志', '2021-10-21 17:21:37');
+INSERT INTO overtime.admin_auth (id, `key`, name, create_time)
+VALUES (1, 'CREATE_ADMIN', '创建管理员', '2021-10-21 17:20:33');
+INSERT INTO overtime.admin_auth (id, `key`, name, create_time)
+VALUES (2, 'MODIFY_ADMIN', '操作管理员', '2021-10-21 17:20:56');
+INSERT INTO overtime.admin_auth (id, `key`, name, create_time)
+VALUES (3, 'QUERY_LOG', '查看操作日志', '2021-10-21 17:21:37');

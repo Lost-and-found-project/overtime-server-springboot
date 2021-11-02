@@ -9,5 +9,7 @@ create table admin_role
 )
     comment '管理账号角色表';
 
-INSERT INTO overtime.admin_role (id, name, create_time) VALUES (1, '超级管理员', '2021-10-21 17:17:27');
-INSERT INTO overtime.admin_role (id, name, create_time) VALUES (2, '用户管理员', '2021-10-21 17:17:27');
+INSERT INTO overtime.admin_role (id, name, create_time)
+VALUES (1, '超级管理员', '2021-10-21 17:17:27');
+INSERT INTO overtime.admin_role (id, name, create_time)
+VALUES (2, '用户管理员', '2021-10-21 17:17:27');

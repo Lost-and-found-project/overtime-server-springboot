@@ -13,5 +13,7 @@ create table admin_user_role
 )
     comment '用户-角色中间表';
 
-INSERT INTO overtime.admin_user_role (user_id, role_id) VALUES (1, 1);
-INSERT INTO overtime.admin_user_role (user_id, role_id) VALUES (1, 2);
+INSERT INTO overtime.admin_user_role (user_id, role_id)
+VALUES (1, 1);
+INSERT INTO overtime.admin_user_role (user_id, role_id)
+VALUES (1, 2);

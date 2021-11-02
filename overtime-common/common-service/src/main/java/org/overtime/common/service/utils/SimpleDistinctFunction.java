@@ -13,15 +13,14 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *
  * A distinct function, like:
  * {@code functionName(DISTINCT ...)}.
- *
+ * <p>
  * {@code COUNT(DISTINCT ...)}
  *
+ * @author ForteScarlet
  * @see SimpleFunction
  * @see Expression
- * @author ForteScarlet
  */
 @SuppressWarnings("JavadocReference")
 public class SimpleDistinctFunction implements Expression {
@@ -37,7 +36,6 @@ public class SimpleDistinctFunction implements Expression {
     public static SimpleDistinctFunction create(String functionName, Expression... expressions) {
         return new SimpleDistinctFunction(functionName, Arrays.asList(expressions));
     }
-
 
 
     public String getFunctionName() {

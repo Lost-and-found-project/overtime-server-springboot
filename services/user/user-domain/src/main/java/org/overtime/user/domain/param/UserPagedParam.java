@@ -6,7 +6,6 @@ import org.overtime.common.PageInfoSupport;
 import org.overtime.user.domain.entity.User;
 
 /**
- *
  * 用户分页查询参数。
  *
  * @author ForteScarlet

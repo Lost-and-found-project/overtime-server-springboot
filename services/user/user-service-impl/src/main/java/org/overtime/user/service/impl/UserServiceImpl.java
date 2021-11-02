@@ -2,34 +2,29 @@ package org.overtime.user.service.impl;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.overtime.common.Paged;
 import org.overtime.common.PageInfoSupport;
-import org.overtime.common.service.OvertimeR2dbcEntityTemplate;
+import org.overtime.common.Paged;
 import org.overtime.common.service.StandardR2dbcService;
 import org.overtime.user.domain.entity.User;
+import org.overtime.user.domain.entity.UserWithInfo;
 import org.overtime.user.repository.UserRepository;
 import org.overtime.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.data.r2dbc.convert.R2dbcConverter;
-import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
  * User service.
+ *
  * @author ForteScarlet
  */
-
 @Service
-public class UserServiceImpl extends StandardR2dbcService<User, Long, UserRepository> implements UserService  {
-    private final OvertimeR2dbcEntityTemplate r2dbcEntityTemplate;
+public class UserServiceImpl extends StandardR2dbcService<User, Long, UserRepository> implements UserService {
 
-    @Autowired
-    public UserServiceImpl(UserRepository repository, OvertimeR2dbcEntityTemplate r2dbcEntityTemplate) {
+
+    public UserServiceImpl(UserRepository repository) {
         super(repository);
-        this.r2dbcEntityTemplate = r2dbcEntityTemplate;
     }
 
     @Override
@@ -46,8 +41,24 @@ public class UserServiceImpl extends StandardR2dbcService<User, Long, UserReposi
 
     @Override
     public Mono<Paged<User>> findAllPaged(User user, PageInfoSupport pageInfo) {
+        return getOvertimeR2dbcEntityTemplate().selectPaged(Example.of(user), pageInfo);
+    }
 
-        // TODO
-        return this.r2dbcEntityTemplate.selectPaged(Example.of(user), pageInfo);
+
+    @Override
+    public Flux<User> findAllPagedList(User user, PageInfoSupport pageInfo) {
+        return pagedList(user, User.class, pageInfo.pageable());
+    }
+
+
+    @Override
+    public Mono<Long> count(@Nullable User user) {
+        return super.count(user);
+    }
+
+
+    @Override
+    public Mono<UserWithInfo> findUserWithInfoById(Long id) {
+        return getRepository().findByIdWithInfo(id);
     }
 }

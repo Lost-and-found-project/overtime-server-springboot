@@ -7,6 +7,7 @@ import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 
 /**
  * Config for {@link OvertimeR2dbcEntityTemplate}
+ *
  * @author ForteScarlet
  */
 @Configuration(proxyBeanMethods = false)

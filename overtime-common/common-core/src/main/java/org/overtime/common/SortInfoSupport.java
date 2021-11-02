@@ -4,7 +4,6 @@ import org.jetbrains.annotations.Nullable;
 import org.springframework.data.domain.Sort;
 
 /**
- *
  * 可携带的排序信息。一般以列表为形式出现。
  *
  * @author ForteScarlet

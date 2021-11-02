@@ -2,10 +2,6 @@ package org.overtime.common.service.utils;
 
 import org.springframework.data.relational.core.sql.SqlIdentifier;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * @author ForteScarlet
  */

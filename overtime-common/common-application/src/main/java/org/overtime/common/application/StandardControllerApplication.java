@@ -5,7 +5,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import reactivefeign.spring.config.EnableReactiveFeignClients;
 
 /**
- *
  * 基础的对外Controller。带着异常处理和返回值处理。
  *
  * @author ForteScarlet

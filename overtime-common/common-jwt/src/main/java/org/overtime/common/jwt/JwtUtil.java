@@ -1,11 +1,9 @@
 package org.overtime.common.jwt;
 
-import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 import java.security.Key;
-import java.util.HashMap;
 
 /**
  * Jwt util
@@ -14,7 +12,7 @@ import java.util.HashMap;
  *
  * @author ForteScarlet
  */
-@SuppressWarnings({"CommentedOutCode", "GrazieInspection", "SpellCheckingInspection"})
+@SuppressWarnings({"GrazieInspection", "SpellCheckingInspection"})
 public class JwtUtil {
 
     // Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
@@ -30,7 +28,6 @@ public class JwtUtil {
     public static Key getKey() {
         return KEY;
     }
-
 
 
 }

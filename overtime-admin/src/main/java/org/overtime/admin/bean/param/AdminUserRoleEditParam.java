@@ -20,6 +20,7 @@ public final class AdminUserRoleEditParam {
     private List<Integer> roles;
 
     /**
+     *
      */
     public AdminUserRoleEditParam(
             Integer userId,

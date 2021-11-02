@@ -39,7 +39,19 @@ from ((`overtime`.`admin_user_with_role_id_with_auth_id` `au` left join `overtim
 
 -- comment on column admin_user_with_role_with_auth.auth_create_time not supported: 创建时间
 
-INSERT INTO overtime.admin_user_with_role_with_auth (id, username, password, create_time, status, role_id, role_name, role_create_time, auth_id, auth_key, auth_name, auth_create_time) VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1, '超级管理员', '2021-10-21 17:17:27', 1, 'CREATE_ADMIN', '创建管理员', '2021-10-21 17:20:33');
-INSERT INTO overtime.admin_user_with_role_with_auth (id, username, password, create_time, status, role_id, role_name, role_create_time, auth_id, auth_key, auth_name, auth_create_time) VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1, '超级管理员', '2021-10-21 17:17:27', 2, 'MODIFY_ADMIN', '操作管理员', '2021-10-21 17:20:56');
-INSERT INTO overtime.admin_user_with_role_with_auth (id, username, password, create_time, status, role_id, role_name, role_create_time, auth_id, auth_key, auth_name, auth_create_time) VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1, '超级管理员', '2021-10-21 17:17:27', 3, 'QUERY_LOG', '查看操作日志', '2021-10-21 17:21:37');
-INSERT INTO overtime.admin_user_with_role_with_auth (id, username, password, create_time, status, role_id, role_name, role_create_time, auth_id, auth_key, auth_name, auth_create_time) VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 2, '用户管理员', '2021-10-21 17:17:27', 3, 'QUERY_LOG', '查看操作日志', '2021-10-21 17:21:37');
+INSERT INTO overtime.admin_user_with_role_with_auth (id, username, password, create_time, status, role_id, role_name,
+                                                     role_create_time, auth_id, auth_key, auth_name, auth_create_time)
+VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1, '超级管理员', '2021-10-21 17:17:27', 1, 'CREATE_ADMIN', '创建管理员',
+        '2021-10-21 17:20:33');
+INSERT INTO overtime.admin_user_with_role_with_auth (id, username, password, create_time, status, role_id, role_name,
+                                                     role_create_time, auth_id, auth_key, auth_name, auth_create_time)
+VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1, '超级管理员', '2021-10-21 17:17:27', 2, 'MODIFY_ADMIN', '操作管理员',
+        '2021-10-21 17:20:56');
+INSERT INTO overtime.admin_user_with_role_with_auth (id, username, password, create_time, status, role_id, role_name,
+                                                     role_create_time, auth_id, auth_key, auth_name, auth_create_time)
+VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 1, '超级管理员', '2021-10-21 17:17:27', 3, 'QUERY_LOG', '查看操作日志',
+        '2021-10-21 17:21:37');
+INSERT INTO overtime.admin_user_with_role_with_auth (id, username, password, create_time, status, role_id, role_name,
+                                                     role_create_time, auth_id, auth_key, auth_name, auth_create_time)
+VALUES (1, 'admin', 'admin', '2021-10-21 17:17:02', 0, 2, '用户管理员', '2021-10-21 17:17:27', 3, 'QUERY_LOG', '查看操作日志',
+        '2021-10-21 17:21:37');

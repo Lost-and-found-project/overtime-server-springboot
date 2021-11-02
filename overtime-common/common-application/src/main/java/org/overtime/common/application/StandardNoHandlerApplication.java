@@ -5,7 +5,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import reactivefeign.spring.config.EnableReactiveFeignClients;
 
 /**
- *
  * 基础的无 {@link EnableOvertimeHandler} 的Controller。
  *
  * @author ForteScarlet

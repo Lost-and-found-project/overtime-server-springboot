@@ -1,7 +1,6 @@
 package org.overtime.user.api;
 
 /**
- *
  * userAPI相关的常量类。
  *
  * @author ForteScarlet

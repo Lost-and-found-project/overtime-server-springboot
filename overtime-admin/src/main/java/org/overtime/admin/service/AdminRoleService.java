@@ -5,12 +5,14 @@ import reactor.core.publisher.Mono;
 
 /**
  * 管理角色服务接口。
+ *
  * @author ForteScarlet
  */
 public interface AdminRoleService {
 
     /**
      * 根据ID查询role。
+     *
      * @param id ID
      * @return AdminRole
      */

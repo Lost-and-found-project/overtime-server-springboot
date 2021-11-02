@@ -1,7 +1,6 @@
 package org.overtime.dictionary.service;
 
 import org.overtime.dictionary.domain.DictionaryType;
-import org.springframework.web.bind.annotation.GetMapping;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

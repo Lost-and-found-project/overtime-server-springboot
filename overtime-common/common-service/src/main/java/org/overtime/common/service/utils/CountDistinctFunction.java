@@ -13,12 +13,11 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *
  * Function: {@code COUNT(DISTINCT ... )}
  *
+ * @author ForteScarlet
  * @see org.springframework.data.relational.core.sql.Functions
  * @see org.springframework.data.relational.core.sql.SimpleFunction
- * @author ForteScarlet
  */
 public class CountDistinctFunction extends SimpleDistinctFunction implements Expression {
     private static final String FUNCTION_NAME = "COUNT";

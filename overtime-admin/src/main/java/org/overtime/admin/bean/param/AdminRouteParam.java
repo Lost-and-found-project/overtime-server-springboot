@@ -7,8 +7,8 @@ import org.overtime.common.domain.Param;
 /**
  * 查询具体路由用的请求参数。
  *
- * @see org.overtime.admin.bean.domain.AdminRoute
  * @author ForteScarlet
+ * @see org.overtime.admin.bean.domain.AdminRoute
  */
 @Data
 public class AdminRouteParam implements Param {
