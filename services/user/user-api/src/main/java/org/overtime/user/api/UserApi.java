@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
  *
  * @author ForteScarlet
  */
-@ReactiveFeignClient(UserApiConstant.USER_SERVICE)
+@ReactiveFeignClient(value = UserApiConstant.USER_SERVICE, path = UserApi.API_REQ_MAPPING)
 public interface UserApi {
     String API_REQ_MAPPING = "/user";
 
@@ -84,6 +84,11 @@ public interface UserApi {
 
     String COUNT = "/count";
 
+    /**
+     * 条件查询总数，一般配合 {@link #pagedList} 进行分页数据查询。
+     * @param user query param.
+     * @return count.
+     */
     @GetMapping(COUNT)
     Mono<Long> count(@RequestBody @Nullable User user);
 

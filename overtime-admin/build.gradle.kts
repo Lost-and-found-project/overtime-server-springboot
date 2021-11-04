@@ -12,7 +12,10 @@ dependencies {
     compileOnly(D.Lombok.NOTATION)
     //endregion
 
-    implementation(serviceProject("dictionary", "api"))
+    //region services
+    implementation(serviceApiProject("dictionary"))
+    implementation(serviceApiProject("user"))
+    //endregion
 
     //region commons
     implementation(commonProject("core"))
@@ -37,6 +40,10 @@ dependencies {
     implementation(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
     implementation(D.Alibaba.Cloud.Nacos.Config.NOTATION_NOV)
     implementation(D.Spring.Boot.Actuator.NOTATION_NOV)
+    // feign reactor
+    implementation(D.FeignReactor.WebClient.NOTATION)
+    implementation(D.FeignReactor.Cloud.NOTATION)
+    implementation(D.FeignReactor.SpringConfiguration.NOTATION)
     //endregion
 
     //region r2dbc

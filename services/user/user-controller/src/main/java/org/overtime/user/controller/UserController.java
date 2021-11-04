@@ -64,18 +64,33 @@ public class UserController implements UserApi {
     }
 
 
+    /**
+     * 直接查询完整的分页后数据信息。
+     * @param userPagedParam userPagedParam
+     * @return paged user data.
+     */
     @Override
     @PostMapping(PAGED)
     public Mono<Paged<User>> paged(@RequestBody UserPagedParam userPagedParam) {
         return userService.findAllPaged(userPagedParam, userPagedParam);
     }
 
+    /**
+     * 查询分页后的用户数据。
+     * @param userPagedParam param
+     * @return paged user list.
+     */
     @Override
     @PostMapping(PAGED_LIST)
     public Flux<User> pagedList(UserPagedParam userPagedParam) {
         return userService.findAllPagedList(userPagedParam, userPagedParam);
     }
 
+    /**
+     * 查询条件后的数据总量。
+     * @param user query param.
+     * @return user data count.
+     */
     @Override
     @PostMapping(COUNT)
     public Mono<Long> count(@Nullable User user) {

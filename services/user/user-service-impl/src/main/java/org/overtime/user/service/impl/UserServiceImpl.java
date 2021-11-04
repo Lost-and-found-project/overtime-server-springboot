@@ -28,7 +28,7 @@ public class UserServiceImpl extends StandardR2dbcService<User, Long, UserReposi
     }
 
     @Override
-    public Mono<User> findById(@NotNull Long id) {
+    public Mono<User>findById(@NotNull Long id) {
         return super.findById(id);
     }
 

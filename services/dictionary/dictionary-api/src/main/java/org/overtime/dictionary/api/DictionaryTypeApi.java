@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
  *
  * @author ForteScarlet
  */
-@ReactiveFeignClient(DictionaryApiConstant.APPLICATION_NAME)
+@ReactiveFeignClient(value = DictionaryApiConstant.APPLICATION_NAME, path = DictionaryTypeApi.API_REQ_MAPPING)
 public interface DictionaryTypeApi extends DictionaryApiSupport {
     String API_REQ_MAPPING = "/dictionaryType";
     String ALL = API_REQ_MAPPING + "/all";

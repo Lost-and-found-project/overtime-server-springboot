@@ -36,7 +36,7 @@ public sealed class Result implements Serializable {
 
     private static final class DefaultSuccessResult extends Result {
         private DefaultSuccessResult() {
-            super(defaultFailureCode, defaultFailureMsg, null);
+            super(defaultSuccessCode, defaultSuccessMsg, null);
         }
     }
 
@@ -64,8 +64,8 @@ public sealed class Result implements Serializable {
      * @param msg 默认成功消息。
      */
     public static void setDefaultSuccessMsg(@NotNull String msg) {
-        Result.defaultSuccessMsg = msg;
-        SUCCESS = null;
+        Result.defaultFailureMsg = msg;
+        FAILURE = null;
     }
 
     public static void setDefaultFailureCode(int defaultFailureCode) {

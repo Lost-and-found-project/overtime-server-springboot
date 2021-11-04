@@ -13,6 +13,7 @@ import org.overtime.common.Paged;
 import org.overtime.common.service.OvertimeR2dbcEntityTemplate;
 import org.overtime.common.service.StandardR2dbcService;
 import org.overtime.common.service.utils.CriteriaUtil;
+import org.overtime.user.api.UserApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.relational.core.query.Criteria;
 import org.springframework.data.relational.core.query.Query;
@@ -31,21 +32,21 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
     private final AdminRoleRepository roleRepository;
     private final AdminAuthRepository authRepository;
     private final AdminRouteRepository routeRepository;
-
+    private final UserApi userApi;
 
     @Autowired
     public AdminUserServiceImpl(AdminUserRepository repository,
                                 OvertimeR2dbcEntityTemplate ovTemplate,
                                 AdminRoleRepository roleRepository,
                                 AdminAuthRepository authRepository,
-                                AdminRouteRepository routeRepository) {
+                                AdminRouteRepository routeRepository,
+                                UserApi userApi) {
         super(repository);
         this.ovTemplate = ovTemplate;
         this.roleRepository = roleRepository;
         this.authRepository = authRepository;
         this.routeRepository = routeRepository;
-
-        // init row mapper
+        this.userApi = userApi;
     }
 
     @Override

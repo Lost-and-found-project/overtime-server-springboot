@@ -1,5 +1,5 @@
 dependencies {
-    api(project(":overtime-common:common-core"))
+    api(commonProject("core"))
     api(D.Spring.Boot.Aop.NOTATION_NOV)
     api(D.Spring.Boot.Webflux.NOTATION_NOV)
 

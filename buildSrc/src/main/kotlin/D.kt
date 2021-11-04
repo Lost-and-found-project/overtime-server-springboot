@@ -263,4 +263,5 @@ object D {
 inline fun DependencyHandler.configProject(id: String) = project(":overtime-configuration:configuration-$id")
 inline fun DependencyHandler.commonProject(id: String) = project(":overtime-common:common-$id")
 inline fun DependencyHandler.serviceProject(id: String, module: String) = project(":services:$id:$id-$module")
+inline fun DependencyHandler.serviceApiProject(id: String) = serviceProject(id, "api")
 

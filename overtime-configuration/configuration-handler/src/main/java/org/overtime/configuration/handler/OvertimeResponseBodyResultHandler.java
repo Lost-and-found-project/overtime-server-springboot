@@ -1,5 +1,6 @@
 package org.overtime.configuration.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.overtime.common.Result;
 import org.springframework.core.MethodParameter;
@@ -21,6 +22,7 @@ import java.util.List;
  *
  * @author ForteScarlet
  */
+@Slf4j
 public class OvertimeResponseBodyResultHandler extends ResponseBodyResultHandler {
 
 
@@ -57,7 +59,7 @@ public class OvertimeResponseBodyResultHandler extends ResponseBodyResultHandler
 
     OvertimeResponseBodyResultHandler(List<HttpMessageWriter<?>> writers, RequestedContentTypeResolver resolver) {
         super(writers, resolver);
-        // default handler was 100.
+        // default handler is 100.
         setOrder(99);
     }
 
@@ -79,6 +81,7 @@ public class OvertimeResponseBodyResultHandler extends ResponseBodyResultHandler
         }
 
         Object body = result.getReturnValue();
+
         if (body instanceof Mono<?> mono) {
             body = toResult(mono);
             actualMethodParameter = MR;
@@ -95,7 +98,7 @@ public class OvertimeResponseBodyResultHandler extends ResponseBodyResultHandler
     }
 
     private static Mono<Result> toResult(Mono<?> mono) {
-        return mono.map(Result.asSuccess());
+        return mono.map(Result.asSuccess()).defaultIfEmpty(Result.success());
     }
 
     private static Mono<Result> toResult(Flux<?> flux) {
