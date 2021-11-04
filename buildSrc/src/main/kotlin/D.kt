@@ -80,26 +80,21 @@ object D {
 
             object Test : Boot("spring-boot-starter-test")
 
-
             object Actuator : Boot("spring-boot-starter-actuator")
 
-
             object Aop : Boot("spring-boot-starter-aop")
-            // const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-aop"
-
 
             object Web : Boot("spring-boot-starter-web")
 
-
-            // implementation("org.springframework.boot:spring-boot-starter-webflux:2.5.5")
             object Webflux : Boot("spring-boot-starter-webflux")
-            // const val NOTATION_NOV = "org.springframework.boot:spring-boot-starter-webflux"
 
+            // see https://docs.spring.io/spring-security/site/docs/current/reference/html5/#jc-webflux
+            // see https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html#webflux-web-security
+            object Security : Boot("spring-boot-starter-security")
+            
             object Autoconfigure : Boot("spring-boot-autoconfigure")
 
-            // annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.5.5")
             object ConfigurationProcessor : Boot("spring-boot-configuration-processor")
-            // const val NOTATION_NOV = "org.springframework.boot:spring-boot-configuration-processor"
 
         }
 
