@@ -16,7 +16,7 @@ abstract class DependencyNotation(val groupId: String, val name: String, val ver
  */
 @Suppress("MemberVisibilityCanBePrivate", "unused")
 object D {
-    object JetbrainsAnnotation : DependencyNotation("org.jetbrains", "annotations", "22.0.0")
+    object JetbrainsAnnotation : DependencyNotation("org.jetbrains", "annotations", "23.0.0")
     object Lombok : DependencyNotation("org.projectlombok", "lombok", "1.18.20")
 
 
