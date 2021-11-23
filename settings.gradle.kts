@@ -8,6 +8,11 @@ includes("overtime-configuration") {
     sub("configuration-security") // webflux security
 }
 
+includes("overtime-admins") {
+    sub("overtime-admin-api")
+    sub("overtime-admin-application")
+}
+
 includes("overtime-common") {
     sub("common-core")
     sub("common-domain")
@@ -56,7 +61,7 @@ class Include(parentPath: String?, val id: String) {
             kotlin.runCatching {
                 include(path)
             }.getOrElse {
-                println("> [Warn]: Include $path failed: ${it.localizedMessage}")
+                println("> [Warn]: Include $path failed: $it")
             }
         } else {
             include(path)
