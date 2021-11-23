@@ -16,7 +16,6 @@ import reactivefeign.spring.config.EnableReactiveFeignClients;
 public class AdminApplication {
     public static void main(String[] args) {
         SpringApplication.run(AdminApplication.class, args);
-        // SpringApp.runStandardController(args);
     }
 
 

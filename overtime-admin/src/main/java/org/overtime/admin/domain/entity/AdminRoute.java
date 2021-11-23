@@ -1,4 +1,4 @@
-package org.overtime.admin.bean.domain;
+package org.overtime.admin.domain.entity;
 
 import lombok.Data;
 import org.jetbrains.annotations.Nullable;

@@ -1,6 +1,6 @@
-package org.overtime.admin.bean.vo;
+package org.overtime.admin.domain.vo;
 
-import org.overtime.admin.bean.param.AdminUserListQueryParam;
+import org.overtime.admin.domain.param.AdminUserListQueryParam;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 

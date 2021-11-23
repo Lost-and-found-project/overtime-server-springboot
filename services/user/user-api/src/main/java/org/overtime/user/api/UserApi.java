@@ -3,6 +3,7 @@ package org.overtime.user.api;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.overtime.common.Paged;
+import org.overtime.common.ServiceConstant;
 import org.overtime.user.domain.entity.User;
 import org.overtime.user.domain.entity.UserWithInfo;
 import org.overtime.user.domain.param.UserPagedParam;
@@ -19,7 +20,7 @@ import reactor.core.publisher.Mono;
  *
  * @author ForteScarlet
  */
-@ReactiveFeignClient(value = UserApiConstant.USER_SERVICE, path = UserApi.API_REQ_MAPPING)
+@ReactiveFeignClient(value = ServiceConstant.USER_SERVICE, path = UserApi.API_REQ_MAPPING)
 public interface UserApi {
     String API_REQ_MAPPING = "/user";
 

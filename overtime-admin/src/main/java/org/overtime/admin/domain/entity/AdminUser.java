@@ -1,7 +1,6 @@
-package org.overtime.admin.bean.domain;
+package org.overtime.admin.domain.entity;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
@@ -23,8 +22,6 @@ public record AdminUser(
         String username,
         String password,
         LocalDateTime createTime,
-        Short status,
-        @Column("is_admin")
-        int admin
+        Short status
 ) {
 }

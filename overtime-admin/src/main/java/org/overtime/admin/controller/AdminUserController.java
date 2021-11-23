@@ -1,10 +1,10 @@
 package org.overtime.admin.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.overtime.admin.bean.param.AdminUserListQueryParam;
-import org.overtime.admin.bean.param.AdminUserRoleEditParam;
-import org.overtime.admin.bean.vo.AdminUserHidePassVO;
-import org.overtime.admin.bean.vo.AdminUserListQueryParamVO;
+import org.overtime.admin.domain.param.AdminUserListQueryParam;
+import org.overtime.admin.domain.param.AdminUserRoleEditParam;
+import org.overtime.admin.domain.vo.AdminUserHidePassVO;
+import org.overtime.admin.domain.vo.AdminUserListQueryParamVO;
 import org.overtime.admin.service.AdminUserService;
 import org.overtime.common.Paged;
 import org.springframework.beans.factory.annotation.Autowired;

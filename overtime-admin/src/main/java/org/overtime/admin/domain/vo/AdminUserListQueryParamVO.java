@@ -1,4 +1,4 @@
-package org.overtime.admin.bean.vo;
+package org.overtime.admin.domain.vo;
 
 import java.util.List;
 

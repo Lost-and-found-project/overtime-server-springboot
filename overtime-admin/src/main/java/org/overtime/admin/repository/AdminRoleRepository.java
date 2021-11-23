@@ -1,6 +1,6 @@
 package org.overtime.admin.repository;
 
-import org.overtime.admin.bean.domain.AdminRole;
+import org.overtime.admin.domain.entity.AdminRole;
 import org.overtime.common.repository.StandardOvertimeRepository;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.stereotype.Repository;

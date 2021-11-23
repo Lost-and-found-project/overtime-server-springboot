@@ -1,9 +1,9 @@
 package org.overtime.admin.service;
 
-import org.overtime.admin.bean.param.AdminUserListQueryParam;
-import org.overtime.admin.bean.param.AdminUserRoleEditParam;
-import org.overtime.admin.bean.vo.AdminUserHidePassVO;
-import org.overtime.admin.bean.vo.AdminUserListQueryParamVO;
+import org.overtime.admin.domain.param.AdminUserListQueryParam;
+import org.overtime.admin.domain.param.AdminUserRoleEditParam;
+import org.overtime.admin.domain.vo.AdminUserHidePassVO;
+import org.overtime.admin.domain.vo.AdminUserListQueryParamVO;
 import org.overtime.common.Paged;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

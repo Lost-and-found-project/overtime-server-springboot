@@ -1,4 +1,4 @@
-package org.overtime.admin.bean.param;
+package org.overtime.admin.domain.param;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

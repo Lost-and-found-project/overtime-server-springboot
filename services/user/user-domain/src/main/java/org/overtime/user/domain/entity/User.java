@@ -23,10 +23,4 @@ public class User {
     private String password;
     private LocalDateTime createTime;
     private Integer status;
-    @Column("is_admin")
-    private Integer admin;
-
-    public boolean isAdmin() {
-        return 1 == admin;
-    }
 }

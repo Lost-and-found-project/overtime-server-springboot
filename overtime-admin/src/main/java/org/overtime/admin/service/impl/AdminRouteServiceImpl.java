@@ -1,7 +1,7 @@
 package org.overtime.admin.service.impl;
 
 import org.jetbrains.annotations.Nullable;
-import org.overtime.admin.bean.domain.AdminRoute;
+import org.overtime.admin.domain.entity.AdminRoute;
 import org.overtime.admin.repository.AdminRouteRepository;
 import org.overtime.admin.service.AdminRouteService;
 import org.overtime.common.service.StandardR2dbcService;

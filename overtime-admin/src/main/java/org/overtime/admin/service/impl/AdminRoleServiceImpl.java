@@ -1,6 +1,6 @@
 package org.overtime.admin.service.impl;
 
-import org.overtime.admin.bean.domain.AdminRole;
+import org.overtime.admin.domain.entity.AdminRole;
 import org.overtime.admin.repository.AdminRoleRepository;
 import org.overtime.admin.service.AdminRoleService;
 import org.overtime.common.service.StandardR2dbcService;

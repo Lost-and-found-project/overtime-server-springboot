@@ -1,4 +1,4 @@
-package org.overtime.admin.bean.domain;
+package org.overtime.admin.domain.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
@@ -6,16 +6,14 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.time.LocalDateTime;
 
 /**
- * 管理角色。
+ * 管理权限信息
  *
- * @param id
- * @param name       角色名称。
- * @param createTime 创建时间。
  * @author ForteScarlet
  */
-@Table("admin_role")
-public record AdminRole(
+@Table("admin_auth")
+public record AdminAuth(
         @Id Integer id,
+        String key,
         String name,
         LocalDateTime createTime
 ) {

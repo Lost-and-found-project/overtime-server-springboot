@@ -1,7 +1,7 @@
 package org.overtime.admin.service;
 
 import org.jetbrains.annotations.Nullable;
-import org.overtime.admin.bean.domain.AdminRoute;
+import org.overtime.admin.domain.entity.AdminRoute;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

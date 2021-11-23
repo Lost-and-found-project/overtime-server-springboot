@@ -1,9 +1,9 @@
 package org.overtime.admin.service.impl;
 
-import org.overtime.admin.bean.domain.AdminUser;
-import org.overtime.admin.bean.param.AdminUserListQueryParam;
-import org.overtime.admin.bean.param.AdminUserRoleEditParam;
-import org.overtime.admin.bean.vo.*;
+import org.overtime.admin.domain.entity.AdminUser;
+import org.overtime.admin.domain.param.AdminUserListQueryParam;
+import org.overtime.admin.domain.param.AdminUserRoleEditParam;
+import org.overtime.admin.domain.vo.*;
 import org.overtime.admin.repository.AdminAuthRepository;
 import org.overtime.admin.repository.AdminRoleRepository;
 import org.overtime.admin.repository.AdminRouteRepository;
