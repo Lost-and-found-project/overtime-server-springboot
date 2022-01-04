@@ -6,12 +6,22 @@ import java.io.Serializable;
 import java.util.function.Function;
 
 /**
- * <p> 为面向外部的 rest controller 所使用的统一格式的数据返回值。
- * 不应在Resources中使用，在Controller中建议使用统一拦截器。
+ * <p> 为面向外部的 rest controller 所使用的统一格式的<b>错误信息</b>返回值。
+ * 不应在Resources中使用，在Controller中建议使用统一的异常处理器。
  *
  * <p> {@link #message} 不应该为null。
  * <p>
  * 只应通过静态方法获取实例。
+ *
+ * {@link Result} 的json格式：
+ *
+ * <pre>
+ *{
+ *    "code": 112233,
+ *    "message": "ERROR",
+ *    "data": { ... }
+ *}
+ *</pre>
  *
  * @author ForteScarlet
  */
