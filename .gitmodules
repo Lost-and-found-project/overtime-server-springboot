@@ -1,3 +1,0 @@
-[submodule "overtime-admin-web"]
-	path = overtime-admin-web
-	url = git@github.com:Lost-and-found-project/overtime-server-admin.git

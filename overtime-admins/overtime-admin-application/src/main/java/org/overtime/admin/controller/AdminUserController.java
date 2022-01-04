@@ -1,7 +1,7 @@
 package org.overtime.admin.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.overtime.admin.domain.param.AdminUserListQueryParam;
+import org.overtime.admin.domain.param.AdminUserListQueryRequestParameter;
 import org.overtime.admin.domain.param.AdminUserRoleEditParam;
 import org.overtime.admin.domain.vo.AdminUserHidePassVO;
 import org.overtime.admin.domain.vo.AdminUserListQueryParamVO;
@@ -39,7 +39,7 @@ public class AdminUserController {
      * @return AdminUserHidePassVO paged.
      */
     @GetMapping("/page")
-    public Mono<Paged<AdminUserHidePassVO>> queryUser(AdminUserListQueryParam queryDTO) {
+    public Mono<Paged<AdminUserHidePassVO>> queryUser(AdminUserListQueryRequestParameter queryDTO) {
         return adminUserService.queryUserPaged(queryDTO);
     }
 

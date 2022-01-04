@@ -1,10 +1,10 @@
 package org.overtime.common.domain;
 
 /**
- * 一个持久层的视图实体。
- * 视图也可以算作一个 {@link Entity}.
+ * 一个与可视化层交互的"视图"类型。
  *
+ * @see Domain
  * @author ForteScarlet
  */
-public interface View extends Entity {
+public interface View extends Domain {
 }

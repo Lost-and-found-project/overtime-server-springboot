@@ -1,6 +1,6 @@
 package org.overtime.admin.service;
 
-import org.overtime.admin.domain.param.AdminUserListQueryParam;
+import org.overtime.admin.domain.param.AdminUserListQueryRequestParameter;
 import org.overtime.admin.domain.param.AdminUserRoleEditParam;
 import org.overtime.admin.domain.vo.AdminUserHidePassVO;
 import org.overtime.admin.domain.vo.AdminUserListQueryParamVO;
@@ -26,7 +26,7 @@ public interface AdminUserService {
      * @param queryDTO params
      * @return Page AdminUser
      */
-    Mono<Paged<AdminUserHidePassVO>> queryUserPaged(AdminUserListQueryParam queryDTO);
+    Mono<Paged<AdminUserHidePassVO>> queryUserPaged(AdminUserListQueryRequestParameter queryDTO);
 
     /**
      * 增加管理用户的角色，返回增加后的角色ID列表。

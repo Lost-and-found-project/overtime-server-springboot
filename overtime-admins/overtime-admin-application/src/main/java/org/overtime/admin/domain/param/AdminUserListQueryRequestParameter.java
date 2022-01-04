@@ -1,7 +1,7 @@
 package org.overtime.admin.domain.param;
 
 import lombok.Data;
-import org.overtime.common.domain.Param;
+import org.overtime.common.domain.RequestParameter;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * @author ForteScarlet
  */
 @Data
-public class AdminUserListQueryParam implements Param {
+public class AdminUserListQueryRequestParameter implements RequestParameter {
     private String username;
     private List<Integer> roles = Collections.emptyList();
     private List<Integer> auths = Collections.emptyList();

@@ -1,7 +1,7 @@
 package org.overtime.admin.service.impl;
 
 import org.overtime.admin.domain.entity.AdminUser;
-import org.overtime.admin.domain.param.AdminUserListQueryParam;
+import org.overtime.admin.domain.param.AdminUserListQueryRequestParameter;
 import org.overtime.admin.domain.param.AdminUserRoleEditParam;
 import org.overtime.admin.domain.vo.*;
 import org.overtime.admin.repository.AdminAuthRepository;
@@ -66,7 +66,7 @@ public class AdminUserServiceImpl extends StandardR2dbcService<AdminUser, Intege
      * @return Page AdminUser
      */
     @Override
-    public Mono<Paged<AdminUserHidePassVO>> queryUserPaged(AdminUserListQueryParam queryDTO) {
+    public Mono<Paged<AdminUserHidePassVO>> queryUserPaged(AdminUserListQueryRequestParameter queryDTO) {
         var criteria = Criteria.empty();
         // username.
         criteria = CriteriaUtil.notNull(criteria, "username", queryDTO.getUsername(), (c, v) -> c.like("%" + v + "%"));
