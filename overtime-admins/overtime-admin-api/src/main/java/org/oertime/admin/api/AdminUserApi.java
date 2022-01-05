@@ -1,16 +1,17 @@
-package org.overtime.admin.api;
+package org.oertime.admin.api;
 
-import org.jetbrains.annotations.Nullable;
 import org.overtime.admin.domain.entity.AdminUser;
 import org.overtime.common.ServiceConstant;
+import org.overtime.common.domain.PageableParameter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import reactivefeign.spring.config.ReactiveFeignClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
+ * 管理员信息查询api
+ *
  * @author ForteScarlet
  */
 @ReactiveFeignClient(value = ServiceConstant.ADMIN_SERVICE, path = AdminUserApi.API_REQ_MAPPING)
@@ -18,7 +19,7 @@ public interface AdminUserApi {
     String API_REQ_MAPPING = "/admin/user";
 
 
-    String FIND_USER_BY_ID = "/id/{id}";
+    String FIND_BY_ID = "/id/{id}";
 
     /**
      * 根据ID查询管理员用户。
@@ -26,11 +27,11 @@ public interface AdminUserApi {
      * @param id id
      * @return admin user
      */
-    @GetMapping(FIND_USER_BY_ID)
-    Mono<AdminUser> findUserById(@PathVariable("id") int id);
+    @GetMapping(FIND_BY_ID)
+    Mono<AdminUser> findById(@PathVariable("id") int id);
 
 
-    String FIND_USER_BY_USERNAME = "/username/{username}";
+    String FIND_BY_USERNAME = "/username/{username}";
 
     /**
      * 根据唯一用户名查询管理员账号信息。
@@ -38,8 +39,8 @@ public interface AdminUserApi {
      * @param username username
      * @return admin user
      */
-    @GetMapping(FIND_USER_BY_USERNAME)
-    Mono<AdminUser> findUserByUsername(@PathVariable("username") String username);
+    @GetMapping(FIND_BY_USERNAME)
+    Mono<AdminUser> findByUsername(@PathVariable("username") String username);
 
 
     String COUNT = "/count";
@@ -51,7 +52,7 @@ public interface AdminUserApi {
      * @return count
      */
     @GetMapping(COUNT)
-    Mono<Integer> count(AdminUser adminUser);
+    Mono<Long> count(AdminUser adminUser);
 
 
     String LIST = "/list";
@@ -61,19 +62,11 @@ public interface AdminUserApi {
      * 可以提供offset和limit。
      *
      * @param adminUser 查询条件
-     * @param full      是否查询全量数据
-     * @param limit     最大取的数据量
-     * @param offset    初始偏移量
+     * @param pageableParameter 查询参数
      * @return 用户数据。
      */
     @GetMapping(LIST)
-    Flux<AdminUser> list(AdminUser adminUser,
-                         @RequestParam(value = "full", defaultValue = "false")
-                                 Boolean full,
-                         @RequestParam(defaultValue = "0") @Nullable
-                                 Integer offset,
-                         @RequestParam(defaultValue = "10") @Nullable
-                                 Integer limit);
+    Flux<AdminUser> list(AdminUser adminUser, PageableParameter pageableParameter);
 
 
 }

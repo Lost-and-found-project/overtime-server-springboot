@@ -10,6 +10,7 @@ dependencyManagement {
 }
 
 dependencies {
+    api(project(":overtime-admins:overtime-admin-domain"))
     //region annotationProcessors
     annotationProcessor(D.Spring.Boot.ConfigurationProcessor.NOTATION_NOV)
     annotationProcessor(D.Lombok.NOTATION)
@@ -26,12 +27,11 @@ dependencies {
     api(commonProject("domain"))
     api(commonProject("service"))
     api(commonProject("repository"))
-    api(commonProject("application"))
+    // api(commonProject("application"))
     api(commonProject("jwt"))
     //endregion
 
     //region configs
-    api(configProject("handler"))
     api(configProject("r2dbc-template"))
 
     //endregion

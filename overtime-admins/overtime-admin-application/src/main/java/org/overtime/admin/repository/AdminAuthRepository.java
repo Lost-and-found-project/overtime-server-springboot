@@ -19,6 +19,6 @@ public interface AdminAuthRepository extends StandardOvertimeRepository<AdminAut
      * @param type type
      * @return all
      */
-    @Query("SELECT id, `key`, name, create_time FROM admin_auth")
+    @Query("SELECT id, `key`, name, create_time FROM overtime_management.admin_auth")
     <S> Flux<S> findAllForQueryParam(Class<S> type);
 }

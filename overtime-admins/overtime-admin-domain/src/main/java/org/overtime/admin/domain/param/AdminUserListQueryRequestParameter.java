@@ -9,8 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 所有的角色、权限、路由。
- * 一般用于查询条件。
+ * 所有的管理员用户查询条件。
  *
  * @author ForteScarlet
  */

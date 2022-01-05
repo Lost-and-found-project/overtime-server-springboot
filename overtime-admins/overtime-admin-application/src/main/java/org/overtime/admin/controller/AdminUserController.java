@@ -1,14 +1,15 @@
 package org.overtime.admin.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.overtime.admin.domain.param.AdminUserListQueryRequestParameter;
-import org.overtime.admin.domain.param.AdminUserRoleEditParam;
-import org.overtime.admin.domain.vo.AdminUserHidePassVO;
-import org.overtime.admin.domain.vo.AdminUserListQueryParamVO;
+import org.oertime.admin.api.AdminUserApi;
+import org.overtime.admin.domain.entity.AdminUser;
 import org.overtime.admin.service.AdminUserService;
-import org.overtime.common.Paged;
+import org.overtime.common.domain.PageableParameter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -18,48 +19,61 @@ import reactor.core.publisher.Mono;
  * @author ForteScarlet
  */
 @RestController
-@RequestMapping("/admin/user")
+@RequestMapping(AdminUserApi.API_REQ_MAPPING)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class AdminUserController {
+public class AdminUserController implements AdminUserApi {
     private final AdminUserService adminUserService;
 
     /**
-     * 获取列表查询参数。
-     */
-    @GetMapping("/listQueryParam")
-    public Mono<AdminUserListQueryParamVO> getListQueryParam() {
-        return adminUserService.getUserListQueryParam();
-    }
-
-
-    /**
-     * 查询用户分页列表。
+     * 根据ID查询管理员用户。
      *
-     * @param queryDTO dto
-     * @return AdminUserHidePassVO paged.
+     * @param id id
+     * @return admin user
      */
-    @GetMapping("/page")
-    public Mono<Paged<AdminUserHidePassVO>> queryUser(AdminUserListQueryRequestParameter queryDTO) {
-        return adminUserService.queryUserPaged(queryDTO);
+    @Override
+    @GetMapping(FIND_BY_ID)
+    public Mono<AdminUser> findById(@PathVariable("id") int id) {
+        return adminUserService.findById(id);
     }
 
 
     /**
-     * 为某个用户设置部分管理角色
+     * 根据唯一用户名查询管理员账号信息。
+     *
+     * @param username username
+     * @return admin user
      */
-    @PostMapping("/addRole")
-    public Flux<Integer> addRole(@RequestBody AdminUserRoleEditParam param) {
-        return adminUserService.addRole(param);
+    @GetMapping(FIND_BY_USERNAME)
+    @Override
+    public Mono<AdminUser> findByUsername(@PathVariable("username") String username) {
+        return adminUserService.findByUsername(username);
     }
 
 
     /**
-     * 为某个用户移除部分管理角色
+     * 根据条件查询用户总数量。
+     *
+     * @param adminUser admin user query param
+     * @return count
      */
-    @PostMapping("/removeRole")
-    public Flux<Integer> removeRole(@RequestBody AdminUserRoleEditParam param) {
-        return adminUserService.removeRole(param);
+    @GetMapping(COUNT)
+    @Override
+    public Mono<Long> count(AdminUser adminUser) {
+        return adminUserService.getCount(adminUser);
     }
 
 
+    /**
+     * 根据条件查询用户数据。
+     * 可以提供offset和limit。
+     *
+     * @param adminUser         查询条件
+     * @param pageableParameter 分页相关的信息
+     * @return 用户数据。
+     */
+    @GetMapping(LIST)
+    @Override
+    public Flux<AdminUser> list(AdminUser adminUser, PageableParameter pageableParameter) {
+        return adminUserService.queryUsers(adminUser, pageableParameter.pageable());
+    }
 }

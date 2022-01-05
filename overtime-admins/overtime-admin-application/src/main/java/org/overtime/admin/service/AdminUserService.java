@@ -1,10 +1,7 @@
 package org.overtime.admin.service;
 
-import org.overtime.admin.domain.param.AdminUserListQueryRequestParameter;
-import org.overtime.admin.domain.param.AdminUserRoleEditParam;
-import org.overtime.admin.domain.vo.AdminUserHidePassVO;
-import org.overtime.admin.domain.vo.AdminUserListQueryParamVO;
-import org.overtime.common.Paged;
+import org.overtime.admin.domain.entity.AdminUser;
+import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -15,33 +12,35 @@ import reactor.core.publisher.Mono;
  */
 public interface AdminUserService {
 
+
     /**
-     * 获取所有的角色、权限、路由信息。
+     * 根据id查询
+     * @param id id
+     * @return user
      */
-    Mono<AdminUserListQueryParamVO> getUserListQueryParam();
+    Mono<AdminUser> findById(int id);
+
+
+    /**
+     * 根据用户名查询
+     * @param username username
+     * @return user
+     */
+    Mono<AdminUser> findByUsername(String username);
+
+    /**
+     * 查询获取当前管理员用户数量。
+     *
+     * @return total
+     */
+    Mono<Long> getCount(AdminUser adminUser);
 
     /**
      * 根据参数查询用户列表
      *
-     * @param queryDTO params
      * @return Page AdminUser
      */
-    Mono<Paged<AdminUserHidePassVO>> queryUserPaged(AdminUserListQueryRequestParameter queryDTO);
-
-    /**
-     * 增加管理用户的角色，返回增加后的角色ID列表。
-     *
-     * @param param param
-     * @return ids
-     */
-    Flux<Integer> addRole(AdminUserRoleEditParam param);
+    Flux<AdminUser> queryUsers(AdminUser adminUser, Pageable pageable);
 
 
-    /**
-     * 移除管理用户的角色，返回移除后的角色ID列表。
-     *
-     * @param param param
-     * @return ids
-     */
-    Flux<Integer> removeRole(AdminUserRoleEditParam param);
 }

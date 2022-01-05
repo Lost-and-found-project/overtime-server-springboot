@@ -18,11 +18,11 @@ import reactor.core.publisher.Mono;
 public interface AdminUserRepository extends StandardOvertimeRepository<AdminUser, Integer> {
 
     @Modifying
-    @Query("INSERT INTO admin_user_role(user_id, role_id) value (:userId, :roleId)")
-    Mono<Void> addAdminUserRole(int userId, int roleId);
+    @Query("INSERT INTO overtime_management.admin_user_role(user_id, role_id) value (:userId, :roleId)")
+    Mono<Void> addAdminUserRole(@Param("userId") int userId, @Param("roleId") int roleId);
 
 
-    @Query("SELECT role_id FROM admin_user_role WHERE user_id = :userId")
-    Flux<Integer> getUserRolesId(@Param("userId") Integer userId);
+    @Query("SELECT role_id FROM overtime_management.admin_user_role WHERE user_id = :userId")
+    Flux<Integer> getUserRolesId(@Param("userId") int userId);
 
 }

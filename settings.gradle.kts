@@ -9,6 +9,7 @@ includes("overtime-configuration") {
 }
 
 includes("overtime-admins") {
+    sub("overtime-admin-domain")
     sub("overtime-admin-api")
     sub("overtime-admin-application")
 }
@@ -19,6 +20,7 @@ includes("overtime-common") {
     sub("common-service")
     sub("common-repository")
     sub("common-application")
+    sub("common-authentication")
     sub("common-jwt")
 }
 
@@ -45,14 +47,14 @@ println()
 
 
 ////////////////
-@kotlin.DslMarker
+@DslMarker
 annotation class IncDsl
 
-@kotlin.DslMarker
+@DslMarker
 annotation class IncOuterDsl
 
 class Include(parentPath: String?, val id: String) {
-    internal val path: String =
+    private val path: String =
         if (parentPath != null) "$parentPath:$id" else id
 
     @Suppress("NOTHING_TO_INLINE")
