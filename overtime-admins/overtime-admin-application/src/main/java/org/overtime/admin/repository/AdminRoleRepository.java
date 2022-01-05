@@ -25,7 +25,8 @@ public interface AdminRoleRepository extends StandardOvertimeRepository<AdminRol
     <S> Flux<S> findAllForQueryParam(Class<S> type);
 
     @Query("""
-            SELECT ar.* FROM overtime_management.admin_role ar LEFT JOIN overtime_management.admin_user_role aur on ar.id = aur.role_id
+            SELECT ar.* FROM overtime_management.admin_role ar\040
+            LEFT JOIN overtime_management.admin_user_role aur on ar.id = aur.role_id
             WHERE aur.user_id = ?1
             """)
     Flux<AdminRole> findAllByUserId(int userId);

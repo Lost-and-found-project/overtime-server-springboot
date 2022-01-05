@@ -31,7 +31,7 @@ public final class AdminUserRoleEditParam {
     }
 
     @Table(Entity.TABLE)
-    public static record Entity(@Id int userId, int roleId) {
+    public record Entity(@Id int userId, int roleId) {
         public static final String TABLE = "admin_user_role";
     }
 
