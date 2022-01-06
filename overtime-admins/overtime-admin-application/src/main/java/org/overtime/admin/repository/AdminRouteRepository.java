@@ -19,15 +19,26 @@ public interface AdminRouteRepository extends StandardOvertimeRepository<AdminRo
      * @param type type
      * @return all
      */
-    @Query("SELECT id, parent_id, route, create_time FROM overtime_management.admin_route")
+    @Query("""
+            SELECT id, parent_id, route, create_time
+            FROM overtime_management.admin_route
+            """)
     <S> Flux<S> findAllForQueryParam(Class<S> type);
 
 
-    @Query("SELECT id, parent_id, route, create_time FROM overtime_management.admin_route WHERE parent_id IS NULL")
+    @Query("""
+            SELECT id, parent_id, route, create_time
+            FROM overtime_management.admin_route
+            WHERE parent_id IS NULL
+            """)
     Flux<AdminRoute> findAllRoot();
 
 
-    @Query("SELECT id, parent_id, route, create_time FROM overtime_management.admin_route WHERE parent_id = :parentId")
+    @Query("""
+            SELECT id, parent_id, route, create_time
+            FROM overtime_management.admin_route
+            WHERE parent_id = :parentId
+            """)
     Flux<AdminRoute> findByParentId(int parentId);
 
     @Query("""

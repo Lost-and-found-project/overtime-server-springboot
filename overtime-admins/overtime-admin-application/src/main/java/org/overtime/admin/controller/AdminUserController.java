@@ -6,10 +6,7 @@ import org.overtime.admin.domain.entity.AdminUser;
 import org.overtime.admin.service.AdminUserService;
 import org.overtime.common.domain.PageableParameter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -76,4 +73,11 @@ public class AdminUserController implements AdminUserApi {
     public Flux<AdminUser> list(AdminUser adminUser, PageableParameter pageableParameter) {
         return adminUserService.findList(adminUser, pageableParameter);
     }
+
+
+    @PostMapping
+    public Mono<AdminUser> createUser(@RequestBody AdminUser user) {
+        return adminUserService.createUser(user);
+    }
+
 }

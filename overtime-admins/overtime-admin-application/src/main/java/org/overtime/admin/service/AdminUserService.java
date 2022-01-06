@@ -20,4 +20,10 @@ public interface AdminUserService extends BaseService<AdminUser> {
      */
     Mono<AdminUser> findByUsername(String username);
 
+    /**
+     * 新增一个用户。
+     * @param user user
+     * @return user
+     */
+    Mono<AdminUser> createUser(AdminUser user);
 }

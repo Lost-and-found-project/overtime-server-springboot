@@ -30,6 +30,14 @@ public class AdminUserServiceImpl extends StandardBaseService<AdminUser, Integer
     }
 
     @Override
+    public Mono<AdminUser> createUser(AdminUser user) {
+        if (user.getStatus() == null) {
+            user.setStatus(AdminUser.Status.NORMAL);
+        }
+        return getRepository().save(user);
+    }
+
+    @Override
     protected ExampleMatcher basicMatcher(ExampleMatcher matcher) {
         return super.basicMatcher(matcher);
     }
