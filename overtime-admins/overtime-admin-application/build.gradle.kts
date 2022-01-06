@@ -16,7 +16,8 @@ dependencies {
     //endregion
 
     implementation(commonProject("application"))
-
+    // http://springfox.github.io/springfox/docs/current/#quick-start-guides
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
 
 }
 
