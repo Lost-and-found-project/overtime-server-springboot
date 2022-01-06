@@ -7,13 +7,15 @@ dependencyManagement {
 
 dependencies {
     implementation(project(":overtime-admins:overtime-admin-api"))
-    api(configProject("handler"))
+    implementation(configProject("handler"))
 
     //region annotationProcessors
     annotationProcessor(D.Spring.Boot.ConfigurationProcessor.NOTATION_NOV)
     annotationProcessor(D.Lombok.NOTATION)
     compileOnly(D.Lombok.NOTATION)
     //endregion
+
+    implementation(commonProject("application"))
 
 
 }

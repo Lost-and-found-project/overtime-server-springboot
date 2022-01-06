@@ -1,35 +1,22 @@
 package org.overtime.admin.service.impl;
 
+import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.overtime.admin.domain.entity.AdminRole;
 import org.overtime.admin.repository.AdminRoleRepository;
 import org.overtime.admin.service.AdminRoleService;
-import org.overtime.common.domain.PageableParameter;
 import org.overtime.common.service.OvertimeR2dbcEntityTemplate;
-import org.overtime.common.service.StandardR2dbcService;
-import org.springframework.data.domain.Example;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.relational.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 /**
  * @author ForteScarlet
  */
 @Service
-public class AdminRoleServiceImpl extends StandardR2dbcService<AdminRole, Integer, AdminRoleRepository> implements AdminRoleService {
-    private final OvertimeR2dbcEntityTemplate ovTemplate;
-
-    public AdminRoleServiceImpl(AdminRoleRepository repository,
-                                OvertimeR2dbcEntityTemplate ovTemplate) {
-        super(repository);
-        this.ovTemplate = ovTemplate;
-    }
-
-    @Override
-    public Mono<AdminRole> findById(int id) {
-        return getRepository().findById(id);
-    }
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
+public class AdminRoleServiceImpl extends StandardBaseService<AdminRole, Integer, AdminRoleRepository> implements AdminRoleService {
 
     @Override
     public Flux<AdminRole> findRolesByUserId(int userId) {
@@ -37,21 +24,13 @@ public class AdminRoleServiceImpl extends StandardR2dbcService<AdminRole, Intege
     }
 
     @Override
-    public Mono<Long> count(AdminRole role) {
-        final Example<AdminRole> example = toExample(role);
-        return getRepository().count(example);
+    protected @NotNull Class<AdminRole> entityType() {
+        return AdminRole.class;
     }
 
     @Override
-    public Flux<AdminRole> findList(AdminRole role, PageableParameter pageableParameter) {
-        final Example<AdminRole> example = toExample(role);
-        final Query query = ovTemplate.getMappedExample(example);
-        return ovTemplate.getR2dbcEntityTemplate().select(query, AdminRole.class);
+    protected ExampleMatcher basicMatcher(ExampleMatcher matcher) {
+        return matcher.withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains());
     }
 
-    private Example<AdminRole> toExample(AdminRole role) {
-        return Example.of(role,
-                ExampleMatcher.matching()
-                        .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains()));
-    }
 }

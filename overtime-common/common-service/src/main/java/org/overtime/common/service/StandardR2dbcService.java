@@ -16,24 +16,12 @@ import java.io.Serializable;
  */
 public abstract class StandardR2dbcService<T, ID extends Serializable, REP extends R2dbcRepository<T, ID>> extends BaseR2dbcService<T, ID, REP> {
     @Getter
-    private final REP repository;
+    @Setter(onMethod_ = @Autowired)
+    private REP repository;
 
     @Getter
-    @Autowired
+    @Setter(onMethod_ = @Autowired)
     private OvertimeR2dbcEntityTemplate overtimeR2dbcEntityTemplate;
 
-    public StandardR2dbcService(REP repository) {
-        this.repository = repository;
-    }
-
-
-    ///////
-
-    public void setOvertimeR2dbcEntityTemplate(OvertimeR2dbcEntityTemplate overtimeR2dbcEntityTemplate) {
-        if (this.overtimeR2dbcEntityTemplate == null) {
-            throw new UnsupportedOperationException("overtimeR2dbcEntityTemplate has already init.");
-        }
-        this.overtimeR2dbcEntityTemplate = overtimeR2dbcEntityTemplate;
-    }
 
 }

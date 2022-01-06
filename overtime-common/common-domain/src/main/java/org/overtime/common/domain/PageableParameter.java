@@ -13,10 +13,17 @@ import org.springframework.data.domain.Pageable;
 @Data
 public class PageableParameter {
 
+    /**
+     * 以0为起点的页码。
+     */
     private Integer page;
+
+    /**
+     * 当页数量。
+     */
     private Integer pageSize;
 
-    public static final int DEFAULT_PAGE = 1;
+    public static final int DEFAULT_PAGE = 0;
     public static final int DEFAULT_PAGE_SIZE = 10;
 
     public Pageable pageable() {
@@ -25,8 +32,8 @@ public class PageableParameter {
         } else {
             var size0 = pageSize == null ? DEFAULT_PAGE_SIZE : pageSize;
             var page0 = page == null ? DEFAULT_PAGE : page;
-            if (page0 <= 0) {
-                page0 = 1;
+            if (page0 < 0) {
+                page0 = 0;
             }
             return PageRequest.of(page0, size0);
         }

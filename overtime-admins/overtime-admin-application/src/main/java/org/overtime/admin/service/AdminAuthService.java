@@ -1,5 +1,6 @@
 package org.overtime.admin.service;
 
+import org.overtime.admin.domain.entity.AdminAuth;
 import org.overtime.admin.domain.entity.AdminRole;
 import org.overtime.common.domain.PageableParameter;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,14 +12,14 @@ import reactor.core.publisher.Mono;
  *
  * @author ForteScarlet
  */
-public interface AdminRoleService extends BaseService<AdminRole> {
+public interface AdminAuthService extends BaseService<AdminAuth> {
 
     /**
      * 根据用户ID查询其对应的角色列表。
      *
-     * @param userId 用户id
+     * @param roleId 角色id
      * @return roles
      */
-    Flux<AdminRole> findRolesByUserId(int userId);
+    Flux<AdminAuth> findAuthsByRoleId(int roleId);
 
 }

@@ -1,8 +1,11 @@
 package org.overtime.common.service;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.data.relational.core.query.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
@@ -31,6 +34,11 @@ public abstract class BaseR2dbcService<T, ID extends Serializable, REP extends R
      * 得到一个 {@link OvertimeR2dbcEntityTemplate} 实例。
      */
     protected abstract OvertimeR2dbcEntityTemplate getOvertimeR2dbcEntityTemplate();
+
+    protected R2dbcEntityTemplate getR2dbcEntityTemplate() {
+        return getOvertimeR2dbcEntityTemplate().getR2dbcEntityTemplate();
+    }
+
 
     /**
      * Returns the number of entities available.
@@ -88,30 +96,73 @@ public abstract class BaseR2dbcService<T, ID extends Serializable, REP extends R
 
     /**
      * 根据分页信息查询分页后的数据。
-     * @param entity entity
+     *
+     * @param entity   entity
      * @param pageable pageable
-     * @param <S> type
+     * @param <S>      type
      * @return paged list.
      */
-    public <S extends T> Flux<S> pagedList(S entity, Class<S> entityClasses, Pageable pageable) {
-        final OvertimeR2dbcEntityTemplate r2dbcEntityTemplate = getOvertimeR2dbcEntityTemplate();
+    public <S extends T> Flux<S> pagedList(@Nullable S entity, Class<S> entityClasses, Pageable pageable) {
+        if (entity == null) {
+            return getR2dbcEntityTemplate().select(Query.empty().with(pageable), entityClasses);
+        }
 
-        final Query query = r2dbcEntityTemplate.getMappedExample(Example.of(entity)).with(pageable);
-        return r2dbcEntityTemplate.getR2dbcEntityTemplate().select(query, entityClasses);
+        final Query query = toQuery(toExample(entity)).with(pageable);
+        return getR2dbcEntityTemplate().select(query, entityClasses);
     }
+
 
     /**
      * 根据 Example 查询计数。
+     *
      * @param entity entity.
-     * @param <S> type
      * @return count
      */
-    public <S extends T> Mono<Long> count(@Nullable S entity) {
+    public Mono<Long> count(@Nullable T entity) {
         if (entity == null) {
             return count();
         }
+        final Example<T> example = toExample(entity);
+        return getR2dbcEntityTemplate().count(toQuery(example), example.getProbeType());
+    }
 
-        return getRepository().count(Example.of(entity));
+
+    /**
+     * 将 entity 转化为 Example.
+     *
+     * @param entity entity
+     * @return example.
+     * @see #basicMatcher(ExampleMatcher)
+     */
+    protected Example<T> toExample(@NotNull T entity) {
+        return Example.of(entity, basicMatcher(ExampleMatcher.matching()));
+    }
+
+    /**
+     * 将 example 转化为 query。
+     *
+     * @param example example to query.
+     * @return query
+     */
+    protected Query toQuery(Example<T> example) {
+        final Class<T> type = example.getProbeType();
+        final Query query = getOvertimeR2dbcEntityTemplate().getMappedExample(example);
+        return basicQuery(query);
+    }
+
+    protected Query basicQuery(Query query) {
+        return query;
+    }
+
+    /**
+     * 基础查询matcher后置处理器。
+     * 可以重写并定义基本的查询条件处理器。
+     *
+     * @param matcher matcher
+     * @return matcher
+     */
+    protected ExampleMatcher basicMatcher(ExampleMatcher matcher) {
+        return matcher;
     }
 
 }

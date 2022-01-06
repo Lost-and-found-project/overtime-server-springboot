@@ -17,6 +17,7 @@ dependencies {
     api(commonProject("core"))
     api(commonProject("domain"))
     api(commonProject("repository"))
+    api(commonProject("authentication"))
     api(configProject("r2dbc-template"))
 
 }

@@ -27,7 +27,6 @@ dependencies {
     api(commonProject("domain"))
     api(commonProject("service"))
     api(commonProject("repository"))
-    // api(commonProject("application"))
     api(commonProject("jwt"))
     //endregion
 

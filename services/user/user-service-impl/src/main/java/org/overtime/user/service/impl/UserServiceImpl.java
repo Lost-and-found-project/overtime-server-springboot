@@ -1,5 +1,6 @@
 package org.overtime.user.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.overtime.common.PageInfoSupport;
@@ -9,6 +10,7 @@ import org.overtime.user.domain.entity.User;
 import org.overtime.user.domain.entity.UserWithInfo;
 import org.overtime.user.repository.UserRepository;
 import org.overtime.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -20,12 +22,9 @@ import reactor.core.publisher.Mono;
  * @author ForteScarlet
  */
 @Service
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class UserServiceImpl extends StandardR2dbcService<User, Long, UserRepository> implements UserService {
 
-
-    public UserServiceImpl(UserRepository repository) {
-        super(repository);
-    }
 
     @Override
     public Mono<User>findById(@NotNull Long id) {
@@ -48,12 +47,6 @@ public class UserServiceImpl extends StandardR2dbcService<User, Long, UserReposi
     @Override
     public Flux<User> findAllPagedList(User user, PageInfoSupport pageInfo) {
         return pagedList(user, User.class, pageInfo.pageable());
-    }
-
-
-    @Override
-    public Mono<Long> count(@Nullable User user) {
-        return super.count(user);
     }
 
 

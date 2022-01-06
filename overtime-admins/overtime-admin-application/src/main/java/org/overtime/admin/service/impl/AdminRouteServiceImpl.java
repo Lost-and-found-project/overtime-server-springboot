@@ -1,19 +1,16 @@
 package org.overtime.admin.service.impl;
 
+import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.overtime.admin.domain.entity.AdminRoute;
 import org.overtime.admin.repository.AdminRouteRepository;
 import org.overtime.admin.service.AdminRouteService;
-import org.overtime.common.service.StandardR2dbcService;
-import org.overtime.common.utils.Check;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
+import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
 
 /**
  * implements for {@link org.overtime.admin.service.AdminRouteService}
@@ -21,114 +18,19 @@ import java.util.Collection;
  * @author ForteScarlet
  */
 @Service
-public class AdminRouteServiceImpl extends StandardR2dbcService<AdminRoute, Integer, AdminRouteRepository> implements AdminRouteService {
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
+public class AdminRouteServiceImpl extends StandardBaseService<AdminRoute, Integer, AdminRouteRepository> implements AdminRouteService {
 
-    public AdminRouteServiceImpl(AdminRouteRepository repository) {
-        super(repository);
+
+    @Override
+    protected @NotNull Class<AdminRoute> entityType() {
+        return AdminRoute.class;
     }
 
     @Override
-    public Mono<AdminRoute> findById(Integer id, boolean full) {
-        Check.requireNotnull(id, "id");
-
-        final var repo = getRepository();
-        return repo.findById(id).flatMap(route -> {
-            if (full) {
-                return findByParentId(route.getId(), true).collectList().map(children -> {
-                    route.setChildren(children);
-                    return route;
-                });
-            } else {
-                return Mono.just(route);
-            }
-        });
-    }
-
-    @Override
-    public Flux<AdminRoute> findByParentId(@Nullable Integer parentId, boolean full) {
-        final var repo = getRepository();
-
-        final Flux<AdminRoute> byParentId;
-        if (parentId != null) {
-            byParentId = repo.findByParentId(parentId);
-        } else {
-            byParentId = repo.findAllRoot();
-        }
-
-        return byParentId.flatMap(route -> {
-            if (full) {
-                return findByParentId(route.getId(), true).collectList().map(children -> {
-                    route.setChildren(children);
-                    return route;
-                });
-            } else {
-                return Mono.just(route);
-            }
-        });
+    public Flux<AdminRoute> findRoutesByAuthId(@Nullable Integer authId) {
+        return getRepository().findRoutesByAuthId(authId);
     }
 
 
-    /**
-     * 新增多个新的路由信息
-     *
-     * @param routes routes
-     * @return Admin Route
-     */
-    @Override
-    @Transactional
-    public Flux<AdminRoute> createRoutes(Collection<AdminRoute> routes) {
-        if (routes == null || routes.isEmpty()) {
-            return Flux.empty();
-        }
-
-        for (AdminRoute route : routes) {
-            Check.requireNotnull(route, "route");
-            Check.requireNotnull(route.getRoute(), "Route.route");
-            route.setId(null);
-            route.setCreateTime(LocalDateTime.now());
-        }
-
-
-        return getRepository().saveAll(routes);
-    }
-
-    /**
-     * 批量修改多个路由信息
-     *
-     * @param routes routes
-     * @return updated.
-     */
-    @Override
-    public Flux<AdminRoute> updateRoutes(Collection<AdminRoute> routes) {
-        if (routes == null || routes.isEmpty()) {
-            return Flux.empty();
-        }
-
-        for (AdminRoute route : routes) {
-            // 0, is null also.
-            if (route.getId() == 0) {
-                route.setId(null);
-            }
-            Check.requireNotnull(route.getId(), "Route.id");
-        }
-
-        return getRepository().saveAll(routes);
-    }
-
-    /**
-     * 删除多个路由。如果为根路由，将会删除下面的子路由。
-     * TODO 是否约束？
-     *
-     * @param routeIds 路由ID列表
-     * @return deleted routes.
-     */
-    @Override
-    public Mono<Void> deleteRoutes(Integer... routeIds) {
-        if (routeIds.length == 0) {
-            return Mono.empty();
-        }
-
-
-        return getRepository().deleteAllById(Arrays.asList(routeIds));
-    }
 }

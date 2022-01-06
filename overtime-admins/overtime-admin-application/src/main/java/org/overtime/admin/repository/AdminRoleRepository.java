@@ -27,7 +27,7 @@ public interface AdminRoleRepository extends StandardOvertimeRepository<AdminRol
     @Query("""
             SELECT ar.* FROM overtime_management.admin_role ar\040
             LEFT JOIN overtime_management.admin_user_role aur on ar.id = aur.role_id
-            WHERE aur.user_id = ?1
+            WHERE aur.user_id = :userId
             """)
     Flux<AdminRole> findAllByUserId(int userId);
 

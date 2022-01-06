@@ -21,4 +21,11 @@ public interface AdminAuthRepository extends StandardOvertimeRepository<AdminAut
      */
     @Query("SELECT id, `key`, name, create_time FROM overtime_management.admin_auth")
     <S> Flux<S> findAllForQueryParam(Class<S> type);
+
+    @Query("""
+            SELECT * FROM overtime_management.admin_auth aa
+            LEFT JOIN overtime_management.admin_role_auth ara on aa.id = ara.auth_id
+            WHERE role_id = :roleId
+            """)
+    Flux<AdminAuth> findAuthsByRoleId(int roleId);
 }

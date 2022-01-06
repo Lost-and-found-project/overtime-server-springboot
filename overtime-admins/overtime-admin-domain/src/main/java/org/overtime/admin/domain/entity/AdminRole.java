@@ -1,6 +1,7 @@
 package org.overtime.admin.domain.entity;
 
 import lombok.Data;
+import org.overtime.common.auth.RoleInfo;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
  */
 @Table("admin_role")
 @Data
-public final class AdminRole {
+public final class AdminRole implements RoleInfo {
     @Id
     private Integer id;
     /**

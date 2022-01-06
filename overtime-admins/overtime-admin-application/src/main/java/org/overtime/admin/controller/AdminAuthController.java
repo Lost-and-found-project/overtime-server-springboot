@@ -1,9 +1,9 @@
 package org.overtime.admin.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.oertime.admin.api.AdminRoleApi;
-import org.overtime.admin.domain.entity.AdminRole;
-import org.overtime.admin.service.AdminRoleService;
+import org.oertime.admin.api.AdminAuthApi;
+import org.overtime.admin.domain.entity.AdminAuth;
+import org.overtime.admin.service.AdminAuthService;
 import org.overtime.common.domain.PageableParameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,14 +14,16 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
+ * 权限相关控制器
  * @author ForteScarlet
  */
 @RestController
-@RequestMapping(AdminRoleApi.API_REQ_MAPPING)
+@RequestMapping(AdminAuthApi.API_REQ_MAPPING)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class AdminRoleController implements AdminRoleApi {
+public class AdminAuthController implements AdminAuthApi {
 
-    private final AdminRoleService roleService;
+    private final AdminAuthService authService;
+
 
     /**
      * 根据ID查询role
@@ -31,46 +33,45 @@ public class AdminRoleController implements AdminRoleApi {
      */
     @GetMapping(FIND_BY_ID)
     @Override
-    public Mono<AdminRole> findById(@PathVariable("id") int id) {
-        return roleService.findById(id);
+    public Mono<AdminAuth> findById(@PathVariable int id) {
+        return authService.findById(id);
     }
 
 
     /**
-     * 根据用户ID查询其对应的角色列表。
+     * 根据角色ID查询其对应的权限列表。
      *
      * @param id 用户id
      * @return roles
      */
-    @GetMapping(FIND_ROLES_BY_USER_ID)
+    @GetMapping(FIND_AUTHS_BY_ROLE_ID)
     @Override
-    public Flux<AdminRole> findRolesByUserId(@PathVariable("id") int id) {
-        return roleService.findRolesByUserId(id);
+    public Flux<AdminAuth> findAuthByRoleId(@PathVariable int id) {
+        return authService.findAuthsByRoleId(id);
     }
-
 
     /**
      * 条件查询数据数量。
      *
-     * @param role 条件
+     * @param auth 条件
      * @return count
      */
     @GetMapping(COUNT)
     @Override
-    public Mono<Long> count(AdminRole role) {
-        return roleService.count(role);
+    public Mono<Long> count(AdminAuth auth) {
+        return authService.count(auth);
     }
 
 
     /**
-     * 条件查询所有角色列表。
+     * 条件查询所有权限列表。
      *
-     * @param role 角色
+     * @param auth 条件
      * @return list
      */
     @GetMapping(FIND_LIST)
     @Override
-    public Flux<AdminRole> findList(AdminRole role, PageableParameter pageableParameter) {
-        return roleService.findList(role, pageableParameter);
+    public Flux<AdminAuth> findList(AdminAuth auth, PageableParameter pageableParameter) {
+        return authService.findList(auth, pageableParameter);
     }
 }

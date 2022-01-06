@@ -1,5 +1,6 @@
 package org.overtime.dictionary.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.overtime.common.service.StandardR2dbcService;
 import org.overtime.dictionary.domain.DictionaryType;
 import org.overtime.dictionary.repository.DictionaryTypeRepository;
@@ -19,12 +20,9 @@ import java.time.LocalDateTime;
  * @author ForteScarlet
  */
 @Service
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class DictionaryTypeServiceImpl extends StandardR2dbcService<DictionaryType, Long, DictionaryTypeRepository> implements DictionaryTypeService {
 
-    @Autowired
-    DictionaryTypeServiceImpl(DictionaryTypeRepository repository) {
-        super(repository);
-    }
 
     @Override
     public Flux<DictionaryType> all() {

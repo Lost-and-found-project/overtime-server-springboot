@@ -10,37 +10,14 @@ import reactor.core.publisher.Mono;
  *
  * @author ForteScarlet
  */
-public interface AdminUserService {
-
-
-    /**
-     * 根据id查询
-     * @param id id
-     * @return user
-     */
-    Mono<AdminUser> findById(int id);
-
+public interface AdminUserService extends BaseService<AdminUser> {
 
     /**
      * 根据用户名查询
+     *
      * @param username username
      * @return user
      */
     Mono<AdminUser> findByUsername(String username);
-
-    /**
-     * 查询获取当前管理员用户数量。
-     *
-     * @return total
-     */
-    Mono<Long> getCount(AdminUser adminUser);
-
-    /**
-     * 根据参数查询用户列表
-     *
-     * @return Page AdminUser
-     */
-    Flux<AdminUser> queryUsers(AdminUser adminUser, Pageable pageable);
-
 
 }

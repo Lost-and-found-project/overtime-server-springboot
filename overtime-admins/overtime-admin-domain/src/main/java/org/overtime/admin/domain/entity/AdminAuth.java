@@ -1,5 +1,7 @@
 package org.overtime.admin.domain.entity;
 
+import lombok.Data;
+import org.overtime.common.auth.AuthInfo;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -11,10 +13,13 @@ import java.time.LocalDateTime;
  * @author ForteScarlet
  */
 @Table("admin_auth")
-public record AdminAuth(
-        @Id Integer id,
-        String key,
-        String name,
-        LocalDateTime createTime
-) {
+@Data
+public class AdminAuth implements AuthInfo {
+    @Id
+    private Integer id;
+    private String AdminAuthkey;
+    private String name;
+    private LocalDateTime createTime;
+
+
 }

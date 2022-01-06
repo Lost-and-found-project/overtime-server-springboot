@@ -19,10 +19,10 @@ public interface AdminUserRepository extends StandardOvertimeRepository<AdminUse
 
     @Modifying
     @Query("INSERT INTO overtime_management.admin_user_role(user_id, role_id) value (:userId, :roleId)")
-    Mono<Void> addAdminUserRole(@Param("userId") int userId, @Param("roleId") int roleId);
+    Mono<Void> addAdminUserRole(int userId, int roleId);
 
 
     @Query("SELECT role_id FROM overtime_management.admin_user_role WHERE user_id = :userId")
-    Flux<Integer> getUserRolesId(@Param("userId") int userId);
+    Flux<Integer> getUserRolesId(int userId);
 
 }

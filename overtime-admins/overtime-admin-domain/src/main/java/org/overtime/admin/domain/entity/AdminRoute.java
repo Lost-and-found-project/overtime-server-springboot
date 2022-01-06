@@ -2,6 +2,7 @@ package org.overtime.admin.domain.entity;
 
 import lombok.Data;
 import org.jetbrains.annotations.Nullable;
+import org.overtime.common.auth.RouteInfo;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 @Data
 @Table("admin_route")
-public class AdminRoute {
+public class AdminRoute implements RouteInfo {
     @Id
     private Integer id;
     @Nullable
@@ -30,12 +31,12 @@ public class AdminRoute {
     @Nullable
     private List<AdminRoute> children;
 
+    @Override
+    public boolean checkRoute(String route) {
+        if (this.route == null) {
+            return false;
+        }
 
-    public void setChildren(@Nullable List<AdminRoute> children) {
-        // if (children != null) {
-        //     for (AdminRoute child : children) {
-        //     }
-        // }
-        this.children = children;
+        return this.route.equals(route);
     }
 }

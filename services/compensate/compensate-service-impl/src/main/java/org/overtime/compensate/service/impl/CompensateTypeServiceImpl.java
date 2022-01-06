@@ -1,5 +1,6 @@
 package org.overtime.compensate.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.overtime.common.domain.CompensateType;
 import org.overtime.common.service.StandardR2dbcService;
 import org.overtime.compensate.repository.CompensateTypeRepository;
@@ -15,12 +16,8 @@ import reactor.core.publisher.Mono;
  * @author ForteScarlet
  */
 @Service
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class CompensateTypeServiceImpl extends StandardR2dbcService<CompensateType, Long, CompensateTypeRepository> implements CompensateTypeService {
-
-    @Autowired
-    public CompensateTypeServiceImpl(CompensateTypeRepository repository) {
-        super(repository);
-    }
 
     @Override
     public Flux<CompensateType> findCompensateTypeByUserId(long userId) {

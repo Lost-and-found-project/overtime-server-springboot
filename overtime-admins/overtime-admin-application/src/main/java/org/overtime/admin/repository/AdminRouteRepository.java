@@ -3,7 +3,6 @@ package org.overtime.admin.repository;
 import org.overtime.admin.domain.entity.AdminRoute;
 import org.overtime.common.repository.StandardOvertimeRepository;
 import org.springframework.data.r2dbc.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 
@@ -29,5 +28,12 @@ public interface AdminRouteRepository extends StandardOvertimeRepository<AdminRo
 
 
     @Query("SELECT id, parent_id, route, create_time FROM overtime_management.admin_route WHERE parent_id = :parentId")
-    Flux<AdminRoute> findByParentId(@Param("parentId") int parentId);
+    Flux<AdminRoute> findByParentId(int parentId);
+
+    @Query("""
+            SELECT ar.* FROM overtime_management.admin_route ar
+            LEFT JOIN overtime_management.admin_auth_route aar ON ar.id = aar.route_id
+            WHERE aar.auth_id = :authId
+            """)
+    Flux<AdminRoute> findRoutesByAuthId(Integer authId);
 }

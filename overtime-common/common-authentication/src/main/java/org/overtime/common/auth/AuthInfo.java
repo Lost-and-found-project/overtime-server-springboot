@@ -14,7 +14,7 @@ public interface AuthInfo {
      *
      * @return id
      */
-    long getId();
+    Integer getId();
 
 
 }

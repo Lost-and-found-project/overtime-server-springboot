@@ -14,7 +14,7 @@ public interface RoleInfo {
      *
      * @return id
      */
-    long getId();
+    Integer getId();
 
 // 权限信息服务
 }

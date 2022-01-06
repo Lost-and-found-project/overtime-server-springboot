@@ -59,7 +59,7 @@ public class AdminUserController implements AdminUserApi {
     @GetMapping(COUNT)
     @Override
     public Mono<Long> count(AdminUser adminUser) {
-        return adminUserService.getCount(adminUser);
+        return adminUserService.count(adminUser);
     }
 
 
@@ -74,6 +74,6 @@ public class AdminUserController implements AdminUserApi {
     @GetMapping(LIST)
     @Override
     public Flux<AdminUser> list(AdminUser adminUser, PageableParameter pageableParameter) {
-        return adminUserService.queryUsers(adminUser, pageableParameter.pageable());
+        return adminUserService.findList(adminUser, pageableParameter);
     }
 }
