@@ -33,6 +33,17 @@ public class AdminUserController implements AdminUserApi {
         return adminUserService.findById(id);
     }
 
+    /**
+     * 根据ID查询管理员用户的完整信息。
+     *
+     * @param id id
+     * @return admin user
+     */
+    @GetMapping(FIND_FULL_BY_ID)
+    @Override
+    public Mono<AdminUser> findFullById(@PathVariable int id) {
+        return adminUserService.findUserFullInfoById(id);
+    }
 
     /**
      * 根据唯一用户名查询管理员账号信息。
@@ -75,6 +86,12 @@ public class AdminUserController implements AdminUserApi {
     }
 
 
+    /**
+     * 新增一个用户。
+     *
+     * @param user user
+     * @return user
+     */
     @PostMapping
     public Mono<AdminUser> createUser(@RequestBody AdminUser user) {
         return adminUserService.createUser(user);

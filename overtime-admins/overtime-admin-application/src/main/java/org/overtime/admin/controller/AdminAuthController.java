@@ -1,5 +1,9 @@
 package org.overtime.admin.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.oertime.admin.api.AdminAuthApi;
 import org.overtime.admin.domain.entity.AdminAuth;
@@ -20,6 +24,7 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping(AdminAuthApi.API_REQ_MAPPING)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Api("权限管理控制器")
 public class AdminAuthController implements AdminAuthApi {
 
     private final AdminAuthService authService;

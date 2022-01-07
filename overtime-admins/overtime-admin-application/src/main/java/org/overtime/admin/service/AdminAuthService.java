@@ -1,11 +1,7 @@
 package org.overtime.admin.service;
 
 import org.overtime.admin.domain.entity.AdminAuth;
-import org.overtime.admin.domain.entity.AdminRole;
-import org.overtime.common.domain.PageableParameter;
-import org.springframework.web.bind.annotation.PathVariable;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 /**
  * 管理角色服务接口。
@@ -21,5 +17,15 @@ public interface AdminAuthService extends BaseService<AdminAuth> {
      * @return roles
      */
     Flux<AdminAuth> findAuthsByRoleId(int roleId);
+
+    /**
+     * 根据用户ID查询其对应的角色列表。
+     * <p>
+     * 会填充 route 信息。
+     *
+     * @param roleId 角色id
+     * @return roles
+     */
+    Flux<AdminAuth> findAuthsFullByRoleId(int roleId);
 
 }

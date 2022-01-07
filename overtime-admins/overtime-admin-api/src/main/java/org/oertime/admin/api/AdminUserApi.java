@@ -31,6 +31,18 @@ public interface AdminUserApi {
     Mono<AdminUser> findById(@PathVariable("id") int id);
 
 
+    String FIND_FULL_BY_ID = "/full/id/{id}";
+
+    /**
+     * 根据ID查询管理员用户的完整信息。
+     *
+     * @param id id
+     * @return admin user
+     */
+    @GetMapping(FIND_FULL_BY_ID)
+    Mono<AdminUser> findFullById(@PathVariable("id") int id);
+
+
     String FIND_BY_USERNAME = "/username/{username}";
 
     /**

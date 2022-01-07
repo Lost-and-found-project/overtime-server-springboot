@@ -1,3 +1,11 @@
 server:
   port: 9999
-
+spring:
+  r2dbc:
+    pool:
+      enabled: true
+      validation-query: SELECT 1 FROM DUAL
+      max-life-time: 1h
+      max-acquire-time: 60s
+      initial-size: 4
+      max-create-connection-time: 60s

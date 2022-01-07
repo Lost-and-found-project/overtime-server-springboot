@@ -61,7 +61,7 @@ public class AdminRouteServiceImpl extends StandardBaseService<AdminRoute, Integ
                         .map(children -> {
                             route.setChildren(children);
                             return route;
-                        })).subscribeOn(Schedulers.parallel());
+                        }));
     }
 
     @Override

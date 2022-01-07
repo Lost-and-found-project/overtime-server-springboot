@@ -21,6 +21,13 @@ public interface AdminUserService extends BaseService<AdminUser> {
     Mono<AdminUser> findByUsername(String username);
 
     /**
+     * 根据ID查询完整信息。
+     * @param userId user Id
+     * @return user.
+     */
+    Mono<AdminUser> findUserFullInfoById(int userId);
+
+    /**
      * 新增一个用户。
      * @param user user
      * @return user

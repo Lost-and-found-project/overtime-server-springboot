@@ -4,9 +4,11 @@ import lombok.Data;
 import org.overtime.common.auth.UserInfo;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 管理账号。
@@ -27,6 +29,12 @@ public final class AdminUser implements UserInfo {
      * 0: 正常
      */
     private Short status;
+
+    /**
+     * 用户的所属角色列表。
+     */
+    @Transient
+    private List<AdminRole> roles;
 
     @Override
     public boolean enabled() {

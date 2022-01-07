@@ -2,10 +2,11 @@ package org.overtime.admin.repository;
 
 import org.overtime.admin.domain.entity.AdminRole;
 import org.overtime.common.repository.StandardOvertimeRepository;
+import org.springframework.data.r2dbc.repository.Modifying;
 import org.springframework.data.r2dbc.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * 角色repo
@@ -31,4 +32,22 @@ public interface AdminRoleRepository extends StandardOvertimeRepository<AdminRol
             """)
     Flux<AdminRole> findAllByUserId(int userId);
 
+    /**
+     * 根据用户ID删除所有相关关联记录.
+     *
+     * @param userId userid
+     */
+    @Modifying
+    @Query("""
+            DELETE FROM overtime_management.admin_user_role
+            WHERE user_id = :userId
+            """)
+    Mono<Integer> deleteByUserId(int userId);
+
+    @Modifying
+    @Query("""
+            INSERT INTO overtime_management.admin_user_role(user_id, role_id)
+            VALUES (:userId, :authId)
+            """)
+    void setUserRole(int userId, int authId);
 }
