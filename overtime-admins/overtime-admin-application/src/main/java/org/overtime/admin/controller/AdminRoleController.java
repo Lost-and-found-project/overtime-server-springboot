@@ -75,7 +75,11 @@ public class AdminRoleController implements AdminRoleApi {
 
     @ApiOperation(
             value = "新增/修改角色",
-            notes = "如果存在ID则为修改，否则为新增"
+            notes = """
+                    如果存在ID则为修改，否则为新增
+                    如果参数中的 'auths' 不为空，则只会取auths中各对象的'id'属性，
+                    并为这个用户重新设置角色信息。
+                    """
     )
     @PostMapping
     public Mono<AdminRole> modifyRole(@RequestBody AdminRole role) {

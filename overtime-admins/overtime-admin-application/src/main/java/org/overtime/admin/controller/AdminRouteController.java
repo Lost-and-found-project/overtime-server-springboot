@@ -1,15 +1,13 @@
 package org.overtime.admin.controller;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.oertime.admin.api.AdminRouteApi;
 import org.overtime.admin.domain.entity.AdminRoute;
 import org.overtime.admin.service.AdminRouteService;
 import org.overtime.common.domain.PageableParameter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -97,5 +95,20 @@ public class AdminRouteController implements AdminRouteApi {
     @GetMapping("/all")
     public Flux<AdminRoute> all(boolean full) {
         return routeService.all(full);
+    }
+
+    /**
+     * 新增/修改路由信息
+     *
+     * @param adminRoute route info
+     * @return route
+     */
+    @ApiOperation(
+            value = "新增/修改路由信息",
+            notes = "如果有ID则为修改，否则为新增。"
+    )
+    @PostMapping
+    public Mono<AdminRoute> modifyRoute(@RequestBody AdminRoute adminRoute) {
+        return routeService.modifyRoute(adminRoute);
     }
 }

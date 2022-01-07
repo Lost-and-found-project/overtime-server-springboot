@@ -95,7 +95,11 @@ public class AdminUserController implements AdminUserApi {
      */
     @ApiOperation(
             value = "新增/修改一个用户",
-            notes = "当存在ID时为修改，否则为新增。"
+            notes = """
+                    当存在ID时为修改，否则为新增。
+                    如果参数中的 'roles' 不为空，则只会取roles中对象的'id'属性，
+                    并为这个用户重新设置角色信息。
+                    """
     )
     @PostMapping
     public Mono<AdminUser> modifyUser(@RequestBody AdminUser user) {

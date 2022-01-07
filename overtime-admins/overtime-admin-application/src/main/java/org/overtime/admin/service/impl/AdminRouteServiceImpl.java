@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 /**
@@ -93,5 +94,11 @@ public class AdminRouteServiceImpl extends StandardBaseService<AdminRoute, Integ
                 );
 
         return repository.findAllById(newRouteIds);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Mono<AdminRoute> modifyRoute(AdminRoute adminRoute) {
+        return getRepository().save(adminRoute);
     }
 }

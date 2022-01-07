@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Nullable;
 import org.overtime.admin.domain.entity.AdminRoute;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * 路由服务接口。
@@ -57,4 +58,11 @@ public interface AdminRouteService extends BaseService<AdminRoute> {
      * @return new routes
      */
     Flux<AdminRoute> setAuthRoutes(int id, Publisher<Integer> routeIds);
+
+    /**
+     * 新增/修改 route 信息。
+     * @param adminRoute route
+     * @return new route
+     */
+    Mono<AdminRoute> modifyRoute(AdminRoute adminRoute);
 }

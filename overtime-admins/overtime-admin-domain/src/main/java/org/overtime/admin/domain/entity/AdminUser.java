@@ -1,5 +1,6 @@
 package org.overtime.admin.domain.entity;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import org.overtime.common.auth.UserInfo;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @Table("admin_user")
 @Data
+@ApiModel("管理员用户")
 public final class AdminUser implements UserInfo {
     @Id
     private Integer id;

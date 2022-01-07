@@ -84,7 +84,11 @@ public class AdminAuthController implements AdminAuthApi {
      */
     @ApiOperation(
             value = "新增/修改权限",
-            notes = "如果有ID则为修改，否则为新增"
+            notes = """
+                    如果有ID则为修改，否则为新增
+                    如果参数中的 'routes' 不为空，则只会取routes中各对象的'id'属性，
+                    并为这个用户重新设置角色信息。
+                    """
     )
     @PostMapping
     public Mono<AdminAuth> modifyAuth(@RequestBody AdminAuth auth) {
