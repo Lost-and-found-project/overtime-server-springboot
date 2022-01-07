@@ -2,6 +2,7 @@ package org.overtime.admin.service;
 
 import org.jetbrains.annotations.Nullable;
 import org.overtime.admin.domain.entity.AdminRoute;
+import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 
 /**
@@ -47,4 +48,13 @@ public interface AdminRouteService extends BaseService<AdminRoute> {
      */
     Flux<AdminRoute> all(boolean full);
 
+
+    /**
+     * 重新设置权限的路由信息, 并返回修改后的路由信息。
+     *
+     * @param id       id
+     * @param routeIds routes
+     * @return new routes
+     */
+    Flux<AdminRoute> setAuthRoutes(int id, Publisher<Integer> routeIds);
 }

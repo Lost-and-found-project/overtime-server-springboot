@@ -37,30 +37,32 @@ public class AdminUserServiceImpl extends StandardBaseService<AdminUser, Integer
         return getRepository().findOne(toExample(user));
     }
 
-    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
+    @Transactional(rollbackFor = Exception.class, readOnly = true)
     @Override
     public Mono<AdminUser> findUserFullInfoById(int userId) {
-        return getRepository().findById(userId).flatMap(user ->
-                roleService.findFullRolesByUserId(userId)
-                        .collectList()
-                        .map(roles -> {
-                            user.setRoles(roles);
-                            return user;
-                        }));
+        return getRepository()
+                .findById(userId)
+                .flatMap(user ->
+                        roleService.findFullRolesByUserId(userId)
+                                .collectList()
+                                .map(roles -> {
+                                    user.setRoles(roles);
+                                    return user;
+                                }));
 
 
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class, isolation = Isolation.SERIALIZABLE)
     @Override
-    public Mono<AdminUser> createUser(AdminUser user) {
+    public Mono<AdminUser> modifyUser(AdminUser user) {
         if (user.getStatus() == null) {
             user.setStatus(AdminUser.Status.NORMAL);
         }
         final var repository = getRepository();
         return repository.save(user)
                 .flatMap(it -> {
-                    final List<AdminRole> auths = it.getRoles();
+                    final List<AdminRole> auths = user.getRoles();
                     if (auths != null && auths.size() > 0) {
                         // 重新设置权限
                         final var roleIds = Flux.fromIterable(auths).map(AdminRole::getId);

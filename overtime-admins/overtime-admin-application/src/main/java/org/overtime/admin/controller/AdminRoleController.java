@@ -1,15 +1,14 @@
 package org.overtime.admin.controller;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.oertime.admin.api.AdminRoleApi;
 import org.overtime.admin.domain.entity.AdminRole;
 import org.overtime.admin.service.AdminRoleService;
 import org.overtime.common.domain.PageableParameter;
+import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -72,5 +71,14 @@ public class AdminRoleController implements AdminRoleApi {
     @Override
     public Flux<AdminRole> findList(AdminRole role, PageableParameter pageableParameter) {
         return roleService.findList(role, pageableParameter);
+    }
+
+    @ApiOperation(
+            value = "新增/修改角色",
+            notes = "如果存在ID则为修改，否则为新增"
+    )
+    @PostMapping
+    public Mono<AdminRole> modifyRole(@RequestBody AdminRole role) {
+        return roleService.modifyRole(role);
     }
 }

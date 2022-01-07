@@ -1,24 +1,20 @@
 package org.overtime.admin.controller;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.oertime.admin.api.AdminAuthApi;
 import org.overtime.admin.domain.entity.AdminAuth;
 import org.overtime.admin.service.AdminAuthService;
 import org.overtime.common.domain.PageableParameter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
  * 权限相关控制器
+ *
  * @author ForteScarlet
  */
 @RestController
@@ -78,5 +74,20 @@ public class AdminAuthController implements AdminAuthApi {
     @Override
     public Flux<AdminAuth> findList(AdminAuth auth, PageableParameter pageableParameter) {
         return authService.findList(auth, pageableParameter);
+    }
+
+    /**
+     * 新增/修改 auth
+     *
+     * @param auth auth
+     * @return updated
+     */
+    @ApiOperation(
+            value = "新增/修改权限",
+            notes = "如果有ID则为修改，否则为新增"
+    )
+    @PostMapping
+    public Mono<AdminAuth> modifyAuth(@RequestBody AdminAuth auth) {
+        return authService.modifyAuth(auth);
     }
 }

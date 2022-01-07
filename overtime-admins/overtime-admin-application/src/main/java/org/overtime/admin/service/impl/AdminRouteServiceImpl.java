@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import org.overtime.admin.domain.entity.AdminRoute;
 import org.overtime.admin.repository.AdminRouteRepository;
 import org.overtime.admin.service.AdminRouteService;
+import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -38,7 +39,7 @@ public class AdminRouteServiceImpl extends StandardBaseService<AdminRoute, Integ
         return getRepository().findRoutesByAuthId(authId);
     }
 
-    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
+    @Transactional(rollbackFor = Exception.class, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public Flux<AdminRoute> findRoutesByParentId(Integer parentId) {
         final AdminRouteRepository repository = getRepository();
         return repository.findByParentId(parentId).flatMap(route -> {
@@ -53,7 +54,7 @@ public class AdminRouteServiceImpl extends StandardBaseService<AdminRoute, Integ
     }
 
     @Override
-    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
+    @Transactional(rollbackFor = Exception.class, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public Flux<AdminRoute> findRoutesByAuthIdWithChildren(@Nullable Integer authId) {
         return findRoutesByAuthId(authId)
                 .flatMap(route -> findRoutesByParentId(route.getId())
@@ -65,7 +66,7 @@ public class AdminRouteServiceImpl extends StandardBaseService<AdminRoute, Integ
     }
 
     @Override
-    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
+    @Transactional(rollbackFor = Exception.class, readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public Flux<AdminRoute> all(boolean full) {
         final Flux<AdminRoute> roots = getRepository().findAllRoot();
         if (!full) {
@@ -78,5 +79,19 @@ public class AdminRouteServiceImpl extends StandardBaseService<AdminRoute, Integ
                         return route;
                     }).subscribeOn(Schedulers.parallel()));
         }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Flux<AdminRoute> setAuthRoutes(int authId, Publisher<Integer> routeIds) {
+        final var repository = getRepository();
+        final Flux<Integer> newRouteIds = repository.deleteAllByAuthId(authId)
+                .then()
+                .flatMapMany(v ->
+                        Flux.from(routeIds)
+                                .flatMap(routeId -> repository.setAuthRoute(authId, routeId).map(i -> routeId))
+                );
+
+        return repository.findAllById(newRouteIds);
     }
 }

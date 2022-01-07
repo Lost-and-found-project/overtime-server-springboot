@@ -49,5 +49,5 @@ public interface AdminRoleRepository extends StandardOvertimeRepository<AdminRol
             INSERT INTO overtime_management.admin_user_role(user_id, role_id)
             VALUES (:userId, :authId)
             """)
-    void setUserRole(int userId, int authId);
+    Mono<Integer> setUserRole(int userId, int authId);
 }

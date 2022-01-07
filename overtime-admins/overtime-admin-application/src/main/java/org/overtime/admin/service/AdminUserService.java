@@ -1,8 +1,6 @@
 package org.overtime.admin.service;
 
 import org.overtime.admin.domain.entity.AdminUser;
-import org.springframework.data.domain.Pageable;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -28,9 +26,9 @@ public interface AdminUserService extends BaseService<AdminUser> {
     Mono<AdminUser> findUserFullInfoById(int userId);
 
     /**
-     * 新增一个用户。
+     * 新增/修改一个用户。
      * @param user user
      * @return user
      */
-    Mono<AdminUser> createUser(AdminUser user);
+    Mono<AdminUser> modifyUser(AdminUser user);
 }

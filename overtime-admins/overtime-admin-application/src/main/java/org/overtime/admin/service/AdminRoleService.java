@@ -3,6 +3,7 @@ package org.overtime.admin.service;
 import org.overtime.admin.domain.entity.AdminRole;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * 管理角色服务接口。
@@ -37,4 +38,10 @@ public interface AdminRoleService extends BaseService<AdminRole> {
      */
     Flux<AdminRole> setUserRoles(int userId, Publisher<Integer> roles);
 
+    /**
+     * 新增/修改role信息
+     * @param role role
+     * @return new role
+     */
+    Mono<AdminRole> modifyRole(AdminRole role);
 }

@@ -1,5 +1,6 @@
 package org.overtime.admin.controller;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.oertime.admin.api.AdminUserApi;
 import org.overtime.admin.domain.entity.AdminUser;
@@ -87,14 +88,18 @@ public class AdminUserController implements AdminUserApi {
 
 
     /**
-     * 新增一个用户。
+     * 新增/修改一个用户。
      *
      * @param user user
      * @return user
      */
+    @ApiOperation(
+            value = "新增/修改一个用户",
+            notes = "当存在ID时为修改，否则为新增。"
+    )
     @PostMapping
-    public Mono<AdminUser> createUser(@RequestBody AdminUser user) {
-        return adminUserService.createUser(user);
+    public Mono<AdminUser> modifyUser(@RequestBody AdminUser user) {
+        return adminUserService.modifyUser(user);
     }
 
 }

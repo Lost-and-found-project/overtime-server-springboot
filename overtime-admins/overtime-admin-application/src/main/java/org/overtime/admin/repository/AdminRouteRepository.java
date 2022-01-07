@@ -2,9 +2,11 @@ package org.overtime.admin.repository;
 
 import org.overtime.admin.domain.entity.AdminRoute;
 import org.overtime.common.repository.StandardOvertimeRepository;
+import org.springframework.data.r2dbc.repository.Modifying;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * 路由repo
@@ -47,4 +49,31 @@ public interface AdminRouteRepository extends StandardOvertimeRepository<AdminRo
             WHERE aar.auth_id = :authId
             """)
     Flux<AdminRoute> findRoutesByAuthId(Integer authId);
+
+    /**
+     * 根据 auth id 删除所有关联信息。
+     *
+     * @param authId auth id
+     * @return updated
+     */
+    @Modifying
+    @Query("""
+            DELETE FROM overtime_management.admin_auth_route
+            WHERE auth_id = :authId
+            """)
+    Mono<Integer> deleteAllByAuthId(int authId);
+
+    /**
+     * 设置权限的路由信息。
+     *
+     * @param authId  auth id
+     * @param routeId route id
+     * @return updated
+     */
+    @Modifying
+    @Query("""
+            INSERT INTO overtime_management.admin_auth_route(auth_id, route_id)
+            VALUE (:authId, :routeId)
+            """)
+    Mono<Integer> setAuthRoute(int authId, int routeId);
 }
