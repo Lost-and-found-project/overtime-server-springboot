@@ -44,6 +44,7 @@ includes("services") {
 }
 
 include("overtime-application")
+include("overtime-admin")
 
 println()
 
@@ -101,4 +102,3 @@ fun Include.serviceSubs(ignoreIfNotExists: Boolean = false) {
         sub("$id-$it", ignoreIfNotExists)
     }
 }
-include("overtime-admin")
