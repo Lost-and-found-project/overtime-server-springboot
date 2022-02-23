@@ -33,6 +33,8 @@ val modules = listOf(
 )
 
 includes("services") {
+    // 加班模块
+    sub("overtime") { serviceSubs() }
     // 字典模块
     sub("dictionary") { serviceSubs() }
     // 补偿模块

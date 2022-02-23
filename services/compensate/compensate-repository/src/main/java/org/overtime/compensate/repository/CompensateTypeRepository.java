@@ -19,7 +19,7 @@ public interface CompensateTypeRepository extends StandardOvertimeRepository<Com
      *
      * @return The first data.
      */
-    @Query("SELECT * FROM compensate_type WHERE user_id = :userId")
+    @Query("SELECT * FROM overtime.compensate_type WHERE user_id = :userId")
     Flux<CompensateType> findByUserId(@Param("userId") long userId);
 
 

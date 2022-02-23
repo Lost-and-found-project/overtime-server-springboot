@@ -1,6 +1,7 @@
-plugins {
-    `java-library`
-}
+// plugins {
+//     `java-library`
+// }
+
 val p = project
 
 
@@ -15,26 +16,31 @@ subprojects {
         testCompileOnly(D.Lombok.NOTATION)
 
         if (name.endsWith("-domain")) {
+            apply(plugin = "java-library")
             api(commonProject("domain"))
             api(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
         }
 
         if (name.endsWith("-repository")) {
+            apply(plugin = "java-library")
             api(findServicesSameLevel("domain")!!)
             api(commonProject("repository"))
             api(D.Spring.Boot.Webflux.NOTATION_NOV)
         }
         if (name.endsWith("-service")) {
+            apply(plugin = "java-library")
             api(findServicesSameLevel("repository")!!)
         }
 
         if (name.endsWith("-service-impl")) {
+            apply(plugin = "java-library")
             api(commonProject("service"))
             api(configProject("r2dbc-template"))
             api(findServicesSameLevel("service")!!)
         }
 
         if (name.endsWith("-api")) {
+            apply(plugin = "java-library")
             implementation(findServicesSameLevel("service")!!)
             api(findServicesSameLevel("domain")!!)
             dependencyManagement {
@@ -50,6 +56,7 @@ subprojects {
         }
 
         if (name.endsWith("-controller")) {
+            apply(plugin = "java-library")
             dependencyManagement {
                 imports {
                     mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
@@ -69,6 +76,7 @@ subprojects {
         }
 
         if (name.endsWith("-application")) {
+            apply(plugin = "java-library")
             dependencyManagement {
                 imports {
                     mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
