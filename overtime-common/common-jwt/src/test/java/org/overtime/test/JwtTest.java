@@ -11,7 +11,7 @@ import java.util.HashMap;
  */
 public class JwtTest {
 
-    @Test
+    //@Test
     public void jwtTest() {
         var datas = new HashMap<String, Object>();
         datas.put("name", "ForteScarlet");
