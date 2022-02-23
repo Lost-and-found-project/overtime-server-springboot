@@ -3,8 +3,8 @@
 import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.kotlin.dsl.project
 
-@Suppress("PropertyName")
-abstract class DependencyNotation(groupId: String, name: String, version: String? = null) {
+@Suppress("CanBeParameter")
+abstract class DependencyNotation(val groupId: String, val name: String, version: String? = null) {
     val notation: String = if (version != null) "$groupId:$name:$version" else "$groupId:$name"
     val notationNov: String = "$groupId:$name"
     override fun toString(): String = "DependencyNotation(notation=$notation)"
