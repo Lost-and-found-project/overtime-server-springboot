@@ -47,12 +47,12 @@ subprojects {
     }
 
     dependencies {
-        compileOnly(D.JetbrainsAnnotation.NOTATION)
-        testImplementation(D.Jupiter.Api.NOTATION)
-        testRuntimeOnly(D.Jupiter.Engine.NOTATION)
+        compileOnly(D.JetbrainsAnnotation.notation)
+        testImplementation(D.Jupiter.Api.notation)
+        testRuntimeOnly(D.Jupiter.Engine.notation)
 
-        testImplementation(D.Spring.Boot.Test.NOTATION_NOV)
-        testImplementation(D.Reactor.Test.NOTATION_NOV)
+        testImplementation(D.Spring.Boot.Test.notationNov)
+        testImplementation(D.Reactor.Test.notationNov)
     }
 
 

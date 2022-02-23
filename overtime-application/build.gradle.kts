@@ -14,8 +14,8 @@ val serviceControllers = serviceProject.childProjects.values.flatMap {
 
 dependencyManagement {
     imports {
-        mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
-        mavenBom(D.Alibaba.Cloud.Dependencies.NOTATION)
+        mavenBom(D.Spring.Cloud.Dependencies.notation)
+        mavenBom(D.Alibaba.Cloud.Dependencies.notation)
     }
 }
 
@@ -32,14 +32,14 @@ dependencies {
         }
         println(">> Controller : $it")
     }
-    implementation(D.Spring.Boot.Data.R2dbc.NOTATION)
-    implementation(D.Spring.Boot.Aop.NOTATION_NOV)
-    implementation(D.R2dbc.Pool.NOTATION)
-    implementation(D.R2dbc.Mysql.NOTATION) // 0.8.2.RELEASE
-    implementation(D.Spring.Boot.Webflux.NOTATION_NOV)
-    annotationProcessor(D.Spring.Boot.ConfigurationProcessor.NOTATION_NOV)
-    annotationProcessor(D.Lombok.NOTATION)
-    compileOnly(D.Lombok.NOTATION)
+    implementation(D.Spring.Boot.Data.R2dbc.notation)
+    implementation(D.Spring.Boot.Aop.notationNov)
+    implementation(D.R2dbc.Pool.notation)
+    implementation(D.R2dbc.Mysql.notation) // 0.8.2.RELEASE
+    implementation(D.Spring.Boot.Webflux.notationNov)
+    annotationProcessor(D.Spring.Boot.ConfigurationProcessor.notationNov)
+    annotationProcessor(D.Lombok.notation)
+    compileOnly(D.Lombok.notation)
 
 
 }

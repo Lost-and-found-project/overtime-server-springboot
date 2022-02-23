@@ -9,23 +9,23 @@ subprojects {
     println(">> $p sub project: '$this' named $name")
 
     dependencies {
-        annotationProcessor(D.Spring.Boot.ConfigurationProcessor.NOTATION_NOV)
-        annotationProcessor(D.Lombok.NOTATION)
-        compileOnly(D.Lombok.NOTATION)
-        testAnnotationProcessor(D.Lombok.NOTATION)
-        testCompileOnly(D.Lombok.NOTATION)
+        annotationProcessor(D.Spring.Boot.ConfigurationProcessor.notationNov)
+        annotationProcessor(D.Lombok.notation)
+        compileOnly(D.Lombok.notation)
+        testAnnotationProcessor(D.Lombok.notation)
+        testCompileOnly(D.Lombok.notation)
 
         if (name.endsWith("-domain")) {
             apply(plugin = "java-library")
             api(commonProject("domain"))
-            api(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
+            api(D.Spring.Boot.Data.R2dbc.notationNov)
         }
 
         if (name.endsWith("-repository")) {
             apply(plugin = "java-library")
             api(findServicesSameLevel("domain")!!)
             api(commonProject("repository"))
-            api(D.Spring.Boot.Webflux.NOTATION_NOV)
+            api(D.Spring.Boot.Webflux.notationNov)
         }
         if (name.endsWith("-service")) {
             apply(plugin = "java-library")
@@ -45,50 +45,50 @@ subprojects {
             api(findServicesSameLevel("domain")!!)
             dependencyManagement {
                 imports {
-                    mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
+                    mavenBom(D.Spring.Cloud.Dependencies.notation)
                 }
             }
             // feign compile only.
             // compileOnly(D.Spring.Cloud.Openfeign.NOTATION_NOV)
-            compileOnly(D.FeignReactor.WebClient.NOTATION)
-            compileOnly(D.FeignReactor.Cloud.NOTATION)
-            compileOnly(D.FeignReactor.SpringConfiguration.NOTATION)
+            compileOnly(D.FeignReactor.WebClient.notation)
+            compileOnly(D.FeignReactor.Cloud.notation)
+            compileOnly(D.FeignReactor.SpringConfiguration.notation)
         }
 
         if (name.endsWith("-controller")) {
             apply(plugin = "java-library")
             dependencyManagement {
                 imports {
-                    mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
-                    mavenBom(D.Alibaba.Cloud.Dependencies.NOTATION)
+                    mavenBom(D.Spring.Cloud.Dependencies.notation)
+                    mavenBom(D.Alibaba.Cloud.Dependencies.notation)
                 }
             }
             api(findServicesSameLevel("service-impl")!!)
             api(findServicesSameLevel("api")!!)
             api(configProject("handler"))
 
-            implementation(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
+            implementation(D.Alibaba.Cloud.Nacos.Discovery.notationNov)
 
-            api(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
-            api(D.Spring.Boot.Aop.NOTATION_NOV)
-            api(D.R2dbc.Pool.NOTATION)
-            api(D.R2dbc.Mysql.NOTATION)
+            api(D.Spring.Boot.Data.R2dbc.notationNov)
+            api(D.Spring.Boot.Aop.notationNov)
+            api(D.R2dbc.Pool.notation)
+            api(D.R2dbc.Mysql.notation)
         }
 
         if (name.endsWith("-application")) {
             apply(plugin = "java-library")
             dependencyManagement {
                 imports {
-                    mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
-                    mavenBom(D.Alibaba.Cloud.Dependencies.NOTATION)
+                    mavenBom(D.Spring.Cloud.Dependencies.notation)
+                    mavenBom(D.Alibaba.Cloud.Dependencies.notation)
                 }
             }
             implementation(commonProject("application"))
             implementation(findServicesSameLevel("controller")!!)
-            implementation(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
-            implementation(D.Alibaba.Cloud.Nacos.Config.NOTATION_NOV)
-            implementation(D.Spring.Cloud.Bootstrap.NOTATION_NOV)
-            implementation(D.Spring.Boot.Actuator.NOTATION_NOV)
+            implementation(D.Alibaba.Cloud.Nacos.Discovery.notationNov)
+            implementation(D.Alibaba.Cloud.Nacos.Config.notationNov)
+            implementation(D.Spring.Cloud.Bootstrap.notationNov)
+            implementation(D.Spring.Boot.Actuator.notationNov)
 
             tasks.bootJar {
                 enabled = true

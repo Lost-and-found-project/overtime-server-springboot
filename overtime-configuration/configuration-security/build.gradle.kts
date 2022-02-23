@@ -1,8 +1,8 @@
 dependencies {
-    api(D.Spring.Boot.Security.NOTATION_NOV)
-    api(D.Spring.Boot.Autoconfigure.NOTATION_NOV)
+    api(D.Spring.Boot.Security.notationNov)
+    api(D.Spring.Boot.Autoconfigure.notationNov)
 
-    annotationProcessor(D.Spring.Boot.ConfigurationProcessor.NOTATION_NOV)
-    annotationProcessor(D.Lombok.NOTATION)
-    compileOnly(D.Lombok.NOTATION)
+    annotationProcessor(D.Spring.Boot.ConfigurationProcessor.notationNov)
+    annotationProcessor(D.Lombok.notation)
+    compileOnly(D.Lombok.notation)
 }

@@ -1,21 +1,21 @@
 dependencies {
     dependencyManagement {
         imports {
-            mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
-            mavenBom(D.Alibaba.Cloud.Dependencies.NOTATION)
+            mavenBom(D.Spring.Cloud.Dependencies.notation)
+            mavenBom(D.Alibaba.Cloud.Dependencies.notation)
         }
     }
     implementation(configProject("handler"))
-    implementation(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
-    implementation(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
-    implementation(D.Spring.Boot.Aop.NOTATION_NOV)
-    implementation(D.R2dbc.Pool.NOTATION)
-    implementation(D.R2dbc.Mysql.NOTATION)
+    implementation(D.Alibaba.Cloud.Nacos.Discovery.notationNov)
+    implementation(D.Spring.Boot.Data.R2dbc.notationNov)
+    implementation(D.Spring.Boot.Aop.notationNov)
+    implementation(D.R2dbc.Pool.notation)
+    implementation(D.R2dbc.Mysql.notation)
 
-    annotationProcessor(D.Lombok.NOTATION)
-    compileOnly(D.Lombok.NOTATION)
+    annotationProcessor(D.Lombok.notation)
+    compileOnly(D.Lombok.notation)
     @Suppress("DEPRECATION")
-    compileOnly(D.Spring.Cloud.Openfeign.NOTATION_NOV)
-    compileOnly(D.FeignReactor.SpringConfiguration.NOTATION)
+    compileOnly(D.Spring.Cloud.Openfeign.notationNov)
+    compileOnly(D.FeignReactor.SpringConfiguration.notation)
 
 }

@@ -1,9 +1,9 @@
 dependencies {
     api(commonProject("service"))
-    api(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
-    api(D.Spring.Boot.Autoconfigure.NOTATION_NOV)
+    api(D.Spring.Boot.Data.R2dbc.notationNov)
+    api(D.Spring.Boot.Autoconfigure.notationNov)
 
-    annotationProcessor(D.Spring.Boot.ConfigurationProcessor.NOTATION_NOV)
-    annotationProcessor(D.Lombok.NOTATION)
-    compileOnly(D.Lombok.NOTATION)
+    annotationProcessor(D.Spring.Boot.ConfigurationProcessor.notationNov)
+    annotationProcessor(D.Lombok.notation)
+    compileOnly(D.Lombok.notation)
 }

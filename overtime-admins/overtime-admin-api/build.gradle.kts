@@ -4,17 +4,17 @@ plugins {
 
 dependencyManagement {
     imports {
-        mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
-        mavenBom(D.Alibaba.Cloud.Dependencies.NOTATION)
+        mavenBom(D.Spring.Cloud.Dependencies.notation)
+        mavenBom(D.Alibaba.Cloud.Dependencies.notation)
     }
 }
 
 dependencies {
     api(project(":overtime-admins:overtime-admin-domain"))
     //region annotationProcessors
-    annotationProcessor(D.Spring.Boot.ConfigurationProcessor.NOTATION_NOV)
-    annotationProcessor(D.Lombok.NOTATION)
-    compileOnly(D.Lombok.NOTATION)
+    annotationProcessor(D.Spring.Boot.ConfigurationProcessor.notationNov)
+    annotationProcessor(D.Lombok.notation)
+    compileOnly(D.Lombok.notation)
     //endregion
 
     //region services
@@ -36,24 +36,24 @@ dependencies {
     //endregion
 
     //region spring
-    api(D.Spring.Boot.Autoconfigure.NOTATION_NOV)
-    api(D.Spring.Boot.Webflux.NOTATION_NOV)
-    api(D.Spring.Cloud.Bootstrap.NOTATION_NOV)
+    api(D.Spring.Boot.Autoconfigure.notationNov)
+    api(D.Spring.Boot.Webflux.notationNov)
+    api(D.Spring.Cloud.Bootstrap.notationNov)
     // 服务发现，但是不注册服务?
-    api(D.Alibaba.Cloud.Nacos.Discovery.NOTATION_NOV)
-    api(D.Alibaba.Cloud.Nacos.Config.NOTATION_NOV)
-    api(D.Spring.Boot.Actuator.NOTATION_NOV)
+    api(D.Alibaba.Cloud.Nacos.Discovery.notationNov)
+    api(D.Alibaba.Cloud.Nacos.Config.notationNov)
+    api(D.Spring.Boot.Actuator.notationNov)
     // feign reactor
-    api(D.FeignReactor.WebClient.NOTATION)
-    api(D.FeignReactor.Cloud.NOTATION)
-    api(D.FeignReactor.SpringConfiguration.NOTATION)
+    api(D.FeignReactor.WebClient.notation)
+    api(D.FeignReactor.Cloud.notation)
+    api(D.FeignReactor.SpringConfiguration.notation)
     //endregion
 
     //region r2dbc
     // R2dbc
-    api(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
-    api(D.R2dbc.Mysql.NOTATION)
-    api(D.R2dbc.Pool.NOTATION)
+    api(D.Spring.Boot.Data.R2dbc.notationNov)
+    api(D.R2dbc.Mysql.notation)
+    api(D.R2dbc.Pool.notation)
     //endregion
 }
 

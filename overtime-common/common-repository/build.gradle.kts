@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    implementation(D.Spring.Boot.Data.R2dbc.NOTATION_NOV)
+    implementation(D.Spring.Boot.Data.R2dbc.notationNov)
     // api(D.Querydsl.Spring.NOTATION)
 }

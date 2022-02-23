@@ -1,7 +1,7 @@
 dependencyManagement {
     imports {
-        mavenBom(D.Spring.Cloud.Dependencies.NOTATION)
-        mavenBom(D.Alibaba.Cloud.Dependencies.NOTATION)
+        mavenBom(D.Spring.Cloud.Dependencies.notation)
+        mavenBom(D.Alibaba.Cloud.Dependencies.notation)
     }
 }
 
@@ -10,9 +10,9 @@ dependencies {
     implementation(configProject("handler"))
 
     //region annotationProcessors
-    annotationProcessor(D.Spring.Boot.ConfigurationProcessor.NOTATION_NOV)
-    annotationProcessor(D.Lombok.NOTATION)
-    compileOnly(D.Lombok.NOTATION)
+    annotationProcessor(D.Spring.Boot.ConfigurationProcessor.notationNov)
+    annotationProcessor(D.Lombok.notation)
+    compileOnly(D.Lombok.notation)
     //endregion
 
     implementation(commonProject("application"))

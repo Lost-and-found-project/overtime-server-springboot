@@ -1,9 +1,9 @@
 dependencies {
     api(commonProject("core"))
-    api(D.Spring.Boot.Aop.NOTATION_NOV)
-    api(D.Spring.Boot.Webflux.NOTATION_NOV)
+    api(D.Spring.Boot.Aop.notationNov)
+    api(D.Spring.Boot.Webflux.notationNov)
 
-    annotationProcessor(D.Spring.Boot.ConfigurationProcessor.NOTATION_NOV)
-    annotationProcessor(D.Lombok.NOTATION)
-    compileOnly(D.Lombok.NOTATION)
+    annotationProcessor(D.Spring.Boot.ConfigurationProcessor.notationNov)
+    annotationProcessor(D.Lombok.notation)
+    compileOnly(D.Lombok.notation)
 }

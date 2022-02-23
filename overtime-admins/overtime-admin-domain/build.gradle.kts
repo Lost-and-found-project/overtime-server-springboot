@@ -10,9 +10,9 @@ repositories {
 }
 
 dependencies {
-    annotationProcessor(D.Spring.Boot.ConfigurationProcessor.NOTATION_NOV)
-    annotationProcessor(D.Lombok.NOTATION)
-    compileOnly(D.Lombok.NOTATION)
+    annotationProcessor(D.Spring.Boot.ConfigurationProcessor.notationNov)
+    annotationProcessor(D.Lombok.notation)
+    compileOnly(D.Lombok.notation)
     // compileOnly("io.springfox:springfox-swagger-ui:3.0.0")
     compileOnly("io.springfox:springfox-boot-starter:3.0.0")
 
